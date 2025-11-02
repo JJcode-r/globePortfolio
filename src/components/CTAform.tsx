@@ -2,11 +2,14 @@ import React, { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import type { Variants } from "framer-motion"; // ✅ Type-only import
 
+// 🚨 ACTION REQUIRED: REPLACE THIS with your actual Formspree endpoint
+const FORMSPREE_ENDPOINT = "https://formspree.io/f/xjkpldkz";
+
 // Define social media links (Customize these!)
 const SOCIAL_HANDLES = {
-  linkedin: "https://www.linkedin.com/in/joshua-igburu-7b178919a/", 
-  github: "https://github.com/JJcode-r/", 
-  x: "https://x.com/IJ_the_Dev?t=rWYlDEtG1PnMrDCNpRoSNQ&s=09", 
+  linkedin: "https://www.linkedin.com/in/joshua-igburu-7b178919a/",
+  github: "https://github.com/JJcode-r/",
+  x: "https://x.com/IJ_the_Dev?t=rWYlDEtG1PnMrDCNpRoSNQ&s=09",
 };
 
 // ✅ Replaced enum with const + type alias for TS 5 safety
@@ -94,22 +97,45 @@ export default function CTAform() {
       window.removeEventListener("openDiscoveryForm", handleOpenForm);
   }, [showForm, success]);
 
-  // Simulated async form submission
-  const sendForm = async (_payload: Record<string, any>) => {
-    return new Promise<{ ok: boolean }>((resolve) => {
-      let t = 0;
-      const timer = setInterval(() => {
-        t += 15;
-        setProgress(Math.min(100, t));
-      }, 60);
-      setTimeout(() => {
-        clearInterval(timer);
-        setProgress(100);
-        setTimeout(() => setProgress(0), 250);
-        resolve({ ok: true });
-      }, 1400);
-    });
+  // ⭐️ UPDATED: This is the actual Formspree submission function
+  const sendForm = async (payload: Record<string, any>) => {
+    // Start progress simulation immediately
+    let t = 0;
+    const timer = setInterval(() => {
+      t += 15;
+      setProgress(Math.min(95, t)); // Stop just short of 100
+    }, 60);
+
+    try {
+      const response = await fetch(FORMSPREE_ENDPOINT, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+
+      // Clear the loading interval and finish progress bar
+      clearInterval(timer);
+      setProgress(100);
+      await new Promise(r => setTimeout(r, 250)); // Small delay for visual completion
+
+      if (response.ok) {
+        return { ok: true };
+      } else {
+        // Formspree failed (e.g., rate limit, server error)
+        console.error("Formspree submission error:", response.status, await response.text());
+        return { ok: false };
+      }
+    } catch (error) {
+      // Network failure
+      clearInterval(timer);
+      setProgress(0);
+      console.error("Network or fetch error:", error);
+      return { ok: false };
+    }
   };
+
 
   const FEATURE_OPTIONS = [
     "E-commerce / Payments",
@@ -180,14 +206,16 @@ export default function CTAform() {
             .getElementById("discovery-success")
             ?.scrollIntoView({ behavior: "smooth", block: "center" });
         }, 300);
-      } else throw new Error("Send failed");
+      } else {
+        throw new Error("Form submission failed.");
+      }
     } catch (err) {
       console.error(err);
       setSubmitting(false);
       setProgress(0);
-      // NOTE: Replaced standard alert() with a console error message and an instructional console log.
-      console.error(
-        "Form submission failed. Replace sendForm with your email endpoint and ensure it returns { ok: true } on success."
+      // NOTE: This error message is now triggered if Formspree returns non-200 or there's a network error
+      alert(
+        "Form submission failed. Please try again or contact me directly via a social link."
       );
     }
   };
