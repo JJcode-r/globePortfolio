@@ -225,7 +225,7 @@ const FrameControls: React.FC<ControlsProps> = ({
             <motion.button
               key="play-btn"
               onClick={() => setOpenVideoIndex(index)}
-              className={`${baseClass} bg-yellow-400 text-black`}
+              className={`${baseClass} bg-yellow-500 text-black`}
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.9 }}
@@ -275,8 +275,8 @@ const DesktopFrame: React.FC<FrameProps> = (props) => {
         <MediaDisplay isMobile={false} project={props.project} playing={props.openVideoIndex === props.index} playShimmer={props.playShimmer} />
       </div>
 
-      {/* Controls Overlay */}
-      <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none">
+      {/* Controls Overlay - FIX: Removed pointer-events-none */}
+      <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
         <FrameControls isMobile={false} {...props} />
       </div>
     </div>
@@ -303,8 +303,8 @@ const MobileFrame: React.FC<FrameProps> = (props) => {
       {/* Notch/Speaker Grill */}
       <div className="absolute top-3 left-1/2 -translate-x-1/2 w-16 h-3 rounded-b-lg bg-black/90" />
 
-      {/* Controls Overlay */}
-      <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none">
+      {/* Controls Overlay - FIX: Removed pointer-events-none */}
+      <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
         <FrameControls isMobile={true} {...props} />
       </div>
 
@@ -470,6 +470,7 @@ export const WorkExperience: React.FC = () => {
                 playShimmer={shimmerPlayed[0]}
                 {...frameProps}
               />
+              
             </div>
             {/* Desktop Frame (Always Order 2) */}
             <div className="hidden lg:flex flex-1 order-2 lg:order-1 items-center justify-center">
