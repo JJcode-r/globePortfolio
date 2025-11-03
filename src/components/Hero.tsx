@@ -244,7 +244,7 @@ const Hero: React.FC<HeroProps> = ({ titleRef, subtitleRef }) => {
 
   const socialLinks = [
     { Icon: Github, href: "https://github.com/JJcode-r/" },
-    { Icon: Linkedin, href: "https://www.linkedin.com/in/joshua-igburu-7b178919a/" },
+    { Icon: Linkedin, href: "https://www.linkedin.com/in/globe-the-dev-7b178919a/" },
     { Icon: Twitter, href: "https://x.com/globe_the_dev?t=RO6MAOivsMGasX5H5XPZVA&s=09" },
   ];
 

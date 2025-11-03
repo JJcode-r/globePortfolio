@@ -26,7 +26,7 @@ const Footer: React.FC = () => {
   ];
 
   const connectLinks = [
-    { name: "LinkedIn", href: "https://www.linkedin.com/in/joshua-igburu-7b178919a/", icon: "fab fa-linkedin" },
+    { name: "LinkedIn", href: "https://www.linkedin.com/in/globe-the-dev-7b178919a/", icon: "fab fa-linkedin" },
     { name: "Twitter", href: "https://x.com/globe_the_dev?t=RO6MAOivsMGasX5H5XPZVA&s=09", icon: "fab fa-twitter" },
     { name: "Email", href: "mailto:globetechwrld@gmail.com", icon: "fas fa-envelope" },
   ];

@@ -7,7 +7,7 @@ const FORMSPREE_ENDPOINT = "https://formspree.io/f/xjkpldkz";
 
 // Define social media links (Customize these!)
 const SOCIAL_HANDLES = {
-  linkedin: "https://www.linkedin.com/in/joshua-igburu-7b178919a/",
+  linkedin: "https://www.linkedin.com/in/globe-the-dev-7b178919a/",
   github: "https://github.com/JJcode-r/",
   x: "https://x.com/globe_the_dev?t=RO6MAOivsMGasX5H5XPZVA&s=09",
 };
