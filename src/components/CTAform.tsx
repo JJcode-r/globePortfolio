@@ -31,6 +31,7 @@ type AdditionalLink = {
 
 type FormErrors = {
   fullName?: string;
+  email?: string; // 💡 NEW: Added email for validation
   contactHandle?: string;
   projectTitle?: string;
   vision?: string;
@@ -65,6 +66,7 @@ export default function CTAform() {
   const [progress, setProgress] = useState(0);
 
   const [fullName, setFullName] = useState("");
+  const [email, setEmail] = useState(""); // 💡 NEW STATE: Email field
   const [company, setCompany] = useState("");
   const [preferredContact, setPreferredContact] = useState<ContactMethod>(
     ContactMethod.Email
@@ -97,7 +99,7 @@ export default function CTAform() {
       window.removeEventListener("openDiscoveryForm", handleOpenForm);
   }, [showForm, success]);
 
-  // ⭐️ UPDATED: This is the actual Formspree submission function
+  // ⭐️ Formspree submission function
   const sendForm = async (payload: Record<string, any>) => {
     // Start progress simulation immediately
     let t = 0;
@@ -154,6 +156,13 @@ export default function CTAform() {
   const validate = (): FormErrors => {
     const errors: FormErrors = {};
     if (!fullName.trim()) errors.fullName = "Please enter your full name.";
+    // 💡 NEW VALIDATION: Email field is required and basic format checked
+    if (!email.trim()) {
+        errors.email = "Please provide your email address.";
+    } else if (!/\S+@\S+\.\S+/.test(email)) {
+        errors.email = "Please enter a valid email address.";
+    }
+
     if (!contactHandle.trim())
       errors.contactHandle = `Please add your ${preferredContact} contact.`;
     if (!projectTitle.trim())
@@ -169,6 +178,7 @@ export default function CTAform() {
     const errors = validate();
     setValidationErrors(errors);
     if (Object.keys(errors).length > 0) {
+      // Focus on the first error input
       const firstErrorKey = Object.keys(errors)[0] as keyof FormErrors;
       document.getElementById(firstErrorKey + "Input")?.focus();
       return;
@@ -179,6 +189,7 @@ export default function CTAform() {
 
     const payload = {
       fullName,
+      email, // 💡 NEW: Included email in payload
       company,
       preferredContact,
       contactHandle,
@@ -260,6 +271,7 @@ export default function CTAform() {
 
   const resetForm = () => {
     setFullName("");
+    setEmail(""); // Reset email
     setCompany("");
     setPreferredContact(ContactMethod.Email);
     setContactHandle("");
@@ -276,6 +288,24 @@ export default function CTAform() {
     setProjectScope(PROJECT_SCOPES[0].id);
     setSuccess(false); // Also reset success state
     setShowForm(false); // Hide the form trigger button too
+  };
+
+  // Helper function to determine placeholder text (💡 NEW FEATURE 2)
+  const getContactHandlePlaceholder = () => {
+    switch (preferredContact) {
+        case ContactMethod.Email:
+            return "your@email.com";
+        case ContactMethod.WhatsApp:
+            return "+1 (555) 123-4567"; // US Number Sample
+        case ContactMethod.Discord:
+            return "username#1234 or @username"; // Discord Sample
+        case ContactMethod.Twitter:
+            return "@YourTwitterHandle";
+        case ContactMethod.LinkedIn:
+            return "linkedin.com/in/yourname";
+        default:
+            return "your contact handle or link";
+    }
   };
 
   // Helper component for social links
@@ -423,7 +453,34 @@ export default function CTAform() {
                   </div>
                 </div>
 
-                {/* 2️⃣ Contact Method */}
+                {/* 💡 NEW FEATURE 1: Required Email Field */}
+                <div className="mb-8">
+                  <label htmlFor="emailInput">
+                    <div className="text-lg text-gray-200 font-medium mb-2">
+                      Email Address (Required Backup)
+                    </div>
+                    <input
+                      id="emailInput"
+                      type="email"
+                      value={email}
+                      onChange={(e) => {
+                        setEmail(e.target.value);
+                        setValidationErrors((p) => ({
+                          ...p,
+                          email: undefined,
+                        }));
+                      }}
+                      className={`w-full rounded-md px-3 py-2 bg-black/40 placeholder-gray-400 text-base ${
+                        validationErrors.email ? "border-2 border-red-500" : ""
+                      }`}
+                      placeholder="e.g. your-email@example.com"
+                    />
+                    <ErrorMessage error={validationErrors.email} />
+                  </label>
+                </div>
+
+
+                {/* 2️⃣ Preferred Contact Method Selection */}
                 <div className="mb-4">
                   <div className="text-lg text-gray-200 font-medium mb-2">
                     Preferred contact method
@@ -468,11 +525,8 @@ export default function CTAform() {
                           ? "border-2 border-red-500"
                           : ""
                       }`}
-                      placeholder={`e.g. ${
-                        preferredContact === ContactMethod.Email
-                          ? "your@email.com"
-                          : "your handle"
-                      }`}
+                      // 💡 NEW FEATURE 2: Dynamic Placeholder
+                      placeholder={getContactHandlePlaceholder()}
                     />
                     <ErrorMessage error={validationErrors.contactHandle} />
                   </label>
