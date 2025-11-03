@@ -9,7 +9,7 @@ const FORMSPREE_ENDPOINT = "https://formspree.io/f/xjkpldkz";
 const SOCIAL_HANDLES = {
   linkedin: "https://www.linkedin.com/in/joshua-igburu-7b178919a/",
   github: "https://github.com/JJcode-r/",
-  x: "https://x.com/IJ_the_Dev?t=rWYlDEtG1PnMrDCNpRoSNQ&s=09",
+  x: "https://x.com/globe_the_dev?t=RO6MAOivsMGasX5H5XPZVA&s=09",
 };
 
 // ✅ Replaced enum with const + type alias for TS 5 safety
