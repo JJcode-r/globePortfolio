@@ -17,12 +17,12 @@ const Footer: React.FC = () => {
   ];
 
   const expertiseLinks = [
-    { name: "Web Development", href: "#webdev" },
-    { name: "UI/UX Design", href: "#uix" },
-    { name: "SaaS Solutions", href: "#saas" },
-    { name: "SEO Solutions", href: "#seo" },
-    { name: "AI Integration", href: "#ai" },
-    { name: "Performance Optimization", href: "#performance" },
+    { name: "Payment Integration", href: "#tech" },
+    { name: "Wallet & Payout Systems", href: "#tech" },
+    { name: "Full-Stack Development", href: "#projects" },
+    { name: "SaaS Platforms", href: "#projects" },
+    { name: "UI/UX", href: "#projects" },
+    { name: "Performance Optimization", href: "#tech" },
   ];
 
   const connectLinks = [
@@ -116,7 +116,7 @@ const Footer: React.FC = () => {
         <div className="hidden lg:flex flex-col items-center lg:items-start text-center lg:text-left col-span-1">
           <div className="text-3xl font-extrabold text-yellow-400 mb-4 tracking-wider">Globe The Dev</div>
           <p className="text-gray-300 text-sm md:text-base leading-relaxed mb-4">
-            Creating immersive, cutting-edge web experiences with scalable design and modern technology.
+            Building platforms that look premium — and get paid.
           </p>
           <a
             href="#discovery"
@@ -194,7 +194,7 @@ const Footer: React.FC = () => {
         <div className="flex flex-col items-center justify-start lg:hidden col-span-2 md:col-span-1 p-4 rounded-lg bg-gray-900/50">
           <div className="text-2xl font-extrabold text-yellow-400 tracking-wider">Globe</div>
           <p className="text-gray-400 text-xs mt-1 mb-3">
-            Building premium, responsive, and conversion-ready web experiences.
+            Building platforms that look premium — and get paid.
           </p>
           
         </div>

@@ -281,7 +281,7 @@ const Hero: React.FC<HeroProps> = ({ titleRef, subtitleRef }) => {
               <span className="inline-flex items-center gap-2 px-3 py-1.5 text-sm font-medium tracking-wide rounded-full 
 											bg-white/80 backdrop-blur-xl border border-neutral-200 shadow-md text-neutral-700">
                 <Zap className="w-4 h-4 text-emerald-500" />
-                Seamless UX Engineering → High-Value Conversions
+                Payment Systems · Wallets · Conversion-Ready Platforms
               </span>
             </motion.div>
 
@@ -296,9 +296,8 @@ const Hero: React.FC<HeroProps> = ({ titleRef, subtitleRef }) => {
               ref={subtitleRef}
               className="text-[clamp(1rem,2.3vw,1.45rem)] font-light text-neutral-800 max-w-2xl leading-relaxed mt-1"
             >
-              {/* START: Updated Subtitle for Clarity and Focus */}
-              Stop losing leads. I architect scalable, conversion-optimized platforms for <span className=" text-yellow-600"> businesses, companies and Web3 projects </span> with each line of code built to outperform your competition and help your brand grow.
-              {/* END: Updated Subtitle for Clarity and Focus */}
+              I build the platforms businesses run on — and the payment systems that actually collect the money.{" "}
+              <span className="text-yellow-600">Paystack, Flutterwave, Stripe</span>, wallets, payouts, and front ends engineered to convert. Built right, so you stop losing revenue to broken checkouts and dead leads.
             </p>
 
             <div
@@ -325,7 +324,7 @@ const Hero: React.FC<HeroProps> = ({ titleRef, subtitleRef }) => {
               </div>
 
               <div className="text-center mt-3 sm:mt-0 sm:ml-4 text-yellow-600 text-sm">
-                Trusted by startups & creators worldwide
+                Trusted by startups, founders & Web3 teams worldwide
               </div>
             </div>
 
@@ -340,9 +339,7 @@ const Hero: React.FC<HeroProps> = ({ titleRef, subtitleRef }) => {
                 className="relative z-[2] group"
               >
                 <PrimaryButton href="#discovery" onClick={handleConsultationClick} className="overflow-hidden">
-                  {/* START: Updated Primary CTA Text */}
-                  Let’s Plan Your Website Strategy
-                  {/* END: Updated Primary CTA Text */}
+                  Let’s fix your revenue leak
                   <motion.span
                     className="relative inline-flex items-center"
                     initial={{ rotate: 0, scale: 1 }}
@@ -375,7 +372,7 @@ const Hero: React.FC<HeroProps> = ({ titleRef, subtitleRef }) => {
 											focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-neutral-400"
                 >
                   <Wrench className="w-4 h-4 text-neutral-500" />
-                  View My Strategy
+                  View my work
                 </a>
               </motion.div>
             </div>

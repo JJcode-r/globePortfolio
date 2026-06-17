@@ -7,19 +7,19 @@ const CARDS = [
   {
     id: "who",
     title: "Who I Am",
-    body: "I’m a creative front-end developer who blends design, intuition with solid engineering. I love building smooth, beautiful experiences that feel natural to users and help brands stand out.",
+    body: "I’m a full-stack developer who builds where design meets money. Beautiful front ends are table stakes — what sets my work apart is everything behind the checkout: payment integrations, wallets, and reliable transaction flows that don’t silently lose deposits. I make platforms that look premium and get paid.",
     accent: "Craftsmanship & Vision",
   },
   {
     id: "why",
     title: "Why Choose Me",
-    body: "Because I build with purpose. Every animation, layout, and detail is there to make your audience feel something — and take action. My work isn’t just about looks; it’s result oriented.",
+    body: "Because I build the parts that scare other developers. Payment gateways, webhook reliability, failed-transaction recovery, multi-currency wallets — the systems where one silent bug costs you every sale. I’ve debugged exactly that and rebuilt it to work under real load.",
     accent: "Conversion-Driven Design",
   },
   {
     id: "ethos",
     title: "How I Work",
-    body: "Collaboration, transparency, and precision. Clear and concise communicaton, iterate fast, and make sure every pixel, line of code, and user interaction aligns with your business goals.",
+    body: "Clear communication, fast iteration, zero hand-waving. I treat your checkout and your revenue flow as seriously as your homepage — because that's where the money actually moves.",
     accent: "Empathy • Execution • Results",
   },
   {

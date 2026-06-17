@@ -30,6 +30,20 @@ const coreItems: TechItem[] = [
   { id: 10, name: "Empty1", logo: "", description: "", empty: true },
 ];
 
+// --- Payments & Backend Items ---
+const paymentsItems: TechItem[] = [
+  { id: 21, name: "Paystack", logo: "https://cdn.simpleicons.org/paystack", description: "Full payment flows, webhooks, and retry logic — built to actually collect money.", brandColor: "#00C3F7" },
+  { id: 22, name: "Flutterwave", logo: "https://cdn.simpleicons.org/flutterwave", description: "Multi-method payment integration across African and global markets.", brandColor: "#F5A623" },
+  { id: 23, name: "Stripe", logo: "https://cdn.simpleicons.org/stripe", description: "Reliable billing, subscriptions, and one-time payments for global platforms.", brandColor: "#635BFF" },
+  { id: 24, name: "Cloudflare Workers", logo: "https://www.vectorlogo.zone/logos/cloudflare/cloudflare-icon.svg", description: "Edge-first serverless runtime — fast, global, and always on.", brandColor: "#F48120" },
+  { id: 25, name: "Hono", logo: "https://cdn.simpleicons.org/hono", description: "Ultrafast web framework built for edge runtimes and APIs.", brandColor: "#E36002" },
+  { id: 26, name: "Drizzle ORM", logo: "https://cdn.simpleicons.org/drizzle", description: "Type-safe SQL with zero runtime overhead — the ORM that stays out of your way.", brandColor: "#C5F74F" },
+  { id: 27, name: "PostgreSQL", logo: "https://raw.githubusercontent.com/devicons/devicon/master/icons/postgresql/postgresql-original.svg", description: "Battle-tested relational database for complex, production-grade data models.", brandColor: "#336791" },
+  { id: 28, name: "D1", logo: "https://www.vectorlogo.zone/logos/cloudflare/cloudflare-icon.svg", description: "Cloudflare's edge-native SQL database — low-latency, globally distributed.", brandColor: "#F48120" },
+  { id: 29, name: "Next.js", logo: "https://cdn.worldvectorlogo.com/logos/nextjs-2.svg", description: "Full-stack React framework powering fast, production-ready applications.", brandColor: "#FFFFFF" },
+  { id: 30, name: "TypeScript", logo: "https://raw.githubusercontent.com/devicons/devicon/master/icons/typescript/typescript-original.svg", description: "End-to-end type safety — catches the bugs that cost you money in production.", brandColor: "#3178C6" },
+];
+
 // --- Secondary Tech Items ---
 const secondaryItems: TechItem[] = [
   { id: 11, name: "Firebase", logo: "https://www.vectorlogo.zone/logos/firebase/firebase-icon.svg", description: "Scalable backends, simplified.", brandColor: "#FFCA28" },
@@ -47,6 +61,7 @@ const secondaryItems: TechItem[] = [
 // --- Helpers ---
 const getLoopedItems = (items: TechItem[]) => [...items, ...items, ...items];
 export const STACK_DATA_ROWS: StackDataRow[] = [
+  { id: "row0", items: getLoopedItems(paymentsItems) },
   { id: "row1", items: getLoopedItems(coreItems) },
   { id: "row2", items: getLoopedItems(secondaryItems) },
 ];
@@ -112,7 +127,7 @@ export const InfiniteTechGrid: React.FC<{ data?: StackDataRow[] }> = ({ data = S
       <motion.div ref={headingRef} variants={headingVariants} initial="hidden" animate={isInView ? "visible" : "hidden"} className="text-center mb-12 px-4">
         <h2 className="text-4xl sm:text-5xl md:text-6xl font-black text-black dark:text-white drop-shadow-[0_2px_6px_rgba(0,0,0,0.15)]">My Tech Stack</h2>
         <p className="mt-5 text-base sm:text-lg md:text-xl text-black/80 dark:text-gray-200 max-w-2xl mx-auto leading-relaxed tracking-wide">
-          These are the tools that power my builds — the same stack used by modern brands and startups for fast, scalable, and visually striking websites.
+          The full stack I build with — from payment APIs and edge workers to the front ends that ship them.
         </p>
       </motion.div>
 

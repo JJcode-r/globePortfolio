@@ -453,6 +453,47 @@ export const WorkExperience: React.FC = () => {
         </div>
       </div>
 
+
+      {/* --- GoBig Flagship Case Study --- */}
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.7, ease: "easeOut" }}
+        viewport={{ once: true }}
+        className="max-w-3xl mx-auto px-6 mt-14 mb-4"
+      >
+        <div
+          className="relative rounded-2xl p-8 border border-white/10 bg-neutral-950 overflow-hidden"
+          style={{ borderLeft: "3px solid #EAB308" }}
+        >
+          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wide bg-yellow-500/10 text-yellow-400 border border-yellow-500/20 mb-5">
+            Case Study · Backend &amp; Payments
+          </span>
+
+          <h3 className="text-2xl md:text-3xl font-bold text-white mb-4 leading-snug">
+            GoBigMarketplace — Payment System &amp; Recovery
+          </h3>
+
+          <p className="text-gray-300 text-base md:text-lg leading-relaxed mb-6">
+            Built a full payment layer with Paystack and Flutterwave (two methods each) and a multi-currency wallet.
+            Then diagnosed and fixed a checkout silently losing every deposit — failed webhooks, no error logging,
+            users paying and getting nothing. Rebuilt it with polling-based confirmation, full logging, and a
+            failed-transaction recovery system with an admin dashboard.
+          </p>
+
+          <div className="flex flex-wrap gap-2">
+            {["Next.js", "Cloudflare Workers", "Hono", "Drizzle", "D1", "Paystack", "Flutterwave"].map((tag) => (
+              <span
+                key={tag}
+                className="px-3 py-1 rounded-full text-xs font-medium bg-white/5 text-white/70 border border-white/10"
+              >
+                {tag}
+              </span>
+            ))}
+          </div>
+        </div>
+      </motion.div>
+
       <hr className="my-10 md:my-14 border-t border-gray-200 dark:border-gray-800" />
 
       {/* --- Initial Project (Non-Sticky) --- */}
