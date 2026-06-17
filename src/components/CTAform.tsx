@@ -349,8 +349,8 @@ export default function CTAform() {
       </div>
 
       <div className="relative z-10 max-w-4xl w-full text-center">
-        <h2 className="text-3xl md:text-4xl font-extrabold mb-3">
-          💡 Let’s build something exceptional
+        <h2 className="text-3xl md:text-4xl font-bold tracking-[-0.025em] mb-3">
+          Let’s build something exceptional
         </h2>
         <p className="text-gray-300 mb-6 max-w-3xl mx-auto">
           Whether you are a startup, brand, or creative team your next digital

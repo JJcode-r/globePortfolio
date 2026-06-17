@@ -432,7 +432,7 @@ export const WorkExperience: React.FC = () => {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, ease: "easeOut" }}
             viewport={{ once: true }}
-            className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-black dark:text-white"
+            className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-[-0.03em] text-black dark:text-white"
           >
             Featured Projects
           </motion.h2>
@@ -441,7 +441,7 @@ export const WorkExperience: React.FC = () => {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
             viewport={{ once: true }}
-            className="mt-3 text-[1.05rem] leading-relaxed text-gray-700 dark:text-gray-300 max-w-3xl mx-auto font-medium tracking-tight"
+            className="mt-3 text-[0.95rem] leading-relaxed text-gray-500 dark:text-gray-400 max-w-2xl mx-auto font-normal"
           >
             My catalogue of websites built with both desktop and mobile devices in mind,
             all crafted to deliver an{" "}

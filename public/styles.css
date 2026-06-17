@@ -8,12 +8,18 @@
 * { box-sizing: border-box; }
 body {
   margin: 0;
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Poppins', system-ui, sans-serif;
   background: hsl(var(--bg-h), var(--bg-s), var(--bg-l));
   color: hsl(var(--text-h), var(--text-s), var(--text-l));
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
-  transition: background 1s ease, color 1s ease; /* React will manage these via inline styles in a proper setup, but this is a fallback */
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  transition: background 1s ease, color 1s ease;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Space Grotesk', system-ui, sans-serif;
 }
 body.no-scroll {
   overflow: hidden;

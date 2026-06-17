@@ -125,8 +125,9 @@ export const InfiniteTechGrid: React.FC<{ data?: StackDataRow[] }> = ({ data = S
     <section id="tech" className="relative w-full overflow-hidden min-h-[50vh] flex flex-col justify-center py-16 bg-transparent backdrop-blur-md border-y border-white/10">
       {/* Heading */}
       <motion.div ref={headingRef} variants={headingVariants} initial="hidden" animate={isInView ? "visible" : "hidden"} className="text-center mb-12 px-4">
-        <h2 className="text-4xl sm:text-5xl md:text-6xl font-black text-black dark:text-white drop-shadow-[0_2px_6px_rgba(0,0,0,0.15)]">My Tech Stack</h2>
-        <p className="mt-5 text-base sm:text-lg md:text-xl text-black/80 dark:text-gray-200 max-w-2xl mx-auto leading-relaxed tracking-wide">
+        <p className="text-[0.72rem] font-semibold tracking-[0.18em] uppercase text-yellow-500 mb-3">Tools &amp; Infrastructure</p>
+        <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-[-0.03em] text-black dark:text-white">Tech Stack</h2>
+        <p className="mt-4 text-sm sm:text-base md:text-lg text-black/60 dark:text-gray-400 max-w-xl mx-auto leading-relaxed">
           The full stack I build with — from payment APIs and edge workers to the front ends that ship them.
         </p>
       </motion.div>

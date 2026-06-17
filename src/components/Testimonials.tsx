@@ -124,10 +124,11 @@ const Testimonials: React.FC = () => {
 
       {/* Header */}
       <div className="relative z-10 text-center mb-10 max-w-6xl">
-        <h2 className="text-4xl pt-20 md:text-5xl font-extrabold mb-2">
+        <p className="text-[0.72rem] font-semibold tracking-[0.18em] uppercase text-yellow-500 mb-3">Social Proof</p>
+        <h2 className="text-4xl pt-20 md:text-5xl font-bold tracking-[-0.025em] mb-2">
           What Clients Are Saying
         </h2>
-        <p className="max-w-3xl mx-auto text-lg text-gray-300">
+        <p className="max-w-xl mx-auto text-base text-gray-400">
           Trusted by founders, creatives, and teams who turned vision into traction.
         </p>
       </div>
@@ -139,11 +140,11 @@ const Testimonials: React.FC = () => {
             key={stat.id}
             className="flex flex-col items-center justify-center rounded-2xl p-4 sm:p-6 text-center shadow-lg transition-all duration-500 hover:scale-[1.05] bg-white/10 border border-white/20 backdrop-blur-md"
           >
-            <h3 className="text-4xl sm:text-5xl font-extrabold text-yellow-400">
+            <h3 className="text-4xl sm:text-5xl font-bold tracking-[-0.03em] text-yellow-400">
               {stat.value}
               {stat.suffix}
             </h3>
-            <p className="text-sm sm:text-base font-semibold uppercase tracking-wider text-gray-400">
+            <p className="text-[0.7rem] font-semibold uppercase tracking-[0.12em] text-gray-500 mt-1">
               {stat.label}
             </p>
           </div>

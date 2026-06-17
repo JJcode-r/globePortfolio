@@ -60,7 +60,7 @@ export default function AboutPinned() {
       id="about"
       className="relative w-full flex flex-col items-center justify-center py-20 sm:py-24 lg:pb-44 pb-24 mt-10 mb-22"
     >
-      <h2 className="text-4xl sm:text-5xl md:text-6xl font-[950] tracking-tight text-center text-neutral-900 dark:text-white mb-12">
+      <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-[-0.03em] text-center text-neutral-900 dark:text-white mb-12">
         About Me
       </h2>
 
@@ -78,12 +78,12 @@ export default function AboutPinned() {
             className={`flex flex-col items-center justify-between text-center rounded-2xl p-8 md:p-10 backdrop-blur-md border shadow-lg transition-all duration-300
               ${c.isCTA
                 ? "bg-gradient-to-br from-yellow-400 to-yellow-300 text-neutral-900 border-yellow-200 shadow-yellow-400/40 lg:col-span-3 lg:mx-auto lg:w-1/2 mb-24"
-                : "bg-neutral-900/90 text-white border-white/10 shadow-black/30"
+                : "bg-gradient-to-br from-neutral-900 to-neutral-800/60 text-white border-white/[0.07] shadow-black/40 hover:border-white/[0.12] hover:shadow-black/50"
               }`}
           >
             <div>
-              <h3 className="text-2xl md:text-3xl font-semibold mb-3">{c.title}</h3>
-              <p className="text-base md:text-lg mb-5 leading-relaxed opacity-90">{c.body}</p>
+              <h3 className="text-xl md:text-2xl font-semibold mb-3 tracking-[-0.02em]">{c.title}</h3>
+              <p className="text-[0.93rem] md:text-base mb-5 leading-[1.8] opacity-80">{c.body}</p>
             </div>
 
             {c.isCTA ? (
@@ -99,7 +99,7 @@ export default function AboutPinned() {
                 <span className="ml-1 text-yellow-600 group-hover:animate-pulse">✨</span>
               </a>
             ) : (
-              <span className="inline-block rounded-full px-4 py-2 text-sm md:text-base font-medium bg-white/10 text-white/90">
+              <span className="inline-block rounded-full px-4 py-1.5 text-xs font-semibold tracking-wide uppercase bg-white/[0.07] text-white/60 border border-white/[0.08]">
                 {c.accent}
               </span>
             )}

@@ -102,12 +102,11 @@ export const CaseStudies: React.FC = () => {
         transition={{ duration: 0.8, ease: "easeOut" }}
         viewport={{ once: true }}
       >
-        <h2 className="text-3xl md:text-4xl font-extrabold text-white drop-shadow-md">
-          💼 Featured Case Studies
+        <h2 className="text-3xl md:text-4xl font-bold tracking-[-0.025em] text-white">
+          Featured Case Studies
         </h2>
         <p className="mt-3 text-gray-300 max-w-3xl mx-auto">
-          Exploring projects that blend clarity, animation, and
-          conversion-driven storytelling.
+          Real builds — each one a distinct technical challenge with a deliberate solution.
         </p>
       </motion.div>
 

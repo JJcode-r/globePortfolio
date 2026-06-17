@@ -12,9 +12,9 @@ import {
   Grid,
   Code,
   Layers,
-  Zap,
-  Wrench,
   CheckCircle,
+  CreditCard,
+  ArrowRight,
 } from "lucide-react";
 import profilePhoto from "/image.webp";
 
@@ -30,9 +30,9 @@ const PrimaryButton = memo(
     <a
       {...props}
       onClick={onClick}
-      className={`group relative flex items-center justify-center gap-2 px-7 py-2.5 text-base font-semibold rounded-full 
-					 bg-yellow-500 text-neutral-900 hover:bg-yellow-400 
-					 shadow-lg shadow-yellow-400/40 
+      className={`group relative flex items-center justify-center gap-2 px-7 py-3 text-[0.95rem] font-semibold rounded-full
+					 bg-yellow-500 text-neutral-900 hover:bg-yellow-400
+					 shadow-[0_4px_20px_rgba(234,179,8,0.45)] hover:shadow-[0_6px_28px_rgba(234,179,8,0.6)]
 					 transition-all duration-300 transform active:scale-[0.98]
 					 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-yellow-400/50 ${className}`}
     >
@@ -251,8 +251,8 @@ const Hero: React.FC<HeroProps> = ({ titleRef, subtitleRef }) => {
   return (
     <section
       id="hero"
-      className="relative min-h-screen flex flex-col justify-center items-center px-6 overflow-hidden 
-					bg-[radial-gradient(circle_at_top_left,rgba(255,255,255,0.9),rgba(240,240,240,0.3)_70%,transparent_100%)] text-black"
+      className="relative min-h-screen flex flex-col justify-center items-center px-6 overflow-hidden text-black hero-dot-grid"
+      style={{ background: "radial-gradient(ellipse 130% 90% at 10% 15%, rgba(255,255,255,1) 0%, rgba(255,252,240,0.98) 45%, rgba(248,248,248,0.92) 80%, transparent 100%)" }}
     >
       <div className="absolute inset-0">
         {iconData.map((item, i) => (
@@ -278,23 +278,22 @@ const Hero: React.FC<HeroProps> = ({ titleRef, subtitleRef }) => {
         >
           <div className="lg:col-span-7 flex flex-col items-center text-center space-y-3 lg:space-y-4">
             <motion.div variants={fadeUp}>
-              <span className="inline-flex items-center gap-2 px-3 py-1.5 text-sm font-medium tracking-wide rounded-full 
-											bg-white/80 backdrop-blur-xl border border-neutral-200 shadow-md text-neutral-700">
-                <Zap className="w-4 h-4 text-emerald-500" />
+              <span className="inline-flex items-center gap-2 px-4 py-1.5 text-[0.75rem] font-semibold tracking-[0.12em] uppercase rounded-full bg-white/90 backdrop-blur-xl border border-neutral-200/80 shadow-sm text-neutral-500">
+                <CreditCard className="w-3.5 h-3.5 text-yellow-500 flex-shrink-0" />
                 Payment Systems · Wallets · Conversion-Ready Platforms
               </span>
             </motion.div>
 
             <h1
               ref={titleRef}
-              className="text-[clamp(2.6rem,5.5vw,4.3rem)] font-[950] tracking-tighter leading-[1.05] text-neutral-900"
+              className="text-[clamp(2.8rem,5.8vw,4.6rem)] font-bold tracking-[-0.03em] leading-[1.03] text-neutral-900"
             >
               Globe The <span className="text-yellow-600">Dev</span>
             </h1>
 
             <p
               ref={subtitleRef}
-              className="text-[clamp(1rem,2.3vw,1.45rem)] font-light text-neutral-800 max-w-2xl leading-relaxed mt-1"
+              className="text-[clamp(1rem,2vw,1.3rem)] font-normal text-neutral-600 max-w-xl leading-[1.75] mt-2 tracking-[-0.005em]"
             >
               I build the platforms businesses run on — and the payment systems that actually collect the money.{" "}
               <span className="text-yellow-600">Paystack, Flutterwave, Stripe</span>, wallets, payouts, and front ends engineered to convert. Built right, so you stop losing revenue to broken checkouts and dead leads.
@@ -323,7 +322,7 @@ const Hero: React.FC<HeroProps> = ({ titleRef, subtitleRef }) => {
                 ))}
               </div>
 
-              <div className="text-center mt-3 sm:mt-0 sm:ml-4 text-yellow-600 text-sm">
+              <div className="text-center mt-3 sm:mt-0 sm:ml-4 text-[0.8rem] tracking-wide text-neutral-500">
                 Trusted by startups, founders & Web3 teams worldwide
               </div>
             </div>
@@ -366,13 +365,14 @@ const Hero: React.FC<HeroProps> = ({ titleRef, subtitleRef }) => {
                 className="relative z-[1]"
               >
                 <a
-                  href="#workflow"
-                  className="flex items-center justify-center gap-2 px-7 py-2.5 text-base font-medium rounded-full border border-neutral-300 
-											text-black/80 hover:bg-neutral-100 backdrop-blur-sm
+                  href="#projects"
+                  className="flex items-center justify-center gap-2 px-7 py-3 text-[0.95rem] font-medium rounded-full border border-neutral-300/80
+											text-neutral-700 hover:border-neutral-400 hover:bg-neutral-50 backdrop-blur-sm
+											transition-all duration-300
 											focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-neutral-400"
                 >
-                  <Wrench className="w-4 h-4 text-neutral-500" />
                   View my work
+                  <ArrowRight className="w-4 h-4 text-neutral-400" />
                 </a>
               </motion.div>
             </div>
