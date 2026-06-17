@@ -277,6 +277,12 @@ footer {
 .react-icon::before { content: '\f41b'; bottom: 10%; left: 60%; }
 .gsap-icon::before { content: '\f22c'; bottom: 30%; right: 5%; }
 
+/* Override global section defaults for the sticky-scroll projects section */
+#projects {
+  display: block;
+  min-height: unset;
+}
+
 /* =================================================================
    MEDIA QUERIES
    ================================================================ */

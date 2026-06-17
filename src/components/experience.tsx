@@ -83,11 +83,11 @@ const INTRO_BLOCK_HEIGHT_PX = 180;
 const STICKY_TOP_OFFSET = `calc(var(--navbar-height, 0px) + ${INTRO_BLOCK_HEIGHT_PX * 0.5}px)`; 
 const STICKY_PROJECT_COUNT = PROJECTS.length - 1; // Number of projects in the sticky section (3)
 // Height of the viewport area where the sticky content lives
-const STICKY_FRAME_HEIGHT = `calc(100vh - ${STICKY_TOP_OFFSET})`;
+const STICKY_FRAME_HEIGHT = `calc(var(--vh-full, 100dvh) - ${STICKY_TOP_OFFSET})`;
 // This height pulls the scroll to the first sticky frame when entering the section
-const SCROLL_PULL_HEIGHT_VAL = `calc(100vh - ${STICKY_TOP_OFFSET})`; 
+const SCROLL_PULL_HEIGHT_VAL = `calc(var(--vh-full, 100dvh) - ${STICKY_TOP_OFFSET})`; 
 // Total scrollable height for the sticky section (3 projects * 100vh + 60vh buffer)
-const STICKY_SCROLL_HEIGHT = `calc(100vh * ${STICKY_PROJECT_COUNT} + 60vh)`;
+const STICKY_SCROLL_HEIGHT = `calc(var(--vh-full, 100dvh) * ${STICKY_PROJECT_COUNT} + var(--vh-full, 100dvh) * 0.6)`;
 
 // --- Shared Components ---
 
@@ -423,7 +423,7 @@ export const WorkExperience: React.FC = () => {
   const frameProps = { openVideoIndex, setOpenVideoIndex };
 
   return (
-    <section id="projects" className="relative w-full dark:bg-neutral-950 text-neutral-900 dark:text-white font-sans">
+    <section id="projects" className="relative w-full dark:bg-neutral-950 text-neutral-900 dark:text-white font-sans" style={{ touchAction: "pan-y" }}>
       {/* --- Introduction Block --- */}
       <div className="relative w-full z-10" style={{ height: `${INTRO_BLOCK_HEIGHT_PX}px` }}>
         <div className="max-w-6xl mx-auto px-6 text-center">
@@ -542,6 +542,8 @@ export const WorkExperience: React.FC = () => {
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
+            willChange: "transform",
+            touchAction: "pan-y",
           }}
         >
           <div className="relative w-full max-w-7xl h-full flex items-center justify-center px-6">
