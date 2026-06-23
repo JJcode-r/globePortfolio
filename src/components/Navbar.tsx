@@ -261,7 +261,7 @@ const scrollToSection = (id: string) => {
                         bg-yellow-500 hover:bg-yellow-400 shadow-lg hover:shadow-xl
                         ${activeSection === "Build a Website" ? "drop-shadow-[0_0_10px_rgba(250,204,21,1)]" : ""}`}
           >
-            Let's Plan your Website Strategy
+            Fix Your Revenue Leak
           </motion.a>
         </div>
 

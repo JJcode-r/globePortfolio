@@ -1,5 +1,5 @@
-import React, { useEffect, useRef } from "react";
-import gsap from "gsap";
+import gsap from 'gsap';
+import React, { useEffect, useRef } from 'react';
 
 interface Testimonial {
   quote: string;
@@ -16,32 +16,36 @@ interface Stat {
 
 const testimonials: Testimonial[] = [
   {
-    quote: "A true craftsman. Love the detail and the time spent into Crafting my portfolio into something memorable",
-    author: "— Barr. Temedie Peter-Grate, Legal Practioner",
-    avatarUrl: "https://pub-b5a150bb321345d8b75dc53ad13f4d10.r2.dev/temediePhoto.jpg",
+    quote:
+      "Globe delivered a fantastic website for our company! The entire process was smooth and the final design truly reflects our brand. Highly recommend him!",
+    author: "Gwyn Holbrook",
+    avatarUrl: "https://ui-avatars.com/api/?name=Gwyn+Holbrook&background=ca8a04&color=fff&size=128",
   },
   {
-    quote: "We had very few leads from our previous website untile Globe created our recent website and now we are making sales like never before.",
-    author: "— Jireh Priime, Artist",
-    avatarUrl: "https://pub-b5a150bb321345d8b75dc53ad13f4d10.r2.dev/jirah.jpg",
+    quote:
+      "Globe created a stunning, functional site for my wellness and sales business. I couldn’t be happier with the results and how well it converts!",
+    author: "Thrive by T",
+    avatarUrl: "https://ui-avatars.com/api/?name=Thrive+T&background=ca8a04&color=fff&size=128",
   },
   {
-    quote: "Working with Globe was like collaborating with a principled storyteller, not just a Programmer.",
-    author: "— Fortune Chamberlain, Freelance Project Manager ",
-    avatarUrl: "https://pub-b5a150bb321345d8b75dc53ad13f4d10.r2.dev/fortune.jpg",
+    quote:
+      "Globe built us a delightful website for our ice cream company. It’s visually appealing and easy for customers to find us. Globe’s work was excellent!",
+    author: "Tamika Holbrook, Holbrook Sweets",
+    avatarUrl: "https://ui-avatars.com/api/?name=Tamika+Holbrook&background=ca8a04&color=fff&size=128",
   },
   {
-    quote: "WowThis is an amazing job you did with the Wise Guys website…….very impressive work my friend It’s very well done",
-    author: "— Aloha Shawn, Founder AperunnerBTC Ecosystem",
-    avatarUrl: "https://pub-b5a150bb321345d8b75dc53ad13f4d10.r2.dev/alohaShawn.jpg",
+    quote:
+      "Globe took my skincare brand to the next level. The site is clean, professional and captures the essence of The Bare Collective. A perfect fit for our vision!",
+    author: "Tamika Waller, The Bare Collective",
+    avatarUrl: "https://ui-avatars.com/api/?name=Tamika+Waller&background=ca8a04&color=fff&size=128",
   },
 ];
 
 const stats: Stat[] = [
-  { id: 1, label: "Projects Built", value: 45, suffix: "+" },
-  { id: 2, label: "Avg. Conversion Increase", value: 210, suffix: "%" },
-  { id: 3, label: "Happy Clients", value: 10, suffix: "+" },
-  { id: 4, label: "Return Clients", value: 85, suffix: "%" },
+  { id: 1, label: 'Projects Built', value: 45, suffix: '+' },
+  { id: 2, label: 'Avg. Conversion Increase', value: 210, suffix: '%' },
+  { id: 3, label: 'Happy Clients', value: 10, suffix: '+' },
+  { id: 4, label: 'Return Clients', value: 85, suffix: '%' },
 ];
 
 const Testimonials: React.FC = () => {
@@ -60,7 +64,7 @@ const Testimonials: React.FC = () => {
     const looper = gsap.to(track, {
       x: `-=${totalWidth}px`,
       duration: 35,
-      ease: "none",
+      ease: 'none',
       repeat: -1,
       modifiers: {
         x: gsap.utils.unitize((x) => parseFloat(x) % totalWidth),
@@ -81,7 +85,7 @@ const Testimonials: React.FC = () => {
             scale,
             opacity,
             duration: 0.2,
-            ease: "power1.out",
+            ease: 'power1.out',
           });
         });
       },
@@ -89,13 +93,13 @@ const Testimonials: React.FC = () => {
 
     const pause = () => looper.pause();
     const resume = () => looper.play();
-    track.parentElement?.addEventListener("mouseenter", pause);
-    track.parentElement?.addEventListener("mouseleave", resume);
+    track.parentElement?.addEventListener('mouseenter', pause);
+    track.parentElement?.addEventListener('mouseleave', resume);
 
     return () => {
       looper.kill();
-      track.parentElement?.removeEventListener("mouseenter", pause);
-      track.parentElement?.removeEventListener("mouseleave", resume);
+      track.parentElement?.removeEventListener('mouseenter', pause);
+      track.parentElement?.removeEventListener('mouseleave', resume);
     };
   }, []);
 
@@ -124,11 +128,12 @@ const Testimonials: React.FC = () => {
 
       {/* Header */}
       <div className="relative z-10 text-center mb-10 max-w-6xl">
-        <h2 className="text-4xl pt-20 md:text-5xl font-extrabold mb-2">
+        <h2 className="text-4xl pt-20 md:text-5xl font-bold tracking-[-0.025em] mb-2">
           What Clients Are Saying
         </h2>
-        <p className="max-w-3xl mx-auto text-lg text-gray-300">
-          Trusted by founders, creatives, and teams who turned vision into traction.
+        <p className="max-w-xl mx-auto text-base text-gray-400">
+          Trusted by founders, creatives, and teams who turned vision into
+          traction.
         </p>
       </div>
 
@@ -139,11 +144,11 @@ const Testimonials: React.FC = () => {
             key={stat.id}
             className="flex flex-col items-center justify-center rounded-2xl p-4 sm:p-6 text-center shadow-lg transition-all duration-500 hover:scale-[1.05] bg-white/10 border border-white/20 backdrop-blur-md"
           >
-            <h3 className="text-4xl sm:text-5xl font-extrabold text-yellow-400">
+            <h3 className="text-4xl sm:text-5xl font-bold tracking-[-0.03em] text-yellow-400">
               {stat.value}
               {stat.suffix}
             </h3>
-            <p className="text-sm sm:text-base font-semibold uppercase tracking-wider text-gray-400">
+            <p className="text-[0.7rem] font-semibold uppercase tracking-[0.12em] text-gray-500 mt-1">
               {stat.label}
             </p>
           </div>
@@ -152,7 +157,10 @@ const Testimonials: React.FC = () => {
 
       {/* Carousel */}
       <div className="relative w-full max-w-[1200px] overflow-hidden cursor-grab z-10">
-        <div ref={trackRef} className="flex h-[300px] sm:h-[350px] items-center">
+        <div
+          ref={trackRef}
+          className="flex h-[300px] sm:h-[350px] items-center"
+        >
           {testimonials.map((t) => (
             <div
               key={t.author}
@@ -183,8 +191,10 @@ const Testimonials: React.FC = () => {
           href="#discovery"
           onClick={(e) => {
             e.preventDefault();
-            document.getElementById("discovery")?.scrollIntoView({ behavior: "smooth" });
-            window.dispatchEvent(new Event("openDiscoveryForm"));
+            document
+              .getElementById('discovery')
+              ?.scrollIntoView({ behavior: 'smooth' });
+            window.dispatchEvent(new Event('openDiscoveryForm'));
           }}
           className="inline-flex items-center justify-center gap-2 bg-yellow-600 text-black font-semibold px-6 mb-10 py-3 rounded-lg shadow hover:bg-yellow-600 transition duration-300"
         >

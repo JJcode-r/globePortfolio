@@ -26,6 +26,20 @@ const App: React.FC = () => {
         setSections(allSections);
     }, []);
 
+    useEffect(() => {
+        const setVh = () => {
+            const h = window.visualViewport?.height ?? window.innerHeight;
+            document.documentElement.style.setProperty('--vh-full', `${h}px`);
+        };
+        setVh();
+        window.addEventListener('resize', setVh);
+        window.visualViewport?.addEventListener('resize', setVh);
+        return () => {
+            window.removeEventListener('resize', setVh);
+            window.visualViewport?.removeEventListener('resize', setVh);
+        };
+    }, []);
+
     return (
         <>
             <Navbar />

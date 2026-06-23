@@ -2,18 +2,37 @@
    BASE STYLES
    ================================================================ */
 :root {
-  --bg-h: 0; --bg-s: 0%; --bg-l: 100%;
-  --text-h: 0; --text-s: 0%; --text-l: 0%;
+  --bg-h: 0;
+  --bg-s: 0%;
+  --bg-l: 100%;
+  --text-h: 0;
+  --text-s: 0%;
+  --text-l: 0%;
 }
-* { box-sizing: border-box; }
+* {
+  box-sizing: border-box;
+}
 body {
   margin: 0;
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Poppins', system-ui, sans-serif;
   background: hsl(var(--bg-h), var(--bg-s), var(--bg-l));
   color: hsl(var(--text-h), var(--text-s), var(--text-l));
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
-  transition: background 1s ease, color 1s ease; /* React will manage these via inline styles in a proper setup, but this is a fallback */
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  transition:
+    background 1s ease,
+    color 1s ease;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: 'Space Grotesk', system-ui, sans-serif;
 }
 body.no-scroll {
   overflow: hidden;
@@ -37,7 +56,9 @@ body.no-scroll {
   backdrop-filter: blur(10px);
   border-radius: 12px;
   border: 1px solid rgba(255, 255, 255, 0.2);
-  transition: background 0.5s ease-in-out, border 0.5s ease-in-out;
+  transition:
+    background 0.5s ease-in-out,
+    border 0.5s ease-in-out;
 }
 .nav-links {
   display: flex;
@@ -47,7 +68,9 @@ body.no-scroll {
   color: hsl(var(--text-h), var(--text-s), var(--text-l));
   text-decoration: none;
   font-weight: 400;
-  transition: color 0.3s ease, transform 0.2s ease;
+  transition:
+    color 0.3s ease,
+    transform 0.2s ease;
   position: relative;
   letter-spacing: 0.5px;
 }
@@ -111,6 +134,9 @@ body.no-scroll {
 }
 /* =================================================================
    SECTION STYLES
+   z-index: 1 creates a stacking context that lifts ALL section
+   content above the sun/moon (z-index: 0). The hero is excluded
+   so the sun intro animation remains visible there.
    ================================================================ */
 section {
   min-height: 100vh;
@@ -124,6 +150,9 @@ section {
   position: relative;
   padding: 0 1rem;
 }
+section:not(#hero) {
+  z-index: 1;
+}
 section p {
   font-weight: 300;
   margin-top: 1rem;
@@ -133,20 +162,23 @@ section p {
 }
 /* =================================================================
    THEME TOGGLE STYLES (Sun/Moon)
+   Sun and moon are purely decorative  pointer-events: none ensures
+   they never block clicks on content. z-index: 0 keeps them behind
+   sections that carry z-index: 1 via the rule below.
    ================================================================ */
-.sun, .moon {
+.sun,
+.moon {
   position: fixed;
   width: clamp(90px, 12vw, 120px);
   height: clamp(90px, 12vw, 120px);
   border-radius: 50%;
-  pointer-events: all;
-  z-index: 10;
+  pointer-events: none;
+  z-index: 0;
   transition: transform 0.3s ease-out;
 }
 .sun {
   background: radial-gradient(circle, #fff7c2, #ffd97b);
   box-shadow: 0 0 40px rgba(255, 235, 150, 0.6);
-  cursor: pointer;
 }
 .moon {
   background: radial-gradient(circle at 30% 30%, #f5f3ce, #cfcfcf);
@@ -155,7 +187,6 @@ section p {
   position: fixed;
   border-radius: 50%;
   overflow: hidden;
-  cursor: pointer;
   top: 100px;
   right: 30px;
 }
@@ -163,9 +194,10 @@ section p {
   position: absolute;
   border-radius: 50%;
   background: radial-gradient(circle at 25% 25%, #8c8b87, #595856);
-  box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.5),
-              inset -2px -2px 5px rgba(255, 255, 255, 0.15),
-              0 0 5px rgba(0, 0, 0, 0.1);
+  box-shadow:
+    inset 2px 2px 5px rgba(0, 0, 0, 0.5),
+    inset -2px -2px 5px rgba(255, 255, 255, 0.15),
+    0 0 5px rgba(0, 0, 0, 0.1);
   opacity: 0.9;
   z-index: 11;
   transition: transform 0.3s ease-out;
@@ -173,37 +205,70 @@ section p {
 /* =================================================================
    GRIDS AND CARDS STYLES
    ================================================================ */
-.projects-grid, .tech-grid, .carousel-track {
+.projects-grid,
+.tech-grid,
+.carousel-track {
   display: grid;
   gap: 2rem;
-  grid-template-columns: repeat(auto-fit, minmax(250px,1fr));
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   max-width: 90%;
   margin-top: 2rem;
 }
-.project-card, .tech-card, .testimonial-card {
-  background: rgba(255,255,255,0.1);
+.project-card,
+.tech-card,
+.testimonial-card {
+  background: rgba(255, 255, 255, 0.1);
   padding: 1.5rem;
   border-radius: 12px;
   text-align: left;
   backdrop-filter: blur(10px);
-  border: 1px solid rgba(255,255,255,0.2);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
 }
-.project-card:hover, .tech-card:hover, .testimonial-card:hover {
+.project-card:hover,
+.tech-card:hover,
+.testimonial-card:hover {
   transform: translateY(-10px) scale(1.02);
-  box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
 }
 /* Carousel-specific styles */
-.carousel-container { position: relative; width: 100%; overflow: hidden; max-width: 900px; }
-.carousel-track { display: flex; flex-wrap: nowrap; grid-template-columns: none; }
-.testimonial-card { flex: 0 0 auto; width: 90%; margin-right: 32px; /* 2rem gap */ }
-.carousel-prev, .carousel-next {
-  position:absolute; top:50%; transform:translateY(-50%);
-  background:rgba(0,0,0,0.3); border:none; padding:0.5rem 1rem; border-radius:6px;
-  color:white; cursor:pointer; z-index: 20;
+.carousel-container {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  max-width: 900px;
 }
-.carousel-prev { left:10px; }
-.carousel-next { right:10px; }
+.carousel-track {
+  display: flex;
+  flex-wrap: nowrap;
+  grid-template-columns: none;
+}
+.testimonial-card {
+  flex: 0 0 auto;
+  width: 90%;
+  margin-right: 32px; /* 2rem gap */
+}
+.carousel-prev,
+.carousel-next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0.3);
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  color: white;
+  cursor: pointer;
+  z-index: 20;
+}
+.carousel-prev {
+  left: 10px;
+}
+.carousel-next {
+  right: 10px;
+}
 /* =================================================================
    FOOTER STYLES
    ================================================================ */
@@ -213,16 +278,26 @@ footer {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: #0D1B2A;
+  background-color: #0d1b2a;
   color: white;
   padding: 3rem 1rem;
   font-size: clamp(1rem, 3vw, 1.5rem);
   position: relative;
   overflow: hidden;
-  background-image: linear-gradient(to right, rgba(13,27,42,1) 50%, rgba(13,27,42,0.8) 70%, rgba(13,27,42,0.6) 100%),
+  background-image:
+    linear-gradient(
+      to right,
+      rgba(13, 27, 42, 1) 50%,
+      rgba(13, 27, 42, 0.8) 70%,
+      rgba(13, 27, 42, 0.6) 100%
+    ),
     url('https://media.istockphoto.com/id/182256667/photo/owl-watches-intently-illuminated-by-full-moon.jpg?s=1024x1024&w=is&k=20&c=THlamh9Ytl_Rs-gbdx9yDAhSb8DKAUNVbk1HSGgpxoQ=');
-  background-position: left center, right bottom;
-  background-size: 100% 100%, 50% auto;
+  background-position:
+    left center,
+    right bottom;
+  background-size:
+    100% 100%,
+    50% auto;
   background-repeat: no-repeat, no-repeat;
 }
 .footer-star {
@@ -241,8 +316,9 @@ footer {
   top: 10%;
   left: -10%;
   width: clamp(150px, 20vw, 250px);
-  z-index: 5;
+  z-index: 0;
   opacity: 0;
+  pointer-events: none;
 }
 /* =================================================================
    HERO BACKGROUND ICON STYLES
@@ -265,21 +341,60 @@ footer {
   transform: rotate(45deg); /* Subtle rotation for effect */
   transition: opacity 0.5s ease;
 }
-.html-icon::before { content: '\f13b'; top: 15%; left: 10%; }
-.css-icon::before { content: '\f13c'; top: 50%; left: 30%; }
-.tailwind-icon::before { content: '\f3fc'; top: 25%; right: 20%; }
-.react-icon::before { content: '\f41b'; bottom: 10%; left: 60%; }
-.gsap-icon::before { content: '\f22c'; bottom: 30%; right: 5%; }
+.html-icon::before {
+  content: '\f13b';
+  top: 15%;
+  left: 10%;
+}
+.css-icon::before {
+  content: '\f13c';
+  top: 50%;
+  left: 30%;
+}
+.tailwind-icon::before {
+  content: '\f3fc';
+  top: 25%;
+  right: 20%;
+}
+.react-icon::before {
+  content: '\f41b';
+  bottom: 10%;
+  left: 60%;
+}
+.gsap-icon::before {
+  content: '\f22c';
+  bottom: 30%;
+  right: 5%;
+}
+
+/* Override global section defaults for the sticky-scroll projects section */
+#projects {
+  display: block;
+  min-height: unset;
+}
 
 /* =================================================================
    MEDIA QUERIES
    ================================================================ */
-@media(max-width:768px){
-  .projects-grid, .tech-grid { grid-template-columns: 1fr; }
-  .sun, .moon { width: clamp(70px,10vw,100px); height: clamp(70px,10vw,100px); top: 20px; left: 10px; }
+@media (max-width: 768px) {
+  .projects-grid,
+  .tech-grid {
+    grid-template-columns: 1fr;
+  }
+  .sun,
+  .moon {
+    width: clamp(70px, 10vw, 100px);
+    height: clamp(70px, 10vw, 100px);
+    top: 20px;
+    left: 10px;
+  }
   footer {
-    background-size: 100% 100%, 100% auto;
-    background-position: left center, center bottom;
+    background-size:
+      100% 100%,
+      100% auto;
+    background-position:
+      left center,
+      center bottom;
   }
   /* Responsive Navbar */
   .navbar {
@@ -299,7 +414,7 @@ footer {
     background: rgba(255, 255, 255, 0.9);
     backdrop-filter: blur(15px);
     transition: all 0.5s ease-in-out;
-    border-left: 1px solid rgba(0,0,0,0.1);
+    border-left: 1px solid rgba(0, 0, 0, 0.1);
     opacity: 0;
     visibility: hidden;
     pointer-events: none;
@@ -317,7 +432,7 @@ footer {
   }
   .navbar.dark .nav-links {
     background: rgba(13, 27, 42, 0.9);
-    border-left: 1px solid rgba(255,255,255,0.1);
+    border-left: 1px solid rgba(255, 255, 255, 0.1);
   }
   .navbar.dark .nav-links a {
     color: white;
@@ -334,8 +449,8 @@ footer {
     display: flex;
   }
   .testimonial-card {
-      width: 100%; /* Full width on small screens */
-      margin-right: 0;
-      padding: 1rem;
+    width: 100%; /* Full width on small screens */
+    margin-right: 0;
+    padding: 1rem;
   }
 }

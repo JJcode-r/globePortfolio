@@ -199,10 +199,10 @@ const WorkflowLoader: React.FC = () => {
 				}}
 			>
 				{/* Heading */}
-				<div className="loader-title text-white font-extrabold tracking-wide mb-3 text-3xl text-center">
-					My Strategy 
+				<div className="loader-title text-white font-bold tracking-[-0.02em] mb-3 text-3xl text-center">
+					My Strategy
 				</div>
-				<p className="text-gray-400 text-center mb-8 max-w-lg mx-auto text-sm">
+				<p className="text-gray-500 text-center mb-8 max-w-lg mx-auto text-sm">
 				Every project is a journey. Here’s how I transform ideas into immersive, high-performing digital experiences, step by step.    </p>
 				
 				{/* Timeline */}
