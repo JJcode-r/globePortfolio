@@ -1,43 +1,58 @@
-import React, { useRef, useEffect } from "react";
-import { motion } from "framer-motion";
+import React, { useRef, useEffect } from 'react';
+import { motion } from 'framer-motion';
 
 const Footer: React.FC = () => {
   const footerRef = useRef<HTMLDivElement>(null);
 
   const owlBackground =
-    "https://pub-b5a150bb321345d8b75dc53ad13f4d10.r2.dev/owl.jpg";
+    'https://pub-b5a150bb321345d8b75dc53ad13f4d10.r2.dev/owl.jpg';
 
   const siteMapLinks = [
-    { name: "Home", href: "#hero" },
-    { name: "About", href: "#about" },
-    { name: "Projects", href: "#projects" },
-    { name: "Tech Stack", href: "#tech" },
-    { name: "Testimonials", href: "#testimonials" },
-    { name: "Contact", href: "#contact" },
+    { name: 'Home', href: '#hero' },
+    { name: 'About', href: '#about' },
+    { name: 'Projects', href: '#projects' },
+    { name: 'Tech Stack', href: '#tech' },
+    { name: 'Testimonials', href: '#testimonials' },
+    { name: 'Contact', href: '#contact' },
   ];
 
   const expertiseLinks = [
-    { name: "Payment Integration", href: "#tech" },
-    { name: "Wallet & Payout Systems", href: "#tech" },
-    { name: "Full-Stack Development", href: "#projects" },
-    { name: "SaaS Platforms", href: "#projects" },
-    { name: "UI/UX", href: "#projects" },
-    { name: "Performance Optimization", href: "#tech" },
+    { name: 'Payment Integration', href: '#tech' },
+    { name: 'Wallet & Payout Systems', href: '#tech' },
+    { name: 'Full-Stack Development', href: '#projects' },
+    { name: 'SaaS Platforms', href: '#projects' },
+    { name: 'UI/UX', href: '#projects' },
+    { name: 'Performance Optimization', href: '#tech' },
   ];
 
   const connectLinks = [
-    { name: "LinkedIn", href: "https://www.linkedin.com/in/globe-the-dev-7b178919a/", icon: "fab fa-linkedin" },
-    { name: "Twitter", href: "https://x.com/globe_the_dev?t=RO6MAOivsMGasX5H5XPZVA&s=09", icon: "fab fa-twitter" },
-    { name: "Email", href: "mailto:globetechwrld@gmail.com", icon: "fas fa-envelope" },
+    {
+      name: 'LinkedIn',
+      href: 'https://www.linkedin.com/in/globe-the-dev-7b178919a/',
+      icon: 'fab fa-linkedin',
+    },
+    {
+      name: 'Twitter',
+      href: 'https://x.com/globe_the_dev?t=RO6MAOivsMGasX5H5XPZVA&s=09',
+      icon: 'fab fa-twitter',
+    },
+    {
+      name: 'Email',
+      href: 'mailto:globetechwrld@gmail.com',
+      icon: 'fas fa-envelope',
+    },
   ];
 
-  const scrollToTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
+  const scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
 
-  const handleCtaClick = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
+  const handleCtaClick = (
+    e: React.MouseEvent<HTMLAnchorElement, MouseEvent>
+  ) => {
     e.preventDefault();
-    const discoverySection = document.getElementById("discovery");
-    if (discoverySection) discoverySection.scrollIntoView({ behavior: "smooth", block: "start" });
-    window.dispatchEvent(new Event("openDiscoveryForm"));
+    const discoverySection = document.getElementById('discovery');
+    if (discoverySection)
+      discoverySection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    window.dispatchEvent(new Event('openDiscoveryForm'));
   };
 
   useEffect(() => {
@@ -46,17 +61,18 @@ const Footer: React.FC = () => {
     const stars: HTMLDivElement[] = [];
 
     for (let i = 0; i < 60; i++) {
-      const star = document.createElement("div");
+      const star = document.createElement('div');
       star.className =
-        "footer-star w-1 h-1 bg-white rounded-full absolute opacity-60 pointer-events-none";
+        'footer-star w-1 h-1 bg-white rounded-full absolute opacity-60 pointer-events-none';
       star.style.top = `${Math.random() * footer.offsetHeight}px`;
       star.style.left = `${Math.random() * footer.offsetWidth}px`;
       footer.appendChild(star);
       stars.push(star);
     }
 
-    const gsapScript = document.createElement("script");
-    gsapScript.src = "https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js";
+    const gsapScript = document.createElement('script');
+    gsapScript.src =
+      'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js';
     gsapScript.onload = () => {
       const gsap = (window as any).gsap;
       if (gsap) {
@@ -75,7 +91,8 @@ const Footer: React.FC = () => {
 
     return () => {
       stars.forEach((s) => s.remove());
-      if (gsapScript.parentNode === document.body) document.body.removeChild(gsapScript);
+      if (gsapScript.parentNode === document.body)
+        document.body.removeChild(gsapScript);
     };
   }, []);
 
@@ -85,10 +102,10 @@ const Footer: React.FC = () => {
       className="relative w-full text-white py-20 px-6 md:px-20 overflow-hidden border-t border-yellow-900/50"
       style={{
         backgroundImage: `linear-gradient(to right, rgba(13,27,42,0.95) 0%, rgba(13,27,42,0.7) 70%, rgba(13,27,42,0.5) 100%), url(${owlBackground})`,
-        backgroundSize: "cover, contain",
-        backgroundPosition: "center center, right center",
-        backgroundRepeat: "no-repeat, no-repeat",
-        fontFamily: "Inter, system-ui, sans-serif",
+        backgroundSize: 'cover, contain',
+        backgroundPosition: 'center center, right center',
+        backgroundRepeat: 'no-repeat, no-repeat',
+        fontFamily: 'Inter, system-ui, sans-serif',
       }}
     >
       {/* Back to Top */}
@@ -97,7 +114,13 @@ const Footer: React.FC = () => {
         className="absolute top-4 right-4 bg-yellow-500 text-black rounded-lg p-2 md:p-3 shadow-xl hover:bg-yellow-600 transition duration-300 font-bold z-10"
         aria-label="Back to top"
       >
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="20"
+          height="20"
+          fill="currentColor"
+          viewBox="0 0 16 16"
+        >
           <path
             fillRule="evenodd"
             d="M8 10a.5.5 0 0 0 .5-.5V3.707l2.146 2.147a.5.5 0 0 0 .708-.708l-3-3a.5.5 0 0 0-.708 0l-3 3a.5.5 0 1 0 .708.708L7.5 3.707V9.5a.5.5 0 0 0 .5.5z"
@@ -114,9 +137,11 @@ const Footer: React.FC = () => {
       >
         {/* Brand + CTA */}
         <div className="hidden lg:flex flex-col items-center lg:items-start text-center lg:text-left col-span-1">
-          <div className="text-3xl font-extrabold text-yellow-400 mb-4 tracking-wider">Globe The Dev</div>
+          <div className="text-3xl font-extrabold text-yellow-400 mb-4 tracking-wider">
+            Globe The Dev
+          </div>
           <p className="text-gray-300 text-sm md:text-base leading-relaxed mb-4">
-            Building platforms that look premium — and get paid.
+            Building platforms that look premium and get paid.
           </p>
           <a
             href="#discovery"
@@ -170,7 +195,7 @@ const Footer: React.FC = () => {
                 <a
                   href={link.href}
                   className="flex items-center justify-center md:justify-start gap-2 hover:text-yellow-400 transition transform hover:translate-x-1 hover:scale-105 duration-200"
-                  target={link.href.startsWith("http") ? "_blank" : "_self"}
+                  target={link.href.startsWith('http') ? '_blank' : '_self'}
                   rel="noopener noreferrer"
                 >
                   {link.icon && <i className={`${link.icon}`}></i>}
@@ -184,7 +209,8 @@ const Footer: React.FC = () => {
                 onClick={handleCtaClick}
                 className="inline-flex items-center justify-center gap-2 bg-yellow-500 text-black font-semibold px-4 py-2 rounded-lg shadow hover:bg-yellow-600 transition duration-300"
               >
-                <i className="fas fa-phone-alt"></i> Let's plan your website strategy
+                <i className="fas fa-phone-alt"></i> Let's plan your website
+                strategy
               </a>
             </li>
           </ul>
@@ -192,11 +218,12 @@ const Footer: React.FC = () => {
 
         {/* Mobile Brand */}
         <div className="flex flex-col items-center justify-start lg:hidden col-span-2 md:col-span-1 p-4 rounded-lg bg-gray-900/50">
-          <div className="text-2xl font-extrabold text-yellow-400 tracking-wider">Globe</div>
+          <div className="text-2xl font-extrabold text-yellow-400 tracking-wider">
+            Globe
+          </div>
           <p className="text-gray-400 text-xs mt-1 mb-3">
-            Building platforms that look premium — and get paid.
+            Building platforms that look premium and get paid.
           </p>
-          
         </div>
       </motion.div>
 
