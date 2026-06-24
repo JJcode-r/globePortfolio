@@ -85,13 +85,13 @@ const SLIDE_VARIANTS = {
     x: 0,
     opacity: 1,
     scale: 1,
-    transition: { duration: 0.45, ease: [0.25, 0.46, 0.45, 0.94] },
+    transition: { duration: 0.45, ease: "easeOut" as const },
   },
   exit: (dir: number) => ({
     x: dir > 0 ? -80 : 80,
     opacity: 0,
     scale: 0.97,
-    transition: { duration: 0.35, ease: [0.25, 0.46, 0.45, 0.94] },
+    transition: { duration: 0.35, ease: "easeOut" as const },
   }),
 };
 

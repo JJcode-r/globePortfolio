@@ -87,7 +87,7 @@ const cardVariants = {
     opacity: 1,
     y: 0,
     scale: 1,
-    transition: { duration: 0.75, ease: [0.22, 1, 0.36, 1] },
+    transition: { duration: 0.75, ease: "easeOut" as const },
   },
 };
 
@@ -108,7 +108,7 @@ export default function AboutPinned() {
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        transition={{ duration: 0.65, delay: 0.05, ease: [0.22, 1, 0.36, 1] }}
+        transition={{ duration: 0.65, delay: 0.05, ease: "easeOut" as const }}
         className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-[-0.03em] text-center text-neutral-900 dark:text-white mb-14"
       >
         About Me
@@ -183,7 +183,7 @@ export default function AboutPinned() {
         initial={{ opacity: 0, y: 40, scale: 0.97 }}
         whileInView={{ opacity: 1, y: 0, scale: 1 }}
         viewport={{ once: true, amount: 0.3 }}
-        transition={{ duration: 0.8, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
+        transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" as const }}
         className="mt-6 max-w-6xl mx-auto px-6 w-full mb-24"
       >
         <div className="relative overflow-hidden rounded-3xl border border-white/[0.07] bg-neutral-950/80 backdrop-blur-xl shadow-2xl shadow-black/50">
