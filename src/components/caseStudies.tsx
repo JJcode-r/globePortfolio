@@ -6,8 +6,6 @@ type Metric = { value: string; label: string };
 
 type CaseStudy = {
   id: string;
-  index: string;
-  category: string;
   title: string;
   blurb: string;
   tech: string[];
@@ -176,26 +174,7 @@ export const CaseStudies: React.FC = () => {
             {/* Yellow left accent */}
             <div className="absolute left-0 top-0 bottom-0 w-[3px] bg-yellow-500 rounded-full" />
 
-            {/* Large background index */}
-            <span
-              className="absolute right-6 top-4 font-black text-[7rem] md:text-[10rem] leading-none select-none pointer-events-none"
-              style={{ color: 'rgba(255,255,255,0.03)' }}
-            >
-              {c.index}
-            </span>
-
             <div className="relative p-8 md:p-12">
-              {/* Category + index */}
-              <div className="flex items-center gap-3 mb-5">
-                <span className="text-xs font-mono text-yellow-500 tracking-widest">
-                  {c.index}
-                </span>
-                <span className="h-px w-8 bg-yellow-500/40" />
-                <span className="text-xs font-semibold uppercase tracking-[0.18em] text-gray-400">
-                  {c.category}
-                </span>
-              </div>
-
               {/* Title */}
               <h3 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white tracking-tight leading-tight mb-5 max-w-2xl">
                 {c.title}
