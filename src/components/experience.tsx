@@ -32,6 +32,19 @@ type FrameProps = {
 const PROJECTS: Project[] = [
   {
     id: 1,
+    title: 'Gobig Marketplace',
+    desktopPoster:
+      'https://pub-b5a150bb321345d8b75dc53ad13f4d10.r2.dev/thumbnail.png',
+    mobilePoster:
+      'https://pub-b5a150bb321345d8b75dc53ad13f4d10.r2.dev/verify-gee-mobile-photo.webp',
+    desktopVideo:
+      'https://pub-b5a150bb321345d8b75dc53ad13f4d10.r2.dev/SignIntoYourAccount-Desktop2.mp4',
+    mobileVideo:
+      'https://pub-b5a150bb321345d8b75dc53ad13f4d10.r2.dev/verify-gee-mobile2.mp4',
+    live: 'https://verify-gee.vercel.app/',
+  },
+  {
+    id: 2,
     title: 'Wise Guys NFT',
     desktopPoster:
       'https://res.cloudinary.com/dytogib3m/image/upload/v1760056724/wiseGuysGroup_peh1tr.webp',
@@ -44,33 +57,33 @@ const PROJECTS: Project[] = [
     live: 'https://the-wise-guys.vercel.app/',
   },
   {
-    id: 2,
-    title: 'Temedie Portfolio',
-    desktopPoster:
-      'https://pub-b5a150bb321345d8b75dc53ad13f4d10.r2.dev/temedieThumbnail.jpg',
-    mobilePoster:
-      'https://pub-b5a150bb321345d8b75dc53ad13f4d10.r2.dev/TemediethumbnailMobile.jpg',
-    desktopVideo:
-      'https://pub-b5a150bb321345d8b75dc53ad13f4d10.r2.dev/TemedieDesktop.mp4',
-    mobileVideo:
-      'https://pub-b5a150bb321345d8b75dc53ad13f4d10.r2.dev/temedieMobile.mp4',
-    live: 'https://temedieportfolio-fifth-deploy.netlify.app/',
-  },
-  {
     id: 3,
-    title: 'BestVersion',
+    title: 'ThrivewithT',
     desktopPoster:
-      'https://pub-b5a150bb321345d8b75dc53ad13f4d10.r2.dev/thumbnailDesktop.jpg',
+      'https://pub-b5a150bb321345d8b75dc53ad13f4d10.r2.dev/thrivewitht-desktop-image.png',
     mobilePoster:
-      'https://pub-b5a150bb321345d8b75dc53ad13f4d10.r2.dev/bestversionthumbnailMobile.jpg',
+      'https://pub-b5a150bb321345d8b75dc53ad13f4d10.r2.dev/thrivewith-t-photo.webp',
     desktopVideo:
-      'https://pub-b5a150bb321345d8b75dc53ad13f4d10.r2.dev/bestversionDesktop.mp4',
+      'https://pub-b5a150bb321345d8b75dc53ad13f4d10.r2.dev/ThrivewithT-Desktop2.mp4',
     mobileVideo:
-      'https://pub-b5a150bb321345d8b75dc53ad13f4d10.r2.dev/bestversionMobile.mp4',
-    live: 'https://bestversionofyourself.netlify.app/',
+      'https://pub-b5a150bb321345d8b75dc53ad13f4d10.r2.dev/Thrivewitht-mobile2.mp4',
+    live: 'https://www.thrivewitht.com.au/',
   },
   {
     id: 4,
+    title: 'Sportvest',
+    desktopPoster:
+      'https://pub-b5a150bb321345d8b75dc53ad13f4d10.r2.dev/sportvest.png',
+    mobilePoster:
+      'https://pub-b5a150bb321345d8b75dc53ad13f4d10.r2.dev/sportvest-mobile-photo.webp',
+    desktopVideo:
+      'https://pub-b5a150bb321345d8b75dc53ad13f4d10.r2.dev/Sportvest-Desktop2.mp4',
+    mobileVideo:
+      'https://pub-b5a150bb321345d8b75dc53ad13f4d10.r2.dev/sportvest-mobile2.mp4',
+    live: 'https://sportvest.capital/',
+  },
+  {
+    id: 5,
     title: 'Dogman NFT',
     desktopPoster:
       'https://pub-b5a150bb321345d8b75dc53ad13f4d10.r2.dev/DogmanthumbnailDesktop.jpg',
