@@ -8,7 +8,7 @@ node_modules/
 .pnp
 .pnp.js
 .yarn/install-state.gz
-
+.md
 # ── Build outputs ───────────────────────────────────────────
 dist/
 dist-ssr/
@@ -127,3 +127,199 @@ storybook-static/
 
 # ── Local dev overrides ──────────────────────────────────────
 *.local
+
+
+# ==========================================
+# DEPENDENCIES
+# ==========================================
+
+node_modules/
+.pnpm-store/
+.npm/
+.yarn/
+.bun/
+
+
+# ==========================================
+# BUILD OUTPUT
+# ==========================================
+
+dist/
+build/
+out/
+.next/
+.nuxt/
+.output/
+.vercel/
+.netlify/
+
+
+# ==========================================
+# ENVIRONMENT / SECRETS
+# ==========================================
+
+.env
+.env.*
+!.env.example
+!.env.local.example
+
+
+# ==========================================
+# LOGS
+# ==========================================
+
+*.log
+logs/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+bun-debug.log*
+
+
+# ==========================================
+# CACHE
+# ==========================================
+
+.cache/
+.parcel-cache/
+.vite/
+.turbo/
+.eslintcache/
+.stylelintcache/
+coverage/
+.nyc_output/
+
+
+# ==========================================
+# AI / CODING ASSISTANTS
+# ==========================================
+
+.agents/
+.claude/
+.cursor/
+.cursorrules
+.windsurf/
+.windsurfrules
+.claudeignore
+
+
+# ==========================================
+# LOCAL AI / GENERATED DEVELOPMENT FILES
+# ==========================================
+
+.ai/
+.ai-workspace/
+.ai-cache/
+.agent/
+.agent-cache/
+.tmp/
+.temp/
+
+
+# ==========================================
+# IDE / EDITOR
+# ==========================================
+
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+
+.idea/
+*.swp
+*.swo
+*.swn
+*.sublime-workspace
+*.sublime-project
+
+
+# ==========================================
+# OS FILES
+# ==========================================
+
+.DS_Store
+.DS_Store?
+Thumbs.db
+Desktop.ini
+ehthumbs.db
+
+
+# ==========================================
+# TEST / DEBUG ARTIFACTS
+# ==========================================
+
+test-results/
+playwright-report/
+blob-report/
+.nyc_output/
+*.snap
+
+
+# ==========================================
+# TEMPORARY / GENERATED FILES
+# ==========================================
+
+*.tmp
+*.temp
+*.bak
+*.backup
+*.orig
+*.old
+
+
+# ==========================================
+# PYTHON / SCRIPT ARTIFACTS
+# ==========================================
+
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.mypy_cache/
+.venv/
+venv/
+env/
+
+
+# ==========================================
+# GENERATED MEDIA / DESIGN EXPORTS
+# ==========================================
+
+*.psd
+*.ai
+*.sketch
+*.fig
+*.xd
+
+
+# ==========================================
+# LOCAL DATABASES
+# ==========================================
+
+*.sqlite
+*.sqlite3
+*.db
+
+
+# ==========================================
+# DEPLOYMENT / LOCAL CONFIG
+# ==========================================
+
+.vercel/
+.netlify/
+wrangler.local.json
+
+
+# ==========================================
+# MISC
+# ==========================================
+
+.DS_Store
+*.tgz
+*.tar.gz
+# ==========================================
+# DOCUMENTATION / MARKDOWN
+# ==========================================
+
+*.md
+*.mdx
