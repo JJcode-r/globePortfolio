@@ -97,10 +97,9 @@ const ExitIntentModal = () => {
             
             <button
               onClick={openDiscoveryForm}
-              className="inline-flex items-center justify-center px-8 py-3 rounded-full font-bold text-black shadow-lg hover:bg-yellow-300 transition-colors duration-200"
-              style={{ background: "#ffdd57" }}
+              className="inline-flex items-center justify-center px-8 py-3 rounded-full font-bold text-neutral-950 shadow-lg bg-yellow-400 hover:bg-yellow-300 transition-colors duration-200"
             >
-              <span className="mr-3 text-lg">Start Discovery Now</span>
+              <span className="mr-3 text-lg">Start a project</span>
               <span className="text-xl">🚀</span>
             </button>
             

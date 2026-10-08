@@ -8,16 +8,37 @@
   --text-h: 0;
   --text-s: 0%;
   --text-l: 0%;
+
+  /* Type scale — consistent hierarchy across all sections */
+  --text-display: clamp(2.5rem, 5vw, 3.5rem); /* hero h1 only */
+  --text-h1: clamp(2rem, 4vw, 3rem); /* section headings */
+  --text-h2: clamp(1.25rem, 2.5vw, 2rem); /* sub-headings */
+  --text-h3: clamp(1rem, 2vw, 1.25rem); /* card titles */
+  --text-body: clamp(0.9rem, 2vw, 1.1rem); /* body copy */
+
+  /* Uniform section rhythm */
+  --section-padding: clamp(80px, 10vh, 120px);
+
+  /* CTA / button — matches navbar glass treatment */
+  --btn-bg: rgba(255, 255, 255, 0.1);
+  --btn-border: rgba(255, 255, 255, 0.25);
+  --btn-backdrop: blur(10px);
+
+  /* Two grounds only: light sections and one shared dark ground */
+  --ground-light: #ffffff;
+  --ground-dark: #0d1b2a;
 }
+
 * {
   box-sizing: border-box;
 }
+
 body {
   margin: 0;
-  font-family: 'Poppins', system-ui, sans-serif;
-  background: hsl(var(--bg-h), var(--bg-s), var(--bg-l));
+  font-family: 'IBM Plex Sans', system-ui, sans-serif;
+  background: var(--ground-light);
   color: hsl(var(--text-h), var(--text-s), var(--text-l));
-  overflow-x: hidden;
+  overflow-x: clip;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
@@ -26,17 +47,41 @@ body {
     color 1s ease;
 }
 
+/* Heading font + consistent scale */
 h1,
 h2,
 h3,
 h4,
 h5,
 h6 {
-  font-family: 'Space Grotesk', system-ui, sans-serif;
+  font-family: 'Newsreader', Georgia, serif;
+  margin: 0;
+  line-height: 1.15;
 }
+
+/* Font sizes are intentionally NOT set here. Each heading's own Tailwind
+   classes (e.g. text-3xl sm:text-4xl md:text-5xl lg:text-6xl) already encode
+   a deliberate per-component responsive scale. This file is linked directly
+   (not processed by Tailwind), so it is unlayered CSS — and unlayered CSS
+   always wins over anything inside Tailwind's @layer utilities, regardless
+   of specificity or source order. A font-size rule here would silently
+   override every heading's intended size sitewide, which is exactly what
+   was happening before this comment existed: every <h2> rendered at a
+   flat 20px and every <h3> at 16px on mobile, no matter what size its own
+   className requested.
+
+   The --text-h1/h2/h3/display tokens above are kept for reference but are
+   not applied by this file. */
+
+/* Day mode — all text black until night arrives */
+body:not(.night) {
+  color: #000000;
+}
+
 body.no-scroll {
   overflow: hidden;
 }
+
 /* =================================================================
    NAVBAR STYLES
    ================================================================ */
@@ -60,10 +105,12 @@ body.no-scroll {
     background 0.5s ease-in-out,
     border 0.5s ease-in-out;
 }
+
 .nav-links {
   display: flex;
   gap: 1.5rem;
 }
+
 .navbar a {
   color: hsl(var(--text-h), var(--text-s), var(--text-l));
   text-decoration: none;
@@ -74,6 +121,7 @@ body.no-scroll {
   position: relative;
   letter-spacing: 0.5px;
 }
+
 .navbar a::after {
   content: '';
   position: absolute;
@@ -85,25 +133,31 @@ body.no-scroll {
   background: hsl(var(--text-h), var(--text-s), var(--text-l));
   transition: width 0.3s ease-out;
 }
+
 .navbar a.active::after,
 .navbar a:hover::after {
   width: 100%;
 }
+
 .navbar a:hover {
   transform: translateY(-2px);
 }
+
 .navbar.dark {
   background: rgba(13, 27, 42, 0.5);
-  border: 1px solid rgba(13, 27, 42, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
+
 .navbar.dark .nav-links a {
   color: white;
 }
+
 .navbar.dark .nav-links a::after,
 .navbar.dark .nav-links a.active::after,
 .navbar.dark .nav-links a:hover::after {
   background: white;
 }
+
 .menu-toggle {
   display: none;
   flex-direction: column;
@@ -113,6 +167,7 @@ body.no-scroll {
   cursor: pointer;
   z-index: 101;
 }
+
 .menu-toggle .bar {
   width: 2rem;
   height: 0.25rem;
@@ -120,51 +175,99 @@ body.no-scroll {
   border-radius: 10px;
   transition: all 0.3s ease-in-out;
 }
+
 .navbar.dark .menu-toggle .bar {
   background-color: white;
 }
+
 .menu-toggle.open .bar:nth-child(1) {
   transform: rotate(-45deg) translate(-5px, 6px);
 }
+
 .menu-toggle.open .bar:nth-child(2) {
   opacity: 0;
 }
+
 .menu-toggle.open .bar:nth-child(3) {
   transform: rotate(45deg) translate(-5px, -6px);
 }
+
 /* =================================================================
    SECTION STYLES
-   z-index: 1 creates a stacking context that lifts ALL section
-   content above the sun/moon (z-index: 0). The hero is excluded
-   so the sun intro animation remains visible there.
+   Uniform top + bottom padding via --section-padding.
+   z-index: 1 lifts section content above sun/moon (z-index: 0).
+   Hero is excluded so the sun intro animation stays visible.
    ================================================================ */
+/* Layout is deliberately NOT dictated here. This file is linked directly, so
+   it is unlayered CSS and beats anything in Tailwind's @layer utilities no
+   matter the specificity. Forcing flex/centering/padding on every <section>
+   meant no component could control its own composition, which is why the site
+   read as uniformly centered. Each section now owns its layout. */
 section {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  font-size: clamp(1.5rem, 5vw, 2.5rem);
-  font-weight: 600;
-  text-align: center;
   position: relative;
-  padding: 0 1rem;
 }
+
 section:not(#hero) {
   z-index: 1;
 }
-section p {
-  font-weight: 300;
-  margin-top: 1rem;
-  font-size: clamp(0.9rem, 2vw, 1.2rem);
-  max-width: 700px;
-  line-height: 1.5;
-}
+
+/* Paragraph sizing belongs to the component, for the same reason as above. */
+
 /* =================================================================
-   THEME TOGGLE STYLES (Sun/Moon)
-   Sun and moon are purely decorative  pointer-events: none ensures
-   they never block clicks on content. z-index: 0 keeps them behind
-   sections that carry z-index: 1 via the rule below.
+   CTA BUTTON STYLES
+   Single consistent treatment matching navbar glass style.
+   Works for both day (dark text on glass) and night (white text).
+   ================================================================ */
+.btn,
+button.btn,
+a.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.75rem;
+  font-family: 'IBM Plex Sans', system-ui, sans-serif;
+  font-size: 0.95rem;
+  font-weight: 500;
+  letter-spacing: 0.3px;
+  color: inherit;
+  text-decoration: none;
+  background: var(--btn-bg);
+  backdrop-filter: var(--btn-backdrop);
+  border: 1px solid var(--btn-border);
+  border-radius: 10px;
+  cursor: pointer;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
+}
+
+.btn:hover,
+button.btn:hover,
+a.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  background: rgba(255, 255, 255, 0.18);
+}
+
+/* Night variant — slight glow in dark mode */
+body.night .btn,
+body.night button.btn,
+body.night a.btn {
+  border-color: rgba(255, 255, 255, 0.18);
+  box-shadow: 0 0 0 rgba(200, 200, 255, 0);
+}
+
+body.night .btn:hover,
+body.night button.btn:hover,
+body.night a.btn:hover {
+  box-shadow: 0 8px 28px rgba(180, 180, 255, 0.2);
+}
+
+/* =================================================================
+   THEME TOGGLE (Sun / Moon)
+   pointer-events: none — never blocks clicks.
+   z-index: 0 — behind section content (z-index: 1).
    ================================================================ */
 .sun,
 .moon {
@@ -173,13 +276,15 @@ section p {
   height: clamp(90px, 12vw, 120px);
   border-radius: 50%;
   pointer-events: none;
-  z-index: 0;
+  z-index: -1;
   transition: transform 0.3s ease-out;
 }
+
 .sun {
   background: radial-gradient(circle, #fff7c2, #ffd97b);
   box-shadow: 0 0 40px rgba(255, 235, 150, 0.6);
 }
+
 .moon {
   background: radial-gradient(circle at 30% 30%, #f5f3ce, #cfcfcf);
   box-shadow: 0 0 40px rgba(200, 200, 255, 0.5);
@@ -190,6 +295,7 @@ section p {
   top: 100px;
   right: 30px;
 }
+
 .crater {
   position: absolute;
   border-radius: 50%;
@@ -202,8 +308,49 @@ section p {
   z-index: 11;
   transition: transform 0.3s ease-out;
 }
+
 /* =================================================================
-   GRIDS AND CARDS STYLES
+   NIGHT SKY — star layer visible only in dark mode
+   Stars are generated via JS in ThemeToggle; this styles them.
+   The .night-sky wrapper should be a fixed full-screen div rendered
+   by ThemeToggle behind everything (z-index: -1).
+   ================================================================ */
+.night-sky {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0;
+  background: #0d1b2a;
+  transition: opacity 1s ease;
+}
+
+body.night .night-sky {
+  opacity: 1;
+}
+
+.star {
+  position: absolute;
+  border-radius: 50%;
+  background: #ffffff;
+  animation: twinkle var(--twinkle-dur, 3s) ease-in-out infinite;
+  animation-delay: var(--twinkle-delay, 0s);
+}
+
+@keyframes twinkle {
+  0%,
+  100% {
+    opacity: 0.8;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.2;
+    transform: scale(0.7);
+  }
+}
+
+/* =================================================================
+   GRIDS AND CARDS
    ================================================================ */
 .projects-grid,
 .tech-grid,
@@ -214,6 +361,7 @@ section p {
   max-width: 90%;
   margin-top: 2rem;
 }
+
 .project-card,
 .tech-card,
 .testimonial-card {
@@ -227,29 +375,34 @@ section p {
     transform 0.3s ease,
     box-shadow 0.3s ease;
 }
+
 .project-card:hover,
 .tech-card:hover,
 .testimonial-card:hover {
   transform: translateY(-10px) scale(1.02);
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
 }
-/* Carousel-specific styles */
+
+/* Carousel */
 .carousel-container {
   position: relative;
   width: 100%;
   overflow: hidden;
   max-width: 900px;
 }
+
 .carousel-track {
   display: flex;
   flex-wrap: nowrap;
   grid-template-columns: none;
 }
+
 .testimonial-card {
   flex: 0 0 auto;
   width: 90%;
-  margin-right: 32px; /* 2rem gap */
+  margin-right: 32px;
 }
+
 .carousel-prev,
 .carousel-next {
   position: absolute;
@@ -263,14 +416,16 @@ section p {
   cursor: pointer;
   z-index: 20;
 }
+
 .carousel-prev {
   left: 10px;
 }
 .carousel-next {
   right: 10px;
 }
+
 /* =================================================================
-   FOOTER STYLES
+   FOOTER
    ================================================================ */
 footer {
   min-height: 20vh;
@@ -278,28 +433,14 @@ footer {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: #0d1b2a;
+  background-color: transparent;
   color: white;
-  padding: 3rem 1rem;
+  padding: var(--section-padding) 1rem;
   font-size: clamp(1rem, 3vw, 1.5rem);
   position: relative;
   overflow: hidden;
-  background-image:
-    linear-gradient(
-      to right,
-      rgba(13, 27, 42, 1) 50%,
-      rgba(13, 27, 42, 0.8) 70%,
-      rgba(13, 27, 42, 0.6) 100%
-    ),
-    url('https://media.istockphoto.com/id/182256667/photo/owl-watches-intently-illuminated-by-full-moon.jpg?s=1024x1024&w=is&k=20&c=THlamh9Ytl_Rs-gbdx9yDAhSb8DKAUNVbk1HSGgpxoQ=');
-  background-position:
-    left center,
-    right bottom;
-  background-size:
-    100% 100%,
-    50% auto;
-  background-repeat: no-repeat, no-repeat;
 }
+
 .footer-star {
   position: absolute;
   width: 2px;
@@ -308,8 +449,9 @@ footer {
   border-radius: 50%;
   opacity: 0.8;
 }
+
 /* =================================================================
-   BIRD ANIMATION STYLES
+   BIRD ANIMATION
    ================================================================ */
 .birds {
   position: fixed;
@@ -320,8 +462,9 @@ footer {
   opacity: 0;
   pointer-events: none;
 }
+
 /* =================================================================
-   HERO BACKGROUND ICON STYLES
+   HERO BACKGROUND ICONS
    ================================================================ */
 .hero-bg-icons {
   position: absolute;
@@ -332,15 +475,17 @@ footer {
   overflow: hidden;
   pointer-events: none;
 }
+
 .hero-bg-icons .icon::before {
   font-family: 'Font Awesome 5 Brands';
   position: absolute;
   font-size: clamp(80px, 15vw, 200px);
   opacity: 0.05;
   color: hsl(var(--text-h), var(--text-s), var(--text-l));
-  transform: rotate(45deg); /* Subtle rotation for effect */
+  transform: rotate(45deg);
   transition: opacity 0.5s ease;
 }
+
 .html-icon::before {
   content: '\f13b';
   top: 15%;
@@ -367,7 +512,7 @@ footer {
   right: 5%;
 }
 
-/* Override global section defaults for the sticky-scroll projects section */
+/* Override for sticky-scroll projects section */
 #projects {
   display: block;
   min-height: unset;
@@ -381,6 +526,7 @@ footer {
   .tech-grid {
     grid-template-columns: 1fr;
   }
+
   .sun,
   .moon {
     width: clamp(70px, 10vw, 100px);
@@ -388,6 +534,7 @@ footer {
     top: 20px;
     left: 10px;
   }
+
   footer {
     background-size:
       100% 100%,
@@ -396,12 +543,13 @@ footer {
       left center,
       center bottom;
   }
-  /* Responsive Navbar */
+
   .navbar {
     padding: 1rem;
     width: 90%;
     justify-content: space-between;
   }
+
   .nav-links {
     position: fixed;
     top: 0;
@@ -419,37 +567,45 @@ footer {
     visibility: hidden;
     pointer-events: none;
   }
+
   .nav-links.open {
     opacity: 1;
     visibility: visible;
     pointer-events: auto;
   }
+
   .navbar a {
     color: black;
     font-size: 1.5rem;
     margin: 1rem 0;
     font-weight: 500;
   }
+
   .navbar.dark .nav-links {
-    background: rgba(13, 27, 42, 0.9);
+    background: rgba(13, 27, 42, 0.95);
     border-left: 1px solid rgba(255, 255, 255, 0.1);
   }
+
   .navbar.dark .nav-links a {
     color: white;
   }
+
   .navbar a.active::after,
   .navbar a:hover::after {
     background: black;
   }
+
   .navbar.dark .nav-links a.active::after,
   .navbar.dark .nav-links a:hover::after {
     background: white;
   }
+
   .menu-toggle {
     display: flex;
   }
+
   .testimonial-card {
-    width: 100%; /* Full width on small screens */
+    width: 100%;
     margin-right: 0;
     padding: 1rem;
   }

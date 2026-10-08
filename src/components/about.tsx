@@ -1,238 +1,172 @@
 'use client';
-import { motion } from 'framer-motion';
-import { ArrowRight, Layers, ShieldCheck, Zap } from 'lucide-react';
-import React from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
+import { Layers, ShieldCheck, Zap } from 'lucide-react';
+import { useState } from 'react';
+import CtaPanel from './CtaPanel';
 
-const CARDS = [
+const POINTS = [
   {
     id: 'who',
-    num: '01',
     title: 'Who I Am',
-    body: "I'm a full-stack developer who builds where design meets money. Beautiful front ends are table stakes  what sets my work apart is everything behind the checkout: payment integrations, wallets, and reliable transaction flows that don't silently lose deposits. I make platforms that look premium and get paid.",
-    tag: 'Craftsmanship & Vision',
+    body: "I'm a full-stack developer and CS student at Federal University Otuoke who builds production software in the same hours other people study it. My stack is Cloudflare Workers, Hono, D1, Drizzle and Next.js, plus the African payment stack, with enough production scar tissue to know exactly where things go wrong.",
     Icon: Layers,
-    accent: 'indigo',
+    accent: 'text-indigo-500',
   },
   {
     id: 'why',
-    num: '02',
-    title: 'Why Choose Me',
-    body: "Because I build the parts that scare other developers. Payment gateways, webhook reliability, failed-transaction recovery, multi-currency wallets  the systems where one silent bug costs you every sale. I've debugged exactly that and rebuilt it to work under real load.",
-    tag: 'Conversion-Driven',
+    title: 'How I Work',
+    body: "My instinct is to go deeper, not around. When a D1 database read count hit 753 million rows overnight, I didn't restart and hope. I traced it to an unconditional cron combined with a broken pagination cache key, fixed it, and built a layer to stop it happening again. Problems get understood before they get closed.",
     Icon: ShieldCheck,
-    accent: 'yellow',
+    accent: 'text-yellow-600',
   },
   {
     id: 'ethos',
-    num: '03',
-    title: 'How I Work',
-    body: "Clear communication, fast iteration, zero hand-waving. I treat your checkout and your revenue flow as seriously as your homepage  because that's where the money actually moves.",
-    tag: 'Empathy · Execution · Results',
+    title: 'Two Brands',
+    body: 'GlobeTheDev handles client work: websites, web apps and platforms for businesses across Nigeria and internationally. Gemynd is where I build the products I actually want to exist, from webhook monitoring to community intelligence.',
     Icon: Zap,
-    accent: 'emerald',
+    accent: 'text-emerald-600',
   },
-] as const;
+];
 
-type AccentKey = 'indigo' | 'yellow' | 'emerald';
-
-const accentConfig: Record<
-  AccentKey,
-  {
-    numColor: string;
-    iconBg: string;
-    iconColor: string;
-    tagBg: string;
-    tagText: string;
-    borderHover: string;
-    glowColor: string;
-  }
-> = {
-  indigo: {
-    numColor: 'text-indigo-400/25',
-    iconBg: 'bg-indigo-500/10',
-    iconColor: 'text-indigo-400',
-    tagBg: 'bg-indigo-500/10',
-    tagText: 'text-indigo-300',
-    borderHover: 'hover:border-indigo-500/30',
-    glowColor: 'hover:shadow-indigo-900/30',
-  },
-  yellow: {
-    numColor: 'text-yellow-400/25',
-    iconBg: 'bg-yellow-400/10',
-    iconColor: 'text-yellow-400',
-    tagBg: 'bg-yellow-400/10',
-    tagText: 'text-yellow-300',
-    borderHover: 'hover:border-yellow-500/30',
-    glowColor: 'hover:shadow-yellow-900/20',
-  },
-  emerald: {
-    numColor: 'text-emerald-400/25',
-    iconBg: 'bg-emerald-500/10',
-    iconColor: 'text-emerald-400',
-    tagBg: 'bg-emerald-500/10',
-    tagText: 'text-emerald-300',
-    borderHover: 'hover:border-emerald-500/30',
-    glowColor: 'hover:shadow-emerald-900/20',
-  },
-};
-
-const containerVariants = {
-  hidden: {},
-  visible: { transition: { staggerChildren: 0.18 } },
-};
-
-const cardVariants = {
-  hidden: { opacity: 0, y: 48, scale: 0.96 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    scale: 1,
-    transition: { duration: 0.75, ease: "easeOut" as const },
-  },
-};
-
-const handleCtaClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
-  e.preventDefault();
-  const target = document.getElementById('discovery');
-  if (target) target.scrollIntoView({ behavior: 'smooth' });
-  window.dispatchEvent(new Event('openDiscoveryForm'));
+const SLIDE_VARIANTS = {
+  enter: (direction: number) => ({ x: direction > 0 ? 32 : -32, opacity: 0 }),
+  center: { x: 0, opacity: 1 },
+  exit: (direction: number) => ({ x: direction > 0 ? -32 : 32, opacity: 0 }),
 };
 
 export default function AboutPinned() {
+  // [activeIndex, direction] — same tuple pattern as the testimonial
+  // carousel, so the slide direction always matches which tab was clicked.
+  const [[active, direction], setActive] = useState<[number, number]>([0, 0]);
+  const point = POINTS[active];
+
   return (
-    <section
-      id="about"
-      className="relative w-full flex flex-col items-center justify-center py-20 sm:py-28 lg:pb-44 pb-24 mt-10 mb-22"
-    >
-      <motion.h2
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.65, delay: 0.05, ease: "easeOut" as const }}
-        className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-[-0.03em] text-center text-neutral-900 dark:text-white mb-14"
-      >
-        About Me
-      </motion.h2>
+    <section id="about" className="relative w-full py-16 sm:py-20 lg:py-24">
+      <div className="mx-auto max-w-6xl px-6">
+        <motion.h2
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.65, ease: 'easeOut' }}
+          className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-[-0.03em] text-neutral-900"
+        >
+          About
+        </motion.h2>
 
-      <motion.div
-        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto px-6 w-full"
-        variants={containerVariants}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.2 }}
-      >
-        {CARDS.map((c) => {
-          const cfg = accentConfig[c.accent];
-          return (
-            <motion.article
-              key={c.id}
-              variants={cardVariants}
-              className={`group relative flex flex-col rounded-3xl p-7 md:p-9
-                bg-neutral-950/80 backdrop-blur-xl
-                border border-white/[0.06] ${cfg.borderHover}
-                shadow-xl shadow-black/40 ${cfg.glowColor}
-                hover:shadow-2xl hover:-translate-y-1
-                transition-all duration-500 ease-out overflow-hidden cursor-default`}
-            >
-              {/* Decorative large number in background */}
-              <span
-                className={`absolute -top-4 -right-2 text-[7rem] font-black leading-none select-none pointer-events-none ${cfg.numColor} transition-all duration-500 group-hover:scale-105 group-hover:-translate-y-1`}
-                aria-hidden="true"
-              >
-                {c.num}
-              </span>
-
-              {/* Top row: icon + tag */}
-              <div className="flex items-start justify-between mb-6 relative z-10">
-                <div
-                  className={`flex items-center justify-center w-11 h-11 rounded-2xl ${cfg.iconBg} ring-1 ring-white/5`}
-                >
-                  <c.Icon
-                    className={`w-5 h-5 ${cfg.iconColor}`}
-                    strokeWidth={1.75}
-                  />
-                </div>
-                <span
-                  className={`text-[0.65rem] font-semibold tracking-[0.14em] uppercase px-3 py-1 rounded-full ${cfg.tagBg} ${cfg.tagText} ring-1 ring-white/5`}
-                >
-                  {c.tag}
-                </span>
-              </div>
-
-              {/* Content */}
-              <div className="relative z-10 flex flex-col flex-1">
-                <h3 className="text-lg md:text-xl font-semibold mb-3 tracking-[-0.02em] text-white leading-snug">
-                  {c.title}
-                </h3>
-                <p className="text-[0.88rem] md:text-[0.93rem] leading-[1.85] text-neutral-400 group-hover:text-neutral-300 transition-colors duration-300">
-                  {c.body}
-                </p>
-              </div>
-
-              {/* Bottom rule accent */}
-              <div
-                className={`mt-7 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent relative z-10`}
-              />
-            </motion.article>
-          );
-        })}
-      </motion.div>
-
-      {/* CTA card  full-width, split layout */}
-      <motion.div
-        initial={{ opacity: 0, y: 40, scale: 0.97 }}
-        whileInView={{ opacity: 1, y: 0, scale: 1 }}
-        viewport={{ once: true, amount: 0.3 }}
-        transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" as const }}
-        className="mt-6 max-w-6xl mx-auto px-6 w-full mb-24"
-      >
-        <div className="relative overflow-hidden rounded-3xl border border-white/[0.07] bg-neutral-950/80 backdrop-blur-xl shadow-2xl shadow-black/50">
-          {/* Background glow */}
-          <div
-            className="absolute inset-0 pointer-events-none"
-            aria-hidden="true"
+        {/* Editorial split: a portrait column beside a tabbed text column.
+            The portrait is a gentler crop of the same hero photo, so the
+            face isn't filling the frame twice in two different ways. */}
+        <div className="mt-14 grid gap-10 lg:grid-cols-12 lg:gap-16 lg:items-start">
+          <motion.div
+            initial={{ opacity: 0, x: -24 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+            className="lg:col-span-5"
           >
-            <div className="absolute -top-24 -left-24 w-72 h-72 rounded-full bg-yellow-400/5 blur-3xl" />
-            <div className="absolute -bottom-16 -right-16 w-60 h-60 rounded-full bg-indigo-500/5 blur-3xl" />
-          </div>
+            <div className="relative mx-auto max-w-sm overflow-hidden rounded-[2rem] border border-yellow-500/20 shadow-[0_30px_60px_-20px_rgba(0,0,0,0.25)] lg:mx-0 lg:max-w-none">
+              <div className="aspect-[4/5] w-full">
+                <picture className="block h-full w-full">
+                  <source
+                    srcSet="https://pub-b5a150bb321345d8b75dc53ad13f4d10.r2.dev/portfolioHero2.webp"
+                    type="image/webp"
+                  />
+                  <img
+                    src="https://pub-b5a150bb321345d8b75dc53ad13f4d10.r2.dev/portfolioHero-optimized.png"
+                    alt="Joshua Igburu at his desk"
+                    loading="lazy"
+                    className="h-full w-full origin-[50%_14%] scale-[1.3] object-cover"
+                  />
+                </picture>
+              </div>
+              {/* A plain corner accent, not a text overlay: the photo stands
+                  on its own, without a caption plastered across it. */}
+              <div
+                className="pointer-events-none absolute right-5 top-5 h-8 w-8 border-r-2 border-t-2 border-yellow-400/70"
+                aria-hidden="true"
+              />
+            </div>
+            <p className="mx-auto mt-4 max-w-sm text-center text-[13px] text-neutral-400 lg:mx-0 lg:max-w-none lg:text-left">
+              Joshua Igburu (Globe the Dev)
+            </p>
+          </motion.div>
 
-          <div className="relative z-10 flex flex-col lg:flex-row items-center justify-between gap-8 p-8 md:p-10">
-            {/* Left: copy */}
-            <div className="flex-1 text-center lg:text-left">
-              <p className="text-[0.7rem] font-semibold tracking-[0.18em] uppercase text-yellow-400/80 mb-2 select-none">
-                Ready to move?
-              </p>
-              <h3 className="text-2xl md:text-3xl font-bold tracking-[-0.025em] text-white mb-3">
-                Let's Build Something Great
-              </h3>
-              <p className="text-[0.9rem] text-neutral-400 leading-[1.8] max-w-md">
-                Have a vision in mind or just need a fresh online presence?
-                Let's team up and turn your ideas into a site that inspires,
-                converts, and stands out.
-              </p>
+          <div className="lg:col-span-7">
+            {/* Tabs, styled like the site's own nav links: same underline-
+                on-active treatment, same type scale. Clicking one swaps the
+                panel below with a slide, instead of showing all three at
+                once — reads as a deliberate interaction, not a wall of text. */}
+            <div
+              role="tablist"
+              aria-label="About topics"
+              className="flex flex-wrap gap-x-8 gap-y-3 border-b border-neutral-900/10 pb-4"
+            >
+              {POINTS.map((p, i) => {
+                const isActive = i === active;
+                return (
+                  <button
+                    key={p.id}
+                    type="button"
+                    role="tab"
+                    aria-selected={isActive}
+                    aria-controls={`about-panel-${p.id}`}
+                    onClick={() => setActive([i, i > active ? 1 : -1])}
+                    className="group relative pb-4 -mb-4 text-[15px] font-medium tracking-[0.01em] transition-colors duration-300"
+                    style={{ color: isActive ? '#a16207' : 'rgba(23,23,23,0.45)' }}
+                  >
+                    {p.title}
+                    <span
+                      aria-hidden="true"
+                      className={`absolute bottom-0 left-0 h-[2px] rounded-full bg-yellow-600 transition-all duration-300 ease-out ${
+                        isActive ? 'w-full opacity-100' : 'w-0 opacity-0 group-hover:w-full group-hover:opacity-40'
+                      }`}
+                    />
+                  </button>
+                );
+              })}
             </div>
 
-            {/* Right: CTA */}
-            <div className="flex-shrink-0">
-              <a
-                href="#discovery"
-                onClick={handleCtaClick}
-                className="group inline-flex items-center gap-3 px-8 py-4 rounded-2xl
-                           bg-yellow-400 text-neutral-900 font-semibold text-[0.95rem]
-                           shadow-[0_0_0_0_rgba(234,179,8,0)] hover:shadow-[0_0_32px_6px_rgba(234,179,8,0.35)]
-                           hover:bg-yellow-300 active:scale-[0.97] active:bg-yellow-500
-                           focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-yellow-400/50
-                           transition-all duration-300 ease-out"
-              >
-                Start Building
-                <span className="flex items-center justify-center w-7 h-7 rounded-full bg-neutral-900/15 group-hover:translate-x-1 transition-transform duration-300">
-                  <ArrowRight className="w-4 h-4" />
-                </span>
-              </a>
+            {/* Reserved height keeps the layout still while the longest of
+                the three bodies swaps in. */}
+            <div className="relative mt-7 min-h-[230px] sm:min-h-[170px]">
+              <AnimatePresence mode="wait" custom={direction}>
+                <motion.div
+                  key={point.id}
+                  id={`about-panel-${point.id}`}
+                  role="tabpanel"
+                  custom={direction}
+                  variants={SLIDE_VARIANTS}
+                  initial="enter"
+                  animate="center"
+                  exit="exit"
+                  transition={{ duration: 0.32, ease: 'easeOut' }}
+                  className="flex gap-4"
+                >
+                  <point.Icon
+                    className={`mt-1 h-5 w-5 flex-shrink-0 ${point.accent}`}
+                    strokeWidth={1.75}
+                    aria-hidden="true"
+                  />
+                  <p className="max-w-[56ch] text-[15px] leading-[1.8] text-neutral-600">
+                    {point.body}
+                  </p>
+                </motion.div>
+              </AnimatePresence>
             </div>
           </div>
         </div>
-      </motion.div>
+
+        {/* CTA card, full-width, split layout */}
+        <motion.div
+          initial={{ opacity: 0, y: 40, scale: 0.97 }}
+          whileInView={{ opacity: 1, y: 0, scale: 1 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.8, delay: 0.1, ease: 'easeOut' }}
+          className="mt-16 lg:mt-20"
+        >
+          <CtaPanel />
+        </motion.div>
+      </div>
     </section>
   );
 }

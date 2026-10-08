@@ -1,0 +1,321 @@
+- generic [ref=e2]:
+  - navigation [ref=e3]:
+    - link "Joshua." [ref=e4] [cursor=pointer]:
+      - /url: "#hero"
+    - generic [ref=e5]:
+      - generic [ref=e6]:
+        - link "Home" [ref=e7] [cursor=pointer]:
+          - /url: "#hero"
+        - link "Work" [ref=e9] [cursor=pointer]:
+          - /url: "#projects"
+        - link "Skills" [ref=e10] [cursor=pointer]:
+          - /url: "#tech"
+        - link "About" [ref=e11] [cursor=pointer]:
+          - /url: "#about"
+        - link "Services" [ref=e12] [cursor=pointer]:
+          - /url: "#services"
+        - link "Case Studies" [ref=e13] [cursor=pointer]:
+          - /url: /projects
+      - link "Start a project" [ref=e17] [cursor=pointer]:
+        - /url: "#discovery"
+  - main [ref=e21]:
+    - generic [ref=e24]:
+      - generic [ref=e25]:
+        - generic [ref=e26]: Available for engineering roles and freelance work
+        - heading "Joshua Igburu (Globe the Dev)" [level=1] [ref=e31]:
+          - text: Joshua Igburu
+          - generic [ref=e32]: (Globe the Dev)
+        - paragraph [ref=e33]: Full-Stack Engineer & Product Builder
+        - paragraph [ref=e34]: "I build web systems that handle real money, real users, and real edge cases: product infrastructure, payment integrations, and client-facing platforms, from zero to production."
+        - generic [ref=e37]:
+          - list [ref=e39]:
+            - listitem [ref=e40]:
+              - button "Cloudflare Workers" [ref=e41]
+            - listitem [ref=e43]:
+              - button "Next.js" [ref=e44]
+            - listitem [ref=e46]:
+              - button "TypeScript" [ref=e47]
+            - listitem [ref=e49]:
+              - button "Hono" [ref=e50]
+            - listitem [ref=e52]:
+              - button "PostgreSQL" [ref=e53]
+            - listitem [ref=e55]:
+              - button "Cloudflare D1" [ref=e56]
+            - listitem [ref=e58]:
+              - button "Drizzle" [ref=e59]
+            - listitem [ref=e61]:
+              - button "React" [ref=e62]
+            - listitem [ref=e64]:
+              - button "Paystack" [ref=e65]
+            - listitem [ref=e67]:
+              - button "Tailwind CSS" [ref=e68]
+            - listitem [ref=e70]:
+              - button "Cloudflare Workers" [ref=e71]
+            - listitem [ref=e73]:
+              - button "Next.js" [ref=e74]
+            - listitem [ref=e76]:
+              - button "TypeScript" [ref=e77]
+            - listitem [ref=e79]:
+              - button "Hono" [ref=e80]
+            - listitem [ref=e82]:
+              - button "PostgreSQL" [ref=e83]
+            - listitem [ref=e85]:
+              - button "Cloudflare D1" [ref=e86]
+            - listitem [ref=e88]:
+              - button "Drizzle" [ref=e89]
+            - listitem [ref=e91]:
+              - button "React" [ref=e92]
+            - listitem [ref=e94]:
+              - button "Paystack" [ref=e95]
+            - listitem [ref=e97]:
+              - button "Tailwind CSS" [ref=e98]
+          - paragraph [ref=e101]: Hover a logo to see where it earns its place.
+      - img "Portrait of Joshua Igburu, Web Developer" [ref=e105]
+    - generic [ref=e106]:
+      - heading "Work" [level=2] [ref=e109]
+      - separator [ref=e110]
+      - generic [ref=e111]:
+        - generic [ref=e113]:
+          - generic [ref=e115]:
+            - img "GoBig MarketPlace preview" [ref=e119]
+            - generic [ref=e121]:
+              - button "Watch Demo" [ref=e122]
+              - link "Visit Live" [ref=e125] [cursor=pointer]:
+                - /url: https://verify-gee.vercel.app/
+              - link "Case Study" [ref=e130] [cursor=pointer]:
+                - /url: /projects#gobig
+          - generic [ref=e135]:
+            - img "GoBig MarketPlace preview" [ref=e139]
+            - generic [ref=e142]:
+              - button "Demo" [ref=e143]
+              - link "Live" [ref=e146] [cursor=pointer]:
+                - /url: https://verify-gee.vercel.app/
+              - link "Case" [ref=e151] [cursor=pointer]:
+                - /url: /projects#gobig
+        - separator [ref=e155]
+        - generic [ref=e157]:
+          - generic [ref=e159]:
+            - img "Accafooty preview" [ref=e163]
+            - generic [ref=e165]:
+              - button "Watch Demo" [ref=e166]
+              - link "Visit Live" [ref=e169] [cursor=pointer]:
+                - /url: https://sportvest.capital/
+              - link "Case Study" [ref=e174] [cursor=pointer]:
+                - /url: /projects#accafooty
+          - generic [ref=e179]:
+            - img "Accafooty preview" [ref=e183]
+            - generic [ref=e186]:
+              - button "Demo" [ref=e187]
+              - link "Live" [ref=e190] [cursor=pointer]:
+                - /url: https://sportvest.capital/
+              - link "Case" [ref=e195] [cursor=pointer]:
+                - /url: /projects#accafooty
+        - separator [ref=e199]
+        - generic [ref=e201]:
+          - generic [ref=e203]:
+            - img "ThriveWithT preview" [ref=e207]
+            - generic [ref=e209]:
+              - button "Watch Demo" [ref=e210]
+              - link "Visit Live" [ref=e213] [cursor=pointer]:
+                - /url: https://www.thrivewitht.com.au/
+              - link "Case Study" [ref=e218] [cursor=pointer]:
+                - /url: /projects#thrivewitht
+          - generic [ref=e223]:
+            - img "ThriveWithT preview" [ref=e227]
+            - generic [ref=e230]:
+              - button "Demo" [ref=e231]
+              - link "Live" [ref=e234] [cursor=pointer]:
+                - /url: https://www.thrivewitht.com.au/
+              - link "Case" [ref=e239] [cursor=pointer]:
+                - /url: /projects#thrivewitht
+      - separator [ref=e243]
+      - generic [ref=e246]:
+        - generic [ref=e247]:
+          - paragraph [ref=e248]: Want more detail?
+          - heading "See the Full Case Studies" [level=3] [ref=e249]
+          - paragraph [ref=e250]: "Every project above has a deeper write-up: what I built, the production problems I hit, and how I fixed them."
+        - link [ref=e252] [cursor=pointer]:
+          - /url: /projects
+    - generic [ref=e257]:
+      - generic [ref=e258]:
+        - heading "Skills" [level=2] [ref=e259]
+        - paragraph [ref=e260]: Things I can speak to in depth and defend under pressure.
+      - generic [ref=e261]:
+        - generic [ref=e262]:
+          - generic [ref=e263]:
+            - heading "Cloudflare Workers" [level=3] [ref=e267]
+            - paragraph [ref=e268]: Execution model, waitUntil, KV caching, D1, per-request CPU limits and how to design around them on the free plan.
+          - paragraph [ref=e270]: The runtimeeverything elsesits on
+        - generic [ref=e272]:
+          - heading "Payment Infrastructure" [level=3] [ref=e277]
+          - paragraph [ref=e278]: HMAC webhook verification, idempotent event processing, failure classification, reconciliation tooling, Paystack and Flutterwave edge cases.
+        - generic [ref=e280]:
+          - heading "Database Design" [level=3] [ref=e286]
+          - paragraph [ref=e287]: D1 with Drizzle, PostgreSQL with pgvector, double-entry ledger architecture, and D1's 100-parameter-per-statement limit with practical workarounds.
+        - generic [ref=e289]:
+          - heading "Financial Systems" [level=3] [ref=e293]
+          - paragraph [ref=e294]: Double-entry ledger design, append-only transaction tables, atomic batch writes, KYC gating, withdrawal tier enforcement.
+        - generic [ref=e296]:
+          - heading "Monorepo Architecture" [level=3] [ref=e308]
+          - paragraph [ref=e309]: Turborepo with pnpm workspaces, shared packages, cross-boundary type safety.
+        - generic [ref=e311]:
+          - heading "AI-Native Development" [level=3] [ref=e316]
+          - paragraph [ref=e317]: Claude API in production SaaS, pgvector embeddings, building features where AI is infrastructure rather than a feature flag.
+    - generic [ref=e319]:
+      - heading "About" [level=2] [ref=e320]
+      - generic [ref=e321]:
+        - generic [ref=e322]:
+          - img "Joshua Igburu at his desk" [ref=e326]
+          - paragraph [ref=e327]: Joshua Igburu (Globe the Dev)
+        - generic [ref=e328]:
+          - tablist "About topics" [ref=e329]:
+            - tab "Who I Am" [selected] [ref=e330]
+            - tab "How I Work" [ref=e332]
+            - tab "Two Brands" [ref=e333]
+          - tabpanel [ref=e335]:
+            - paragraph [ref=e340]: I'm a full-stack developer and CS student at Federal University Otuoke who builds production software in the same hours other people study it. My stack is Cloudflare Workers, Hono, D1, Drizzle and Next.js, plus the African payment stack, with enough production scar tissue to know exactly where things go wrong.
+      - generic [ref=e343]:
+        - generic [ref=e344]:
+          - paragraph [ref=e345]: Ready to move?
+          - heading "Let's Build Something Great" [level=3] [ref=e346]
+          - paragraph [ref=e347]: Have a vision in mind or just need a fresh online presence? Let's team up and turn your ideas into a site that inspires, converts, and stands out.
+        - link [ref=e349] [cursor=pointer]:
+          - /url: "#discovery"
+    - generic [ref=e354]:
+      - heading "Services" [level=2] [ref=e355]
+      - generic [ref=e356]:
+        - generic [ref=e357]:
+          - heading "Full-Stack Development" [level=3] [ref=e358]
+          - paragraph [ref=e359]: APIs on Cloudflare Workers, relational data modelling, Next.js frontends. Systems designed for production, not demos.
+        - generic [ref=e360]:
+          - heading "Payment Infrastructure" [level=3] [ref=e361]
+          - paragraph [ref=e362]: Webhook verification, idempotent crediting, silent-failure detection, retry logic, reconciliation dashboards. I've debugged wallet credits that never landed and built the admin tooling to catch it before support tickets arrive.
+        - generic [ref=e363]:
+          - heading "SaaS Architecture" [level=3] [ref=e364]
+          - paragraph [ref=e365]: "Monorepo structure, multi-tenant design, background job patterns, KV caching: the boring decisions that let products scale without rewrites."
+        - generic [ref=e366]:
+          - heading "Web Design & Landing Pages" [level=3] [ref=e367]
+          - paragraph [ref=e368]: Editorial aesthetics, scroll-driven animation, conversion-focused layouts. Built to load fast and look like they cost more than they did.
+    - generic [ref=e421]:
+      - heading "What Clients Say" [level=2] [ref=e422]
+      - generic [ref=e423]:
+        - generic [ref=e430]:
+          - paragraph [ref=e431]: Globe created a stunning, functional site for my wellness and sales business. I couldn’t be happier with the results and how well it converts!
+          - paragraph [ref=e432]: Thrive by T · ThriveWithT
+        - generic [ref=e433]:
+          - button "Previous testimonial" [ref=e434]
+          - generic [ref=e437]:
+            - button "Go to testimonial 1" [ref=e438]
+            - button "Go to testimonial 2" [ref=e440]
+            - button "Go to testimonial 3" [ref=e442]
+            - button "Go to testimonial 4" [ref=e444]
+          - button "Next testimonial" [ref=e446]
+      - generic [ref=e451]:
+        - generic [ref=e452]:
+          - paragraph [ref=e453]: Ready to move?
+          - heading "Let's Build Something Great" [level=3] [ref=e454]
+          - paragraph [ref=e455]: Have a vision in mind or just need a fresh online presence? Let's team up and turn your ideas into a site that inspires, converts, and stands out.
+        - link [ref=e457] [cursor=pointer]:
+          - /url: "#discovery"
+    - generic [ref=e462]:
+      - generic [ref=e463]: My Strategy
+      - paragraph [ref=e464]: Every project is a journey. Here’s how I transform ideas into immersive, high-performing digital experiences, step by step.
+      - generic [ref=e475]:
+        - generic [ref=e476]: Discovery
+        - generic [ref=e477]: UI/UX Design
+        - generic [ref=e478]: Development
+        - generic [ref=e479]: Testing & QA
+        - generic [ref=e480]: Deployment
+        - generic [ref=e481]: Iteration
+        - generic [ref=e482]: Maintenance
+    - generic [ref=e486]:
+      - heading "Start a project" [level=2] [ref=e487]
+      - paragraph [ref=e488]: Hiring for a role or bringing a freelance build? Six fields, one message, and I'll reply with the right next step.
+      - generic [ref=e489]:
+        - radiogroup "I'm reaching out as" [ref=e490]:
+          - radio "Hiring company" [checked] [ref=e491]
+          - radio "Freelance client" [ref=e495]
+        - generic [ref=e499]:
+          - textbox "Your name" [ref=e501]
+          - textbox "you@company.com" [ref=e503]
+        - generic [ref=e504]:
+          - textbox "Company name" [ref=e506]
+          - textbox "Role, e.g. Senior Backend Engineer" [ref=e508]
+        - textbox "What are you building, and what does this role own?" [ref=e510]
+        - button "Send" [ref=e511]
+      - generic [ref=e515]:
+        - generic [ref=e516]: Or reach me directly
+        - generic [ref=e517]:
+          - link "GitHub" [ref=e518] [cursor=pointer]:
+            - /url: https://github.com/JJcode-r/
+          - link "LinkedIn" [ref=e522] [cursor=pointer]:
+            - /url: https://www.linkedin.com/in/globe-the-dev-7b178919a/
+          - link "X" [ref=e527] [cursor=pointer]:
+            - /url: https://x.com/globe_the_dev?t=RO6MAOivsMGasX5H5XPZVA&s=09
+  - contentinfo [ref=e530]:
+    - button "Back to top" [ref=e531]
+    - generic [ref=e534]:
+      - generic [ref=e535]:
+        - generic [ref=e536]: Joshua Igburu
+        - paragraph [ref=e537]: Building platforms that look premium and get paid.
+        - link "Start a project" [ref=e538] [cursor=pointer]:
+          - /url: "#discovery"
+      - generic [ref=e539]:
+        - heading "Site Map" [level=3] [ref=e540]
+        - list [ref=e541]:
+          - listitem [ref=e542]:
+            - link "Home" [ref=e543] [cursor=pointer]:
+              - /url: "#hero"
+          - listitem [ref=e544]:
+            - link "About" [ref=e545] [cursor=pointer]:
+              - /url: "#about"
+          - listitem [ref=e546]:
+            - link "Projects" [ref=e547] [cursor=pointer]:
+              - /url: "#projects"
+          - listitem [ref=e548]:
+            - link "Tech Stack" [ref=e549] [cursor=pointer]:
+              - /url: "#tech"
+          - listitem [ref=e550]:
+            - link "Testimonials" [ref=e551] [cursor=pointer]:
+              - /url: "#testimonials"
+          - listitem [ref=e552]:
+            - link "Contact" [ref=e553] [cursor=pointer]:
+              - /url: "#contact"
+      - generic [ref=e554]:
+        - heading "Expertise" [level=3] [ref=e555]
+        - list [ref=e556]:
+          - listitem [ref=e557]:
+            - link "Payment Integration" [ref=e558] [cursor=pointer]:
+              - /url: "#tech"
+          - listitem [ref=e559]:
+            - link "Wallet & Payout Systems" [ref=e560] [cursor=pointer]:
+              - /url: "#tech"
+          - listitem [ref=e561]:
+            - link "Full-Stack Development" [ref=e562] [cursor=pointer]:
+              - /url: "#projects"
+          - listitem [ref=e563]:
+            - link "SaaS Platforms" [ref=e564] [cursor=pointer]:
+              - /url: "#projects"
+          - listitem [ref=e565]:
+            - link "UI/UX" [ref=e566] [cursor=pointer]:
+              - /url: "#projects"
+          - listitem [ref=e567]:
+            - link "Performance Optimization" [ref=e568] [cursor=pointer]:
+              - /url: "#tech"
+      - generic [ref=e569]:
+        - heading "Connect" [level=3] [ref=e570]
+        - list [ref=e571]:
+          - listitem [ref=e572]:
+            - link "LinkedIn" [ref=e573] [cursor=pointer]:
+              - /url: https://www.linkedin.com/in/globe-the-dev-7b178919a/
+          - listitem [ref=e574]:
+            - link "Twitter" [ref=e575] [cursor=pointer]:
+              - /url: https://x.com/globe_the_dev?t=RO6MAOivsMGasX5H5XPZVA&s=09
+          - listitem [ref=e576]:
+            - link "Email" [ref=e577] [cursor=pointer]:
+              - /url: mailto:globetechwrld@gmail.com
+          - listitem [ref=e578]:
+            - link "Start a project" [ref=e579] [cursor=pointer]:
+              - /url: "#discovery"
+    - separator
+    - paragraph [ref=e581]: © 2026 Joshua Igburu. All rights reserved.

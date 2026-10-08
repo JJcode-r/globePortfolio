@@ -2,7 +2,7 @@ import type { Variants } from 'framer-motion';
 import { AnimatePresence, motion, useInView } from 'framer-motion';
 import React, { useMemo, useRef, useState } from 'react';
 
-export interface TechItem {
+interface TechItem {
   id: number;
   name: string;
   logo: string;
@@ -231,7 +231,7 @@ const secondaryItems: TechItem[] = [
 
 // --- Helpers ---
 const getLoopedItems = (items: TechItem[]) => [...items, ...items, ...items];
-export const STACK_DATA_ROWS: StackDataRow[] = [
+const STACK_DATA_ROWS: StackDataRow[] = [
   { id: 'row0', items: getLoopedItems(paymentsItems) },
   { id: 'row1', items: getLoopedItems(coreItems) },
   { id: 'row2', items: getLoopedItems(secondaryItems) },
@@ -328,10 +328,10 @@ export const InfiniteTechGrid: React.FC<{ data?: StackDataRow[] }> = ({
         animate={isInView ? 'visible' : 'hidden'}
         className="text-center mb-12 px-4"
       >
-        <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-[-0.03em] text-black dark:text-white">
+        <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-[-0.03em] text-black">
           Tech Stack
         </h2>
-        <p className="mt-4 text-sm sm:text-base md:text-lg text-black/60 dark:text-gray-400 max-w-xl mx-auto leading-relaxed">
+        <p className="mt-4 text-sm sm:text-base md:text-lg text-black/60 max-w-xl mx-auto leading-relaxed">
           The full stack I build with from payment APIs and edge workers to the
           front ends that ship them.
         </p>
@@ -437,24 +437,24 @@ export const InfiniteTechGrid: React.FC<{ data?: StackDataRow[] }> = ({
         transition={{ type: 'spring', stiffness: 100, damping: 18 }}
         className="mt-16 text-center pb-32"
       >
-        <h3 className="text-2xl sm:text-3xl font-bold text-neutral-900 dark:text-white mb-3">
+        <h3 className="text-2xl sm:text-3xl font-bold text-neutral-900 mb-3">
           Ready to launch your project with this stack?
         </h3>
-        <p className="text-lg text-neutral-700 dark:text-gray-300 mb-6">
+        <p className="text-lg text-neutral-700 mb-6">
           I use these exact technologies to build websites that load fast, look
           premium, and convert visitors into customers.
         </p>
         <a
           href="#discovery"
           onClick={handleCtaClick}
-          className="inline-flex items-center justify-center gap-2 px-8 py-3 text-base font-semibold rounded-full bg-yellow-500 text-neutral-900 hover:bg-yellow-400 transition-all duration-300 shadow-lg shadow-yellow-400/30 active:scale-[0.98]"
+          className="inline-flex items-center justify-center gap-2 px-8 py-3 text-base font-semibold rounded-full bg-yellow-400 text-neutral-900 hover:bg-yellow-300 transition duration-300 shadow-lg shadow-yellow-400/30 active:scale-[0.98]"
         >
           Let's Plan Your Strategy
         </a>
         <div className="mt-6">
           <a
             href="#projects"
-            className="text-base font-medium text-gray-700 dark:text-gray-300 hover:text-yellow-500 dark:hover:text-yellow-500 transition-colors duration-200 border-b border-transparent hover:border-yellow-500"
+            className="text-base font-medium text-gray-700 hover:text-yellow-500 transition-colors duration-200 border-b border-transparent hover:border-yellow-500"
           >
             Or, explore my portfolio first &rarr;
           </a>

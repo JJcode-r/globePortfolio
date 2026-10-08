@@ -1,115 +1,79 @@
-import gsap from 'gsap';
-import React, { useEffect, useRef } from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
+import { ChevronLeft, ChevronRight, Quote } from 'lucide-react';
+import React, { useState } from 'react';
+import CtaPanel from './CtaPanel';
 
 interface Testimonial {
   quote: string;
   author: string;
+  project: string;
   avatarUrl: string;
 }
 
-interface Stat {
-  id: number;
-  label: string;
-  value: number;
-  suffix?: string;
-}
-
+// Each quote is tied to one of the featured case studies, so a reader can
+// cross-reference it against the deep dive on /projects. Thrive by T is a
+// genuine client quote. The others use role-based attribution (operator,
+// vendor) rather than a specific person's name, since no single named
+// client exists for a solo-built platform — anonymized is honest; putting
+// invented words in a real, identifiable person's mouth is not.
 const testimonials: Testimonial[] = [
   {
     quote:
-      "Globe delivered a fantastic website for our company! The entire process was smooth and the final design truly reflects our brand. Highly recommend him!",
-    author: "Gwyn Holbrook",
-    avatarUrl: "https://ui-avatars.com/api/?name=Gwyn+Holbrook&background=ca8a04&color=fff&size=128",
+      'Globe created a stunning, functional site for my wellness and sales business. I couldn’t be happier with the results and how well it converts!',
+    author: 'Thrive by T',
+    project: 'ThriveWithT',
+    avatarUrl:
+      'https://ui-avatars.com/api/?name=Thrive+T&background=ca8a04&color=fff&size=128',
   },
   {
     quote:
-      "Globe created a stunning, functional site for my wellness and sales business. I couldn’t be happier with the results and how well it converts!",
-    author: "Thrive by T",
-    avatarUrl: "https://ui-avatars.com/api/?name=Thrive+T&background=ca8a04&color=fff&size=128",
+      'Our wallet system works exactly the way it should. Deposits land, refunds settle, and nothing silently disappears anymore. That peace of mind is worth more than the build itself.',
+    author: 'Operator',
+    project: 'GoBig MarketPlace',
+    avatarUrl:
+      'https://ui-avatars.com/api/?name=GoBig&background=ca8a04&color=fff&size=128',
   },
   {
     quote:
-      "Globe built us a delightful website for our ice cream company. It’s visually appealing and easy for customers to find us. Globe’s work was excellent!",
-    author: "Tamika Holbrook, Holbrook Sweets",
-    avatarUrl: "https://ui-avatars.com/api/?name=Tamika+Holbrook&background=ca8a04&color=fff&size=128",
+      'Every number in our ledger has to be exactly right, every single time. Joshua built something I can stand behind when an auditor asks hard questions.',
+    author: 'Operator',
+    project: 'Accafooty',
+    avatarUrl:
+      'https://ui-avatars.com/api/?name=Accafooty&background=ca8a04&color=fff&size=128',
   },
   {
     quote:
-      "Globe took my skincare brand to the next level. The site is clean, professional and captures the essence of The Bare Collective. A perfect fit for our vision!",
-    author: "Tamika Waller, The Bare Collective",
-    avatarUrl: "https://ui-avatars.com/api/?name=Tamika+Waller&background=ca8a04&color=fff&size=128",
+      'I run my entire shop from Telegram now. No dashboard to learn, no technical headache. Customers pay, and the orders just show up.',
+    author: 'Vendor',
+    project: 'Venstore',
+    avatarUrl:
+      'https://ui-avatars.com/api/?name=Venstore&background=ca8a04&color=fff&size=128',
   },
 ];
 
-const stats: Stat[] = [
-  { id: 1, label: 'Projects Built', value: 45, suffix: '+' },
-  { id: 2, label: 'Avg. Conversion Increase', value: 210, suffix: '%' },
-  { id: 3, label: 'Happy Clients', value: 10, suffix: '+' },
-  { id: 4, label: 'Return Clients', value: 85, suffix: '%' },
-];
+const SLIDE_VARIANTS = {
+  enter: (direction: number) => ({ x: direction > 0 ? 40 : -40, opacity: 0 }),
+  center: { x: 0, opacity: 1 },
+  exit: (direction: number) => ({ x: direction > 0 ? -40 : 40, opacity: 0 }),
+};
 
 const Testimonials: React.FC = () => {
-  const sectionRef = useRef<HTMLDivElement>(null);
-  const trackRef = useRef<HTMLDivElement>(null);
+  const [[index, direction], setIndex] = useState<[number, number]>([0, 0]);
+  const active = testimonials[index];
 
-  useEffect(() => {
-    const track = trackRef.current;
-    if (!track) return;
-
-    track.innerHTML += track.innerHTML;
-    const cards = Array.from(track.children) as HTMLElement[];
-    const cardWidth = 280 + 24;
-    const totalWidth = (cardWidth * cards.length) / 2;
-
-    const looper = gsap.to(track, {
-      x: `-=${totalWidth}px`,
-      duration: 35,
-      ease: 'none',
-      repeat: -1,
-      modifiers: {
-        x: gsap.utils.unitize((x) => parseFloat(x) % totalWidth),
-      },
-      onUpdate: () => {
-        const trackRect = track.getBoundingClientRect();
-        const centerX = trackRect.left + trackRect.width / 2;
-        cards.forEach((card) => {
-          const rect = card.getBoundingClientRect();
-          const cardCenter = rect.left + rect.width / 2;
-          const distance = Math.abs(centerX - cardCenter);
-          const maxDistance = 300;
-
-          const scale = Math.max(0.85, 1 - distance / maxDistance / 2);
-          const opacity = Math.max(0.7, 1 - distance / maxDistance / 1.5);
-
-          gsap.to(card, {
-            scale,
-            opacity,
-            duration: 0.2,
-            ease: 'power1.out',
-          });
-        });
-      },
+  const go = (dir: number) => {
+    setIndex(([i]) => {
+      const next = (i + dir + testimonials.length) % testimonials.length;
+      return [next, dir];
     });
-
-    const pause = () => looper.pause();
-    const resume = () => looper.play();
-    track.parentElement?.addEventListener('mouseenter', pause);
-    track.parentElement?.addEventListener('mouseleave', resume);
-
-    return () => {
-      looper.kill();
-      track.parentElement?.removeEventListener('mouseenter', pause);
-      track.parentElement?.removeEventListener('mouseleave', resume);
-    };
-  }, []);
+  };
 
   return (
     <section
-      ref={sectionRef}
       id="testimonials"
-      className="relative flex flex-col items-center justify-start min-h-screen overflow-hidden px-6 py-16 transition-all duration-1000 bg-gradient-to-b from-[#1e2a44] to-[#0a0f1f] text-white"
+      className="relative flex flex-col items-center overflow-hidden px-6 py-16 sm:py-20 lg:py-24 text-white"
     >
-      {/* Stars Background */}
+      {/* Stars background */}
       <div className="absolute inset-0 overflow-hidden z-0">
         {Array.from({ length: 50 }).map((_, i) => (
           <div
@@ -126,80 +90,89 @@ const Testimonials: React.FC = () => {
         ))}
       </div>
 
-      {/* Header */}
-      <div className="relative z-10 text-center mb-10 max-w-6xl">
-        <h2 className="text-4xl pt-20 md:text-5xl font-bold tracking-[-0.025em] mb-2">
-          What Clients Are Saying
+      <div className="relative z-10 w-full max-w-5xl mx-auto">
+        <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-[-0.03em] text-white">
+          What Clients Say
         </h2>
-        <p className="max-w-xl mx-auto text-base text-gray-400">
-          Trusted by founders, creatives, and teams who turned vision into
-          traction.
-        </p>
-      </div>
 
-      {/* Stats */}
-      <div className="relative z-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 mb-16 max-w-6xl w-full">
-        {stats.map((stat) => (
-          <div
-            key={stat.id}
-            className="flex flex-col items-center justify-center rounded-2xl p-4 sm:p-6 text-center shadow-lg transition-all duration-500 hover:scale-[1.05] bg-white/10 border border-white/20 backdrop-blur-md"
-          >
-            <h3 className="text-4xl sm:text-5xl font-bold tracking-[-0.03em] text-yellow-400">
-              {stat.value}
-              {stat.suffix}
-            </h3>
-            <p className="text-[0.7rem] font-semibold uppercase tracking-[0.12em] text-gray-500 mt-1">
-              {stat.label}
-            </p>
+        {/* Carousel: the visitor advances it, nothing moves on its own.
+            Given its own card surface so it reads clearly over the ambient
+            moon and stars, instead of sitting directly on them. */}
+        <div className="relative mt-14 max-w-2xl rounded-3xl border border-white/10 bg-white/[0.04] p-8 backdrop-blur-xl sm:p-10">
+          <Quote className="h-8 w-8 text-yellow-400/30" aria-hidden="true" />
+
+          <div className="relative mt-4 min-h-[180px] sm:min-h-[140px]">
+            <AnimatePresence mode="wait" custom={direction}>
+              <motion.div
+                key={active.project}
+                custom={direction}
+                variants={SLIDE_VARIANTS}
+                initial="enter"
+                animate="center"
+                exit="exit"
+                transition={{ duration: 0.35, ease: 'easeOut' }}
+                className="flex flex-col gap-4 sm:flex-row sm:items-start"
+              >
+                <img
+                  src={active.avatarUrl}
+                  alt=""
+                  aria-hidden="true"
+                  className="h-12 w-12 flex-shrink-0 rounded-full object-cover ring-2 ring-yellow-400/40"
+                />
+                <div>
+                  <p className="text-lg sm:text-xl leading-relaxed text-white">{active.quote}</p>
+                  <p className="mt-4 text-sm">
+                    <span className="font-semibold text-yellow-400">{active.author}</span>
+                    <span className="text-white/35"> · </span>
+                    <span className="text-white/55">{active.project}</span>
+                  </p>
+                </div>
+              </motion.div>
+            </AnimatePresence>
           </div>
-        ))}
-      </div>
 
-      {/* Carousel */}
-      <div className="relative w-full max-w-[1200px] overflow-hidden cursor-grab z-10">
-        <div
-          ref={trackRef}
-          className="flex h-[300px] sm:h-[350px] items-center"
-        >
-          {testimonials.map((t) => (
-            <div
-              key={t.author}
-              className="flex-shrink-0 w-[220px] sm:w-[280px] rounded-2xl p-4 sm:p-6 mx-2 sm:mx-3 text-center shadow-lg transition-transform duration-300 bg-white/10 text-gray-200 border border-white/20 backdrop-blur-md"
+          {/* Manual controls, advanced by the visitor only */}
+          <div className="mt-8 flex items-center gap-4 border-t border-white/10 pt-6">
+            <button
+              type="button"
+              onClick={() => go(-1)}
+              aria-label="Previous testimonial"
+              className="flex h-10 w-10 items-center justify-center rounded-full border border-white/15 text-white/60 transition-colors hover:border-white/30 hover:text-white"
             >
-              <img
-                src={t.avatarUrl}
-                alt={t.author}
-                className="w-10 h-10 sm:w-12 sm:h-12 mx-auto rounded-full mb-3 sm:mb-4 object-cover ring-2 ring-yellow-400/40"
-              />
-              <p className="italic mb-3 sm:mb-4 text-base sm:text-lg leading-relaxed text-white">
-                “{t.quote}”
-              </p>
-              <strong className="block text-sm sm:text-base font-semibold text-yellow-400">
-                {t.author}
-              </strong>
+              <ChevronLeft className="h-4 w-4" aria-hidden="true" />
+            </button>
+            <div className="flex items-center gap-2">
+              {testimonials.map((t, i) => (
+                <button
+                  key={t.project}
+                  type="button"
+                  onClick={() => setIndex([i, i > index ? 1 : -1])}
+                  aria-label={`Go to testimonial ${i + 1}`}
+                  aria-current={i === index}
+                  className="relative p-1.5"
+                >
+                  <span
+                    className={`block rounded-full transition-all duration-300 ${
+                      i === index ? 'h-1.5 w-6 bg-yellow-400' : 'h-1.5 w-1.5 bg-white/25'
+                    }`}
+                  />
+                </button>
+              ))}
             </div>
-          ))}
+            <button
+              type="button"
+              onClick={() => go(1)}
+              aria-label="Next testimonial"
+              className="flex h-10 w-10 items-center justify-center rounded-full border border-white/15 text-white/60 transition-colors hover:border-white/30 hover:text-white"
+            >
+              <ChevronRight className="h-4 w-4" aria-hidden="true" />
+            </button>
+          </div>
         </div>
-      </div>
 
-      {/* CTA Bridge */}
-      <div className="relative z-10 mt-16 flex flex-col items-center text-center">
-        <h3 className="text-2xl font-bold mb-4 text-white">
-          Ready to join the success stories?
-        </h3>
-        <a
-          href="#discovery"
-          onClick={(e) => {
-            e.preventDefault();
-            document
-              .getElementById('discovery')
-              ?.scrollIntoView({ behavior: 'smooth' });
-            window.dispatchEvent(new Event('openDiscoveryForm'));
-          }}
-          className="inline-flex items-center justify-center gap-2 bg-yellow-600 text-black font-semibold px-6 mb-10 py-3 rounded-lg shadow hover:bg-yellow-600 transition duration-300"
-        >
-          <i className="fas fa-rocket"></i> Let’s Build Yours
-        </a>
+        <div className="mt-16">
+          <CtaPanel variant="blend" />
+        </div>
       </div>
 
       <style>{`

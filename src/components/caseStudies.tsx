@@ -125,19 +125,12 @@ export const CaseStudies: React.FC = () => {
   return (
     <section
       id="caseStudies"
-      className="relative flex flex-col items-center justify-start py-24 px-6 lg:px-16 overflow-hidden bg-gradient-to-b from-slate-900 to-[#0a0f1f]"
+      className="relative flex flex-col items-center justify-start py-24 px-6 lg:px-16 overflow-hidden"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
+      onFocus={() => setPaused(true)}
+      onBlur={() => setPaused(false)}
     >
-      {/* Ambient glow behind active card */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background:
-            'radial-gradient(ellipse 60% 40% at 50% 60%, rgba(202,138,4,0.07) 0%, transparent 70%)',
-        }}
-      />
-
       {/* Heading */}
       <motion.div
         className="relative z-10 w-full max-w-5xl mb-14"
@@ -200,7 +193,7 @@ export const CaseStudies: React.FC = () => {
                       <p className="text-xl md:text-2xl font-black text-yellow-400 tracking-tight">
                         {m.value}
                       </p>
-                      <p className="text-[10px] md:text-xs text-gray-400 mt-1 uppercase tracking-wide font-medium">
+                      <p className="text-[10px] md:text-xs text-gray-400 mt-1 tracking-wide font-medium">
                         {m.label}
                       </p>
                     </div>
@@ -264,7 +257,10 @@ export const CaseStudies: React.FC = () => {
                 key={i}
                 onClick={() => go(i)}
                 aria-label={`Go to case study ${i + 1}`}
-                className="transition-all duration-300 rounded-full"
+                // Visual size stays a slim 6-24px pill; the pseudo-element widens
+                // the actual hit area to the 24px touch-target minimum without
+                // changing the row's width or spacing.
+                className="relative before:content-[''] before:absolute before:-inset-[9px] transition-[width,background-color] duration-300 rounded-full"
                 style={{
                   width: active === i ? '24px' : '6px',
                   height: '6px',
@@ -280,7 +276,7 @@ export const CaseStudies: React.FC = () => {
             <button
               onClick={prev}
               aria-label="Previous"
-              className="flex items-center justify-center w-10 h-10 rounded-full transition-all duration-200 hover:scale-105"
+              className="flex items-center justify-center w-10 h-10 rounded-full transition duration-200 hover:scale-105"
               style={{
                 background: 'rgba(255,255,255,0.05)',
                 border: '1px solid rgba(255,255,255,0.1)',
@@ -299,7 +295,7 @@ export const CaseStudies: React.FC = () => {
             <button
               onClick={next}
               aria-label="Next"
-              className="flex items-center justify-center w-10 h-10 rounded-full transition-all duration-200 hover:scale-105"
+              className="flex items-center justify-center w-10 h-10 rounded-full transition duration-200 hover:scale-105"
               style={{
                 background: 'rgba(255,255,255,0.05)',
                 border: '1px solid rgba(255,255,255,0.1)',

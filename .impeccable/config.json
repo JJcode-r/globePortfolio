@@ -1,0 +1,53 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "gray-on-color",
+        "value": "*",
+        "files": [
+          "src/pages/ProjectsPage.tsx"
+        ],
+        "createdAt": "2026-10-07T18:01:29.637Z",
+        "reason": "Claude verified: flagged lines are text-neutral-950 (#0a0a0a) on bg-yellow-400 (#facc15), ~12.8:1 contrast, above WCAG AAA. Rule reads the 'neutral' token as gray; remaining hits in this file are white-at-opacity on the navy ground, also high contrast."
+      },
+      {
+        "rule": "gray-on-color",
+        "value": "*",
+        "files": [
+          "src/components/Navbar.tsx"
+        ],
+        "createdAt": "2026-10-07T18:01:32.952Z",
+        "reason": "Claude verified: text-neutral-950 on bg-yellow-400 CTA, ~12.8:1 contrast. Same false positive as ProjectsPage."
+      },
+      {
+        "rule": "gray-on-color",
+        "value": "*",
+        "files": [
+          "src/components/CTAform.tsx"
+        ],
+        "createdAt": "2026-10-07T18:25:55.331Z",
+        "reason": "Claude verified: all 5 flagged lines are text-neutral-950 (#0a0a0a) on bg-yellow-400 (#facc15), ~12.8:1 contrast, above WCAG AAA. Same false positive already ignored for Navbar.tsx and ProjectsPage.tsx — the rule reads the 'neutral' token as gray."
+      },
+      {
+        "rule": "gray-on-color",
+        "value": "*",
+        "files": [
+          "src/components/CtaPanel.tsx"
+        ],
+        "createdAt": "2026-10-07T18:49:38.589Z",
+        "reason": "Claude verified: text-neutral-950 (#0a0a0a) on bg-yellow-400 (#facc15), ~12.8:1 contrast. Same pattern already ignored in Navbar.tsx, ProjectsPage.tsx, CTAform.tsx."
+      },
+      {
+        "rule": "gray-on-color",
+        "value": "*",
+        "files": [
+          "src/components/experience.tsx"
+        ],
+        "createdAt": "2026-10-07T22:05:39.503Z",
+        "reason": "Claude verified: text-neutral-950 (#0a0a0a) on bg-yellow-400 (#facc15), ~12.8:1 contrast, above WCAG AAA. Same pattern already ignored in Navbar.tsx, ProjectsPage.tsx, CTAform.tsx, CtaPanel.tsx."
+      }
+    ]
+  }
+}

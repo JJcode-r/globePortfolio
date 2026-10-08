@@ -80,13 +80,13 @@ const ThemeToggle: React.FC<ThemeToggleProps> = ({ sunRef, moonRef, heroTitleRef
 
     useEffect(() => {
         if (moonRef.current) {
+            moonRef.current.querySelectorAll('.crater').forEach((c) => c.remove());
             createMoonCraters(moonRef.current);
         }
 
         if (sections.length > 0) {
-              setupGsapAnimations(sunRef, moonRef, heroTitleRef, heroSubtitleRef, sections);
+            return setupGsapAnimations(sunRef, moonRef, heroTitleRef, heroSubtitleRef, sections);
         }
-
     }, [sections, sunRef, moonRef, heroTitleRef, heroSubtitleRef]);
 
     return (

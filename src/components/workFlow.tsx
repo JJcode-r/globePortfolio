@@ -1,4 +1,8 @@
 import React, { useState, useEffect, useCallback, useMemo, useRef } from 'react';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
 // NOTE: GSAP libraries are now loaded via CDN scripts below to fix compilation errors.
 // import gsap from 'gsap';
 // import { ScrollTrigger } from 'gsap/all';
@@ -31,15 +35,6 @@ const BASE_FILL_STYLES: React.CSSProperties = {
 // The string for the CSS animation property
 const FILL_ANIMATION_STRING = `fill ${ANIMATION_DURATION_MS / 1000}s linear infinite, shimmer 8s ease infinite`;
 
-// Helper component to inject GSAP CDNs
-const GSAPScripts = () => (
-	<>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" async></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" async></script>
-	</>
-);
-
-
 const WorkflowLoader: React.FC = () => {
 	const componentRef = useRef<HTMLDivElement>(null); 
 	const fillRef = useRef<HTMLDivElement>(null);
@@ -52,66 +47,27 @@ const WorkflowLoader: React.FC = () => {
 
 	// --- GSAP Setup and Entry Animation (Sets hasScrolledIn) ---
 	useEffect(() => {
-		let timeoutId: number;
+		const el = componentRef.current;
+		if (!el) return;
 
-		const checkAndInitializeGsap = () => {
-			// Access GSAP and ScrollTrigger from the global window object
-			// Use type assertion for window access since the global types aren't guaranteed in the TSX environment
-			const gsapInstance = (window as any).gsap;
-			const ScrollTriggerInstance = (window as any).ScrollTrigger;
+		gsap.set(el, { opacity: 0, y: 50 });
 
-			// Check if both libraries are fully loaded
-			if (!gsapInstance || !ScrollTriggerInstance) {
-				// Not ready yet, retry in 100ms
-				timeoutId = window.setTimeout(checkAndInitializeGsap, 100);
-				return;
-			}
-
-			// --- GSAP initialization is now guaranteed to run after scripts load ---
-
-			// Register plugin (safe to call repeatedly once GSAP is fully loaded)
-			gsapInstance.registerPlugin(ScrollTriggerInstance);
-			
-			const el = componentRef.current;
-			if (!el) return;
-
-			// Setup the animation timeline
-			gsapInstance.set(el, { opacity: 0, y: 50 }); 
-			
-			const tl = gsapInstance.timeline({
-				scrollTrigger: {
-					trigger: el,
-					start: 'top 85%',
-					once: true,
-					onEnter: () => {
-						gsapInstance.to(el, { opacity: 1, y: 0, duration: 1.2, ease: 'power3.out' });
-						setHasScrolledIn(true);
-					},
+		const tl = gsap.timeline({
+			scrollTrigger: {
+				trigger: el,
+				start: 'top 95%',
+				once: true,
+				onEnter: () => {
+					gsap.to(el, { opacity: 1, y: 0, duration: 1.2, ease: 'power3.out' });
+					setHasScrolledIn(true);
 				},
-			});
-			
-			// Store the timeline for cleanup
-			gsapTimelineRef.current = tl; 
-		};
+			},
+		});
+		gsapTimelineRef.current = tl;
 
-		// Start initialization attempt
-		checkAndInitializeGsap();
-
-		// Cleanup function for useEffect
 		return () => {
-			clearTimeout(timeoutId);
-			
-			const tl = gsapTimelineRef.current;
-			const ScrollTriggerInstance = (window as any).ScrollTrigger;
-
-			if (tl && ScrollTriggerInstance) {
-				tl.kill();
-				// Ensure we clean up the ScrollTrigger instance associated with the timeline
-				if (tl.scrollTrigger) {
-					// FIX TS2339: Asserting tl.scrollTrigger as 'any' to allow access to '.id'
-					ScrollTriggerInstance.getById((tl.scrollTrigger as any).id)?.kill();
-				}
-			}
+			tl.scrollTrigger?.kill();
+			tl.kill();
 		};
 	}, []); // Empty dependency array ensures it runs once on mount.
 
@@ -143,7 +99,7 @@ const WorkflowLoader: React.FC = () => {
 
 	// --- Step Label Classes ---
 	const getStepClassDesktop = useCallback((index: number) => {
-		let classes = 'label relative text-center text-gray-300 font-medium max-w-[100px] opacity-60 transition-all duration-600 ease-out whitespace-nowrap transform -rotate-[25deg] translate-y-[10px] scale-90 origin-top-left';
+		let classes = 'label relative text-center text-gray-300 font-medium max-w-[100px] opacity-60 transition duration-600 ease-out whitespace-nowrap transform -rotate-[25deg] translate-y-[10px] scale-90 origin-top-left';
 		if (index < currentIndex) classes += ' opacity-80 scale-100 translate-y-0 text-gray-400';
 		if (index === currentIndex) classes += ' opacity-100 text-yellow-400 font-bold scale-[1.1] translate-y-0 shadow-yellow-400/40';
 		classes += ' hidden md:flex lg:flex';
@@ -152,7 +108,7 @@ const WorkflowLoader: React.FC = () => {
 
 	// --- Dot Classes ---
 	const getDotClass = useCallback((index: number) => {
-		let classes = `dot w-5 h-5 rounded-full ${DOT_COLOR} transition-all duration-300 ease-out shadow-[0_0_0_2px_rgba(255,255,255,0.1),inset_0_0_8px_rgba(0,0,0,0.4)]`;
+		let classes = `dot w-5 h-5 rounded-full ${DOT_COLOR} transition duration-300 ease-out shadow-[0_0_0_2px_rgba(255,255,255,0.1),inset_0_0_8px_rgba(0,0,0,0.4)]`;
 		if (index === currentIndex) {
 			classes += ' !bg-white scale-[1.3] shadow-[0_0_25px_10px_rgba(60,140,250,0.5),0_0_45px_#f97316] animate-pulse';
 		}
@@ -161,15 +117,11 @@ const WorkflowLoader: React.FC = () => {
 	}, [currentIndex]);
 
 	return (
-		<div className="relative flex justify-center items-center min-h-screen p-5 bg-[#0b0f14] overflow-hidden"
+		<div className="relative flex justify-center items-center py-16 sm:py-20 lg:py-24 px-5 overflow-hidden"
 			style={{
-				background: 'radial-gradient(circle at top, #16222a, #0b0f14 80%)',
-				fontFamily: 'Inter, system-ui, sans-serif'
+				fontFamily: "'IBM Plex Sans', system-ui, sans-serif"
 			}}
 		>
-			{/* Inject GSAP CDN scripts */}
-			<GSAPScripts />
-
 			{/* 🌌 Static Stars (Now conditional on hasScrolledIn) */}
 			{hasScrolledIn && (
 				<div className="absolute inset-0 overflow-hidden">
@@ -203,7 +155,7 @@ const WorkflowLoader: React.FC = () => {
 					My Strategy
 				</div>
 				<p className="text-gray-500 text-center mb-8 max-w-lg mx-auto text-sm">
-				Every project is a journey. Here’s how I transform ideas into immersive, high-performing digital experiences, step by step.    </p>
+				Every project is a journey. Here’s how I transform ideas into immersive, high-performing digital experiences, step by step.    </p>
 				
 				{/* Timeline */}
 				<div className="timeline relative h-[150px] md:h-[150px] max-md:h-[100px]">
@@ -239,7 +191,7 @@ const WorkflowLoader: React.FC = () => {
 
 				{/* Mobile Card View */}
 				<div className="mt-8 md:hidden">
-					<h3 className="text-sm font-semibold text-gray-400 mb-3 uppercase tracking-wider text-center">Current Phase:</h3>
+					<h3 className="text-sm font-semibold text-gray-400 mb-3 tracking-wider text-center">Current Phase:</h3>
 					<div 
 							className="p-4 rounded-xl border border-blue-500/20 shadow-xl"
 							style={{
@@ -250,7 +202,7 @@ const WorkflowLoader: React.FC = () => {
 							{WORKFLOW_STEPS.map((label, i) => (
 								<div 
 									key={i} 
-									className={`text-base py-1 transition-all duration-300 ${
+									className={`text-base py-1 transition duration-300 ${
 										i === currentIndex 
 										? 'text-yellow-400 font-bold' 
 										: 'text-gray-400'

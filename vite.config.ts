@@ -7,4 +7,16 @@ export default defineConfig({
   plugins: [react(),
      tailwindcss(),
   ],
+  build: {
+    rollupOptions: {
+      output: {
+        // Split out the two heaviest, rarely-changing libraries so the app's
+        // own code isn't re-downloaded whenever either library updates.
+        manualChunks: {
+          gsap: ['gsap'],
+          'framer-motion': ['framer-motion'],
+        },
+      },
+    },
+  },
 })

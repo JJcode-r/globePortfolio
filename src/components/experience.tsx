@@ -1,16 +1,15 @@
-import {
-  AnimatePresence,
-  motion,
-  useScroll,
-  useTransform,
-} from 'framer-motion';
-import { ExternalLink, Play, Wrench, X } from 'lucide-react';
+import { AnimatePresence, motion } from 'framer-motion';
+import { ExternalLink, FileText, Play, Wrench, X } from 'lucide-react';
 import React, { useEffect, useRef, useState } from 'react';
+import { Link } from 'react-router-dom';
+import { PROJECTS as CASE_FILES } from '../content/projects';
+import CtaPanel from './CtaPanel';
 
 // ─── Types ─────────────────────────────────────────────────────────────────────
 
 type Project = {
   id: number;
+  slug: string;
   title: string;
   desktopPoster: string;
   mobilePoster: string;
@@ -29,83 +28,18 @@ type FrameProps = {
 
 // ─── Data ──────────────────────────────────────────────────────────────────────
 
-const PROJECTS: Project[] = [
-  {
-    id: 1,
-    title: 'Gobig Marketplace',
-    desktopPoster:
-      'https://pub-b5a150bb321345d8b75dc53ad13f4d10.r2.dev/thumbnail.png',
-    mobilePoster:
-      'https://pub-b5a150bb321345d8b75dc53ad13f4d10.r2.dev/verify-gee-mobile-photo.webp',
-    desktopVideo:
-      'https://pub-b5a150bb321345d8b75dc53ad13f4d10.r2.dev/SignIntoYourAccount-Desktop2.mp4',
-    mobileVideo:
-      'https://pub-b5a150bb321345d8b75dc53ad13f4d10.r2.dev/verify-gee-mobile2.mp4',
-    live: 'https://verify-gee.vercel.app/',
-  },
-  {
-    id: 2,
-    title: 'Wise Guys NFT',
-    desktopPoster:
-      'https://res.cloudinary.com/dytogib3m/image/upload/v1760056724/wiseGuysGroup_peh1tr.webp',
-    mobilePoster:
-      'https://res.cloudinary.com/dytogib3m/image/upload/v1760056724/wiseGuysGroup_peh1tr.webp',
-    desktopVideo:
-      'https://pub-b5a150bb321345d8b75dc53ad13f4d10.r2.dev/wiseGuys2.mp4',
-    mobileVideo:
-      'https://pub-b5a150bb321345d8b75dc53ad13f4d10.r2.dev/wiseGuy3.mp4',
-    live: 'https://the-wise-guys.vercel.app/',
-  },
-  {
-    id: 3,
-    title: 'ThrivewithT',
-    desktopPoster:
-      'https://pub-b5a150bb321345d8b75dc53ad13f4d10.r2.dev/thrivewitht-desktop-image.png',
-    mobilePoster:
-      'https://pub-b5a150bb321345d8b75dc53ad13f4d10.r2.dev/thrivewith-t-photo.webp',
-    desktopVideo:
-      'https://pub-b5a150bb321345d8b75dc53ad13f4d10.r2.dev/ThrivewithT-Desktop2.mp4',
-    mobileVideo:
-      'https://pub-b5a150bb321345d8b75dc53ad13f4d10.r2.dev/Thrivewitht-mobile2.mp4',
-    live: 'https://www.thrivewitht.com.au/',
-  },
-  {
-    id: 4,
-    title: 'Sportvest',
-    desktopPoster:
-      'https://pub-b5a150bb321345d8b75dc53ad13f4d10.r2.dev/sportvest.png',
-    mobilePoster:
-      'https://pub-b5a150bb321345d8b75dc53ad13f4d10.r2.dev/sportvest-mobile-photo.webp',
-    desktopVideo:
-      'https://pub-b5a150bb321345d8b75dc53ad13f4d10.r2.dev/Sportvest-Desktop2.mp4',
-    mobileVideo:
-      'https://pub-b5a150bb321345d8b75dc53ad13f4d10.r2.dev/sportvest-mobile2.mp4',
-    live: 'https://sportvest.capital/',
-  },
-  {
-    id: 5,
-    title: 'Dogman NFT',
-    desktopPoster:
-      'https://pub-b5a150bb321345d8b75dc53ad13f4d10.r2.dev/DogmanthumbnailDesktop.jpg',
-    mobilePoster:
-      'https://pub-b5a150bb321345d8b75dc53ad13f4d10.r2.dev/DogmanMobileThumbnail.jpg',
-    desktopVideo:
-      'https://pub-b5a150bb321345d8b75dc53ad13f4d10.r2.dev/DogmanDesktop.mp4',
-    mobileVideo:
-      'https://pub-b5a150bb321345d8b75dc53ad13f4d10.r2.dev/DogmanMobile.mp4',
-    live: '#',
-  },
-];
-
-// ─── Constants ─────────────────────────────────────────────────────────────────
-
-const clamp = (v: number, a: number, b: number) => Math.max(a, Math.min(b, v));
-const INTRO_BLOCK_HEIGHT_PX = 180;
-const STICKY_TOP_OFFSET = `calc(var(--navbar-height, 0px) + ${INTRO_BLOCK_HEIGHT_PX * 0.5}px)`;
-const STICKY_PROJECT_COUNT = PROJECTS.length - 1;
-const STICKY_FRAME_HEIGHT = `calc(var(--vh-full, 100dvh) - ${STICKY_TOP_OFFSET})`;
-const SCROLL_PULL_HEIGHT = `calc(var(--vh-full, 100dvh) - ${STICKY_TOP_OFFSET})`;
-const STICKY_SCROLL_HEIGHT = `calc(var(--vh-full, 100dvh) * ${STICKY_PROJECT_COUNT} + var(--vh-full, 100dvh) * 0.6)`;
+// Derived from the case files so the homepage and /projects can never drift
+// apart. Only entries with real media appear in the mockup carousel.
+const PROJECTS: Project[] = CASE_FILES.filter((p) => p.media).map((p, i) => ({
+  id: i + 1,
+  slug: p.slug,
+  title: p.name,
+  desktopPoster: p.media!.desktopPoster,
+  mobilePoster: p.media!.mobilePoster,
+  desktopVideo: p.media!.desktopVideo,
+  mobileVideo: p.media!.mobileVideo,
+  live: p.live,
+}));
 
 // ─── Shared: MediaDisplay ──────────────────────────────────────────────────────
 
@@ -124,12 +58,14 @@ const MediaDisplay: React.FC<{
     if (!videoRef.current) return;
     if (playing) {
       videoRef.current.currentTime = 0;
-      videoUrl && videoRef.current.play().catch(() => {});
+      if (videoUrl) videoRef.current.play().catch(() => {});
     } else {
       videoRef.current.pause();
       try {
         videoRef.current.currentTime = 0;
-      } catch {}
+      } catch {
+        // Seeking can throw while the media element is detached; nothing to recover.
+      }
     }
   }, [playing, videoUrl]);
 
@@ -200,13 +136,20 @@ const FrameControls: React.FC<{
   isMobile: boolean;
 }> = ({ project, index, openVideoIndex, setOpenVideoIndex, isMobile }) => {
   const playing = openVideoIndex === index;
-  const isOngoing = project.live === '#' || index === PROJECTS.length - 1;
+  const isOngoing = !project.live || project.live === '#';
   const videoAvail = isMobile ? project.mobileVideo : project.desktopVideo;
-  const btnBase =
-    'inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full font-semibold text-sm shadow-md transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-yellow-400';
+  const btnBase = isMobile
+    ? 'inline-flex items-center justify-center gap-1 px-2.5 py-1 rounded-full font-semibold text-[11px] whitespace-nowrap shadow-md transition duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-yellow-400'
+    : 'inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full font-semibold text-sm whitespace-nowrap shadow-md transition duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-yellow-400';
 
   return (
-    <div className="flex flex-wrap items-center justify-center gap-2">
+    <div
+      className={
+        isMobile
+          ? 'flex flex-col items-stretch gap-1.5 w-[116px]'
+          : 'flex flex-wrap items-center justify-center gap-2'
+      }
+    >
       <AnimatePresence initial={false} mode="wait">
         {playing && videoAvail ? (
           <motion.button
@@ -217,19 +160,20 @@ const FrameControls: React.FC<{
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.9 }}
           >
-            <X className="w-3.5 h-3.5" /> Close Demo
+            <X className="w-3.5 h-3.5" /> {isMobile ? 'Close' : 'Close Demo'}
           </motion.button>
         ) : (
           videoAvail && (
             <motion.button
               key="play"
               onClick={() => setOpenVideoIndex(index)}
-              className={`${btnBase} bg-yellow-400 text-neutral-900 hover:bg-yellow-300 active:scale-95`}
+              className={`${btnBase} bg-yellow-400 text-neutral-950 hover:bg-yellow-300 active:scale-95`}
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.9 }}
             >
-              <Play className="w-3.5 h-3.5 fill-current" /> Watch Demo
+              <Play className="w-3.5 h-3.5 fill-current" />{' '}
+              {isMobile ? 'Demo' : 'Watch Demo'}
             </motion.button>
           )
         )}
@@ -242,7 +186,7 @@ const FrameControls: React.FC<{
           rel="noreferrer noopener"
           className={`${btnBase} border border-white/20 text-white bg-black/70 hover:bg-black/90 active:scale-95`}
         >
-          <ExternalLink className="w-3.5 h-3.5" /> Visit Live
+          <ExternalLink className="w-3.5 h-3.5" /> {isMobile ? 'Live' : 'Visit Live'}
         </a>
       ) : (
         <span
@@ -251,6 +195,13 @@ const FrameControls: React.FC<{
           <Wrench className="w-3.5 h-3.5" /> Ongoing
         </span>
       )}
+
+      <Link
+        to={`/projects#${project.slug}`}
+        className={`${btnBase} bg-white text-black hover:bg-neutral-100 active:scale-95`}
+      >
+        <FileText className="w-3.5 h-3.5" /> {isMobile ? 'Case' : 'Case Study'}
+      </Link>
     </div>
   );
 };
@@ -315,17 +266,19 @@ const MobileProjectCard: React.FC<{
   playShimmer: boolean;
   openVideoIndex: number | null;
   setOpenVideoIndex: React.Dispatch<React.SetStateAction<number | null>>;
-}> = ({ project, index, playShimmer, openVideoIndex, setOpenVideoIndex }) => (
+  onEnterView: (index: number) => void;
+}> = ({ project, index, playShimmer, openVideoIndex, setOpenVideoIndex, onEnterView }) => (
   <motion.div
     initial={{ opacity: 0, y: 40 }}
     whileInView={{ opacity: 1, y: 0 }}
     viewport={{ once: true, amount: 0.15 }}
+    onViewportEnter={() => onEnterView(index)}
     transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
     className="flex flex-col items-center gap-5 w-full"
   >
     {/* Project number + title */}
     <div className="flex items-center gap-3 w-full max-w-xs">
-      <span className="text-[0.65rem] font-bold tracking-[0.16em] uppercase text-neutral-400 tabular-nums">
+      <span className="text-[0.65rem] font-bold tracking-[0.16em] text-neutral-400 tabular-nums">
         {String(index + 1).padStart(2, '0')}
       </span>
       <div className="h-px flex-1 bg-white/10" />
@@ -348,93 +301,15 @@ const MobileProjectCard: React.FC<{
 // ─── Main component ────────────────────────────────────────────────────────────
 
 export const WorkExperience: React.FC = () => {
-  const stickyContainerRef = useRef<HTMLDivElement | null>(null);
-  const { scrollYProgress } = useScroll({
-    target: stickyContainerRef,
-    offset: ['start end', 'end start'],
-  });
-
   const [openVideoIndex, setOpenVideoIndex] = useState<number | null>(null);
-  const scaled = useTransform(scrollYProgress, (p) => p * STICKY_PROJECT_COUNT);
-  const [activeStickyIndex, setActiveStickyIndex] = useState(0);
   const [shimmerPlayed, setShimmerPlayed] = useState<boolean[]>(() =>
     Array(PROJECTS.length).fill(false)
   );
 
-  useEffect(() => {
-    const unsub = scaled.onChange((val) => {
-      const stickyIdx = clamp(
-        Math.floor(val + 0.0001),
-        0,
-        STICKY_PROJECT_COUNT - 1
-      );
-      const absoluteIdx = stickyIdx + 1;
-      setActiveStickyIndex(stickyIdx);
-      setShimmerPlayed((prev) => {
-        if (!prev[absoluteIdx]) {
-          const c = [...prev];
-          c[absoluteIdx] = true;
-          return c;
-        }
-        return prev;
-      });
-      setOpenVideoIndex((cur) => (cur === absoluteIdx ? cur : null));
-    });
-    return () => unsub();
-  }, [scaled]);
-
-  useEffect(() => {
-    const t = setTimeout(() => {
-      setShimmerPlayed((prev) => {
-        if (!prev[0]) {
-          const c = [...prev];
-          c[0] = true;
-          return c;
-        }
-        return prev;
-      });
-    }, 500);
-    return () => clearTimeout(t);
-  }, []);
-
-  const entryVariant = (i: number) => {
-    const base: any = {
-      visible: {
-        opacity: 1,
-        x: 0,
-        y: 0,
-        scale: 1,
-        transition: { duration: 0.9, ease: 'easeOut' },
-      },
-      hidden: {},
-      exit: { transition: { duration: 0.6 } },
-    };
-    switch (i - 1) {
-      case 0:
-        base.hidden = { opacity: 0, y: 60, scale: 0.98 };
-        base.exit = { opacity: 0, y: -40, scale: 0.98 };
-        break;
-      case 1:
-        base.hidden = { opacity: 0, scale: 0.8 };
-        base.exit = { opacity: 0, scale: 0.96, y: -32 };
-        break;
-      case 2:
-        base.hidden = { opacity: 0, x: 120, scale: 0.98 };
-        base.exit = { opacity: 0, x: 60, y: -40 };
-        break;
-      default:
-        base.hidden = { opacity: 0 };
-        base.exit = { opacity: 0 };
-    }
-    return base;
-  };
-
-  const handleCta = (e: React.MouseEvent) => {
-    e.preventDefault();
-    document
-      .getElementById('discovery')
-      ?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    window.dispatchEvent(new CustomEvent('openDiscoveryForm'));
+  // Plays each poster's shimmer sweep once, the first time that project
+  // scrolls into view. No scroll-jacking: this is a plain whileInView trigger.
+  const markShimmer = (i: number) => {
+    setShimmerPlayed((prev) => (prev[i] ? prev : prev.map((v, idx) => (idx === i ? true : v))));
   };
 
   const frameProps = { openVideoIndex, setOpenVideoIndex };
@@ -442,83 +317,37 @@ export const WorkExperience: React.FC = () => {
   return (
     <section
       id="projects"
-      className="relative w-full text-neutral-900 dark:text-white font-sans"
+      className="relative w-full pt-16 sm:pt-20 lg:pt-24 text-neutral-900 font-sans"
       style={{ touchAction: 'pan-y' }}
     >
       {/* ── Section header ─────────────────────────────────────────────────────── */}
-      <div className="w-full" style={{ height: `${INTRO_BLOCK_HEIGHT_PX}px` }}>
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 text-center">
+      <div className="w-full">
+        <div className="max-w-5xl mx-auto px-6">
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
-            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-[-0.03em] text-black dark:text-white"
+            className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-[-0.03em] text-black"
           >
-            Featured Projects
+            Work
           </motion.h2>
         </div>
       </div>
 
-      {/* ── Case study callout ─────────────────────────────────────────────────── */}
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.7, ease: 'easeOut' }}
-        viewport={{ once: true }}
-        className="max-w-3xl mx-auto px-4 sm:px-6 mt-10 sm:mt-14 mb-4"
-      >
-        <div
-          className="relative rounded-2xl p-6 sm:p-8 border border-white/10 bg-neutral-950 overflow-hidden"
-          style={{ borderLeft: '3px solid #EAB308' }}
-        >
-          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wide bg-yellow-500/10 text-yellow-400 border border-yellow-500/20 mb-4 sm:mb-5">
-            Case Study · Backend &amp; Payments
-          </span>
-          <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-white mb-3 sm:mb-4 leading-snug">
-            GoBigMarketplace Payment System &amp; Recovery
-          </h3>
-          <p className="text-gray-300 text-sm sm:text-base md:text-lg leading-relaxed mb-5 sm:mb-6">
-            Built a full payment layer with Paystack and Flutterwave and a
-            multi-currency wallet. Diagnosed and fixed a checkout silently
-            losing every deposit failed webhooks, no error logging, users paying
-            and receiving nothing. Rebuilt with polling-based confirmation, full
-            logging, and a failed-transaction recovery dashboard.
-          </p>
-          <div className="flex flex-wrap gap-2">
-            {[
-              'Next.js',
-              'Cloudflare Workers',
-              'Hono',
-              'Drizzle',
-              'D1',
-              'Paystack',
-              'Flutterwave',
-            ].map((tag) => (
-              <span
-                key={tag}
-                className="px-3 py-1 rounded-full text-xs font-medium bg-white/5 text-white/70 border border-white/10"
-              >
-                {tag}
-              </span>
-            ))}
-          </div>
-        </div>
-      </motion.div>
-
-      <hr className="my-8 sm:my-12 border-t border-gray-200 dark:border-gray-800" />
+      <hr className="my-6 sm:my-8 border-t border-gray-200" />
 
       {/* ══════════════════════════════════════════════════════════════════════════
           MOBILE: linear scroll  one project card per viewport section
-          (hidden on lg+, replaced by sticky scroll below)
          ══════════════════════════════════════════════════════════════════════════ */}
-      <div className="lg:hidden px-4 sm:px-6 space-y-14 pb-16">
+      <div className="lg:hidden px-4 sm:px-6 space-y-10 pb-12">
         {PROJECTS.map((p, i) => (
           <MobileProjectCard
             key={p.id}
             project={p}
             index={i}
             playShimmer={shimmerPlayed[i]}
+            onEnterView={markShimmer}
             openVideoIndex={openVideoIndex}
             setOpenVideoIndex={setOpenVideoIndex}
           />
@@ -526,133 +355,61 @@ export const WorkExperience: React.FC = () => {
       </div>
 
       {/* ══════════════════════════════════════════════════════════════════════════
-          DESKTOP (lg+): first project non-sticky, then sticky scroll
+          DESKTOP (lg+): normal stacked scroll, no pinning or scroll-jacking
          ══════════════════════════════════════════════════════════════════════════ */}
-      <div className="hidden lg:block">
-        {/* First project  scrolls with page */}
-        <div
-          className="relative w-full flex items-center justify-center mb-24"
-          style={{ height: SCROLL_PULL_HEIGHT }}
-        >
-          <div className="absolute inset-0 flex items-center justify-center px-6">
-            <div className="w-full flex flex-row items-center justify-center gap-10 xl:gap-14">
-              <div className="flex-1 flex items-center justify-center">
-                <DesktopFrame
-                  project={PROJECTS[0]}
-                  index={0}
-                  playShimmer={shimmerPlayed[0]}
-                  {...frameProps}
-                />
+      <div className="hidden lg:flex lg:flex-col">
+        {PROJECTS.map((p, i) => (
+          <React.Fragment key={p.id}>
+            {i > 0 && <hr className="my-10 md:my-12 border-t border-gray-200" />}
+            <motion.div
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.25 }}
+              onViewportEnter={() => markShimmer(i)}
+              transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+              className="relative w-full flex items-center justify-center mb-14"
+            >
+              <div className="w-full flex flex-row items-center justify-center gap-10 xl:gap-14 px-6">
+                <div className="flex-1 flex items-center justify-center">
+                  <DesktopFrame
+                    project={p}
+                    index={i}
+                    playShimmer={shimmerPlayed[i]}
+                    {...frameProps}
+                  />
+                </div>
+                <div className="flex-none flex items-center justify-center">
+                  <MobileFrame
+                    project={p}
+                    index={i}
+                    playShimmer={shimmerPlayed[i]}
+                    {...frameProps}
+                  />
+                </div>
               </div>
-              <div className="flex-none flex items-center justify-center">
-                <MobileFrame
-                  project={PROJECTS[0]}
-                  index={0}
-                  playShimmer={shimmerPlayed[0]}
-                  {...frameProps}
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <hr className="my-16 md:my-20 border-t border-gray-200 dark:border-gray-800" />
-
-        {/* Sticky scroll: projects 2-4 */}
-        <div
-          ref={stickyContainerRef}
-          className="relative w-full"
-          style={{ height: STICKY_SCROLL_HEIGHT }}
-        >
-          <div
-            className="sticky z-10"
-            style={{
-              top: STICKY_TOP_OFFSET,
-              height: STICKY_FRAME_HEIGHT,
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              willChange: 'transform',
-              touchAction: 'pan-y',
-            }}
-          >
-            <div className="relative w-full max-w-7xl h-full flex items-center justify-center px-6">
-              <AnimatePresence mode="wait">
-                {PROJECTS.slice(1).map((p, i) => {
-                  if (i !== activeStickyIndex) return null;
-                  const absIdx = i + 1;
-                  const variants = entryVariant(absIdx);
-                  return (
-                    <motion.div
-                      key={p.id}
-                      initial="hidden"
-                      animate="visible"
-                      exit="exit"
-                      variants={variants}
-                      className="absolute inset-0 flex items-center justify-center"
-                    >
-                      <div className="w-full flex flex-row items-center justify-center gap-10 xl:gap-14">
-                        <div className="flex-1 flex items-center justify-center">
-                          <DesktopFrame
-                            project={p}
-                            index={absIdx}
-                            playShimmer={shimmerPlayed[absIdx]}
-                            {...frameProps}
-                          />
-                        </div>
-                        <div className="flex-none flex items-center justify-center">
-                          <MobileFrame
-                            project={p}
-                            index={absIdx}
-                            playShimmer={shimmerPlayed[absIdx]}
-                            {...frameProps}
-                          />
-                        </div>
-                      </div>
-                    </motion.div>
-                  );
-                })}
-              </AnimatePresence>
-            </div>
-          </div>
-        </div>
+            </motion.div>
+          </React.Fragment>
+        ))}
       </div>
 
-      <hr className="mt-8 mb-12 sm:mt-12 sm:mb-20 border-t border-gray-200 dark:border-gray-800" />
+      <hr className="mt-8 mb-12 sm:mt-12 sm:mb-20 border-t border-gray-200" />
 
-      {/* ── CTA ────────────────────────────────────────────────────────────────── */}
+      {/* ── CTA: same card design as every other CTA section, pointed at the
+             case-study page rather than the discovery form ───────────────── */}
       <motion.div
         initial={{ opacity: 0, y: 40 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: '-80px' }}
         transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
-        className="relative z-10 pb-12 sm:pb-16 px-4 sm:px-6 text-center max-w-3xl mx-auto"
+        className="relative z-10 pb-16 sm:pb-20 lg:pb-24 px-4 sm:px-6 max-w-5xl mx-auto"
       >
-        <h3 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-[-0.025em] leading-snug">
-          Ready to build something like this?
-        </h3>
-
-        <div className="mt-8 flex flex-col sm:flex-row justify-center items-center gap-4">
-          <motion.a
-            href="#discovery"
-            onClick={handleCta}
-            whileHover={{ scale: 1.04 }}
-            whileTap={{ scale: 0.96 }}
-            className="group relative inline-flex items-center justify-center gap-2 px-7 py-3.5
-                       rounded-full bg-yellow-400 text-neutral-900 font-semibold text-[0.95rem]
-                       shadow-[0_4px_20px_rgba(234,179,8,0.35)] hover:shadow-[0_8px_32px_rgba(234,179,8,0.5)]
-                       hover:bg-yellow-300 active:scale-95 active:bg-yellow-500
-                       overflow-hidden transition-all duration-300
-                       focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-yellow-400/60
-                       min-w-[240px] sm:min-w-0"
-          >
-            <span
-              aria-hidden="true"
-              className="pointer-events-none absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-in-out bg-gradient-to-r from-transparent via-white/25 to-transparent"
-            />
-            Let's plan your project
-          </motion.a>
-        </div>
+        <CtaPanel
+          eyebrow="Want more detail?"
+          title="See the Full Case Studies"
+          body="Every project above has a deeper write-up: what I built, the production problems I hit, and how I fixed them."
+          buttonLabel="View All Case Studies"
+          to="/projects"
+        />
       </motion.div>
     </section>
   );

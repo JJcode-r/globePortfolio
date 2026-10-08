@@ -1,11 +1,9 @@
 import React, { useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import { gsap } from 'gsap';
 
 const Footer: React.FC = () => {
   const footerRef = useRef<HTMLDivElement>(null);
-
-  const owlBackground =
-    'https://pub-b5a150bb321345d8b75dc53ad13f4d10.r2.dev/owl.jpg';
 
   const siteMapLinks = [
     { name: 'Home', href: '#hero' },
@@ -70,29 +68,19 @@ const Footer: React.FC = () => {
       stars.push(star);
     }
 
-    const gsapScript = document.createElement('script');
-    gsapScript.src =
-      'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js';
-    gsapScript.onload = () => {
-      const gsap = (window as any).gsap;
-      if (gsap) {
-        stars.forEach((star) => {
-          gsap.to(star, {
-            opacity: gsap.utils.random(0.2, 0.7),
-            repeat: -1,
-            yoyo: true,
-            duration: gsap.utils.random(1, 3),
-            delay: gsap.utils.random(0, 2),
-          });
-        });
-      }
-    };
-    document.body.appendChild(gsapScript);
+    const tweens = stars.map((star) =>
+      gsap.to(star, {
+        opacity: gsap.utils.random(0.2, 0.7),
+        repeat: -1,
+        yoyo: true,
+        duration: gsap.utils.random(1, 3),
+        delay: gsap.utils.random(0, 2),
+      })
+    );
 
     return () => {
       stars.forEach((s) => s.remove());
-      if (gsapScript.parentNode === document.body)
-        document.body.removeChild(gsapScript);
+      tweens.forEach((t) => t.kill());
     };
   }, []);
 
@@ -101,17 +89,13 @@ const Footer: React.FC = () => {
       ref={footerRef}
       className="relative w-full text-white py-20 px-6 md:px-20 overflow-hidden border-t border-yellow-900/50"
       style={{
-        backgroundImage: `linear-gradient(to right, rgba(13,27,42,0.95) 0%, rgba(13,27,42,0.7) 70%, rgba(13,27,42,0.5) 100%), url(${owlBackground})`,
-        backgroundSize: 'cover, contain',
-        backgroundPosition: 'center center, right center',
-        backgroundRepeat: 'no-repeat, no-repeat',
-        fontFamily: 'Inter, system-ui, sans-serif',
+        fontFamily: "'IBM Plex Sans', system-ui, sans-serif",
       }}
     >
       {/* Back to Top */}
       <button
         onClick={scrollToTop}
-        className="absolute top-4 right-4 bg-yellow-500 text-black rounded-lg p-2 md:p-3 shadow-xl hover:bg-yellow-600 transition duration-300 font-bold z-10"
+        className="absolute top-4 right-4 bg-yellow-400 text-neutral-950 rounded-lg p-2 md:p-3 shadow-xl hover:bg-yellow-300 transition duration-300 font-bold z-10"
         aria-label="Back to top"
       >
         <svg
@@ -138,7 +122,7 @@ const Footer: React.FC = () => {
         {/* Brand + CTA */}
         <div className="hidden lg:flex flex-col items-center lg:items-start text-center lg:text-left col-span-1">
           <div className="text-3xl font-extrabold text-yellow-400 mb-4 tracking-wider">
-            Globe The Dev
+            Joshua Igburu
           </div>
           <p className="text-gray-300 text-sm md:text-base leading-relaxed mb-4">
             Building platforms that look premium and get paid.
@@ -146,9 +130,9 @@ const Footer: React.FC = () => {
           <a
             href="#discovery"
             onClick={handleCtaClick}
-            className="inline-flex items-center justify-center gap-2 bg-yellow-500 text-black font-semibold px-6 py-3 rounded-lg shadow hover:bg-yellow-600 transition duration-300 whitespace-nowrap"
+            className="inline-flex items-center justify-center gap-2 bg-yellow-400 text-neutral-950 font-semibold px-6 py-3 rounded-lg shadow hover:bg-yellow-300 transition duration-300 whitespace-nowrap"
           >
-            <i className="fas fa-calendar-alt"></i> Start your project
+            <i className="fas fa-calendar-alt"></i> Start a project
           </a>
         </div>
 
@@ -207,10 +191,9 @@ const Footer: React.FC = () => {
               <a
                 href="#discovery"
                 onClick={handleCtaClick}
-                className="inline-flex items-center justify-center gap-2 bg-yellow-500 text-black font-semibold px-4 py-2 rounded-lg shadow hover:bg-yellow-600 transition duration-300"
+                className="inline-flex items-center justify-center gap-2 bg-yellow-400 text-neutral-950 font-semibold px-4 py-2 rounded-lg shadow hover:bg-yellow-300 transition duration-300"
               >
-                <i className="fas fa-phone-alt"></i> Let's plan your website
-                strategy
+                <i className="fas fa-phone-alt"></i> Start a project
               </a>
             </li>
           </ul>
@@ -219,7 +202,7 @@ const Footer: React.FC = () => {
         {/* Mobile Brand */}
         <div className="flex flex-col items-center justify-start lg:hidden col-span-2 md:col-span-1 p-4 rounded-lg bg-gray-900/50">
           <div className="text-2xl font-extrabold text-yellow-400 tracking-wider">
-            Globe
+            Joshua
           </div>
           <p className="text-gray-400 text-xs mt-1 mb-3">
             Building platforms that look premium and get paid.
@@ -230,7 +213,7 @@ const Footer: React.FC = () => {
       <hr className="border-gray-700 my-6" />
 
       <div className="mt-4 w-full max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center text-gray-400 text-xs text-center md:text-left">
-        <p>&copy; {new Date().getFullYear()} Globe. All rights reserved.</p>
+        <p>&copy; {new Date().getFullYear()} Joshua Igburu. All rights reserved.</p>
       </div>
     </footer>
   );
