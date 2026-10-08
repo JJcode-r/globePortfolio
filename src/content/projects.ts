@@ -60,7 +60,7 @@ export const PROJECTS: ProjectEntry[] = [
       'Paystack',
       'Flutterwave',
     ],
-    live: 'https://verify-gee.vercel.app/',
+    live: 'https://www.gobigmarketplace.com/p/',
     media: {
       desktopPoster: `${R2}/thumbnail.png`,
       mobilePoster: `${R2}/verify-gee-mobile-photo.webp`,
@@ -132,7 +132,14 @@ export const PROJECTS: ProjectEntry[] = [
       'Payment rescue for Paystack webhooks: catching silent failures before they become support tickets.',
     blurb:
       'African indie developers and small SaaS teams lose money to webhook failures they never see. Hookdeck and Convoy solve this for Stripe. Nobody solved it for Paystack. Payconstant is the monitoring layer that catches those failures first.',
-    stack: ['Turborepo', 'Hono', 'Cloudflare Workers', 'D1', 'Next.js 15', 'Resend'],
+    stack: [
+      'Turborepo',
+      'Hono',
+      'Cloudflare Workers',
+      'D1',
+      'Next.js 15',
+      'Resend',
+    ],
     blocks: [
       {
         heading: 'What it does',
@@ -153,7 +160,14 @@ export const PROJECTS: ProjectEntry[] = [
       'Surfaces the signal buried in Discord communities and makes it actionable.',
     blurb:
       'Discord communities generate enormous signal: questions, friction, the discussions that keep resurfacing, that community managers cannot process in real time. HiveOS surfaces that signal automatically and makes it actionable.',
-    stack: ['Bun', 'Elysia', 'Next.js 15', 'PostgreSQL + pgvector', 'Redis', 'Claude API'],
+    stack: [
+      'Bun',
+      'Elysia',
+      'Next.js 15',
+      'PostgreSQL + pgvector',
+      'Redis',
+      'Claude API',
+    ],
     blocks: [
       {
         heading: 'What is running',
@@ -223,7 +237,11 @@ export const PROJECTS: ProjectEntry[] = [
 ];
 
 /** Shorter engagements, listed rather than given a full case study. */
-export const ADDITIONAL_WORK: { name: string; detail: string; link?: string }[] = [
+export const ADDITIONAL_WORK: {
+  name: string;
+  detail: string;
+  link?: string;
+}[] = [
   {
     name: 'Hon. Target Isaiah Segibo',
     detail:
@@ -231,7 +249,8 @@ export const ADDITIONAL_WORK: { name: string; detail: string; link?: string }[] 
   },
   {
     name: 'NCDMB',
-    detail: "Government web portal for Nigeria's Niger Delta Development Commission.",
+    detail:
+      "Government web portal for Nigeria's Niger Delta Development Commission.",
   },
   {
     name: 'Best Western Plus Yenagoa',
@@ -254,4 +273,5 @@ export const ADDITIONAL_WORK: { name: string; detail: string; link?: string }[] 
   },
 ];
 
-export const getProject = (slug: string) => PROJECTS.find((p) => p.slug === slug);
+export const getProject = (slug: string) =>
+  PROJECTS.find((p) => p.slug === slug);
