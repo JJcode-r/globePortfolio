@@ -81,7 +81,7 @@
                         - generic [ref=e121]:
                             - button "Watch Demo" [ref=e122]
                             - link "Visit Live" [ref=e125] [cursor=pointer]:
-                                - /url: https://www.gobigmarketplace.com/p/
+                                - /url: https://www.gobigmarketplace.com//
                             - link "Case Study" [ref=e130] [cursor=pointer]:
                                 - /url: /projects#gobig
                     - generic [ref=e135]:
@@ -89,7 +89,7 @@
                         - generic [ref=e142]:
                             - button "Demo" [ref=e143]
                             - link "Live" [ref=e146] [cursor=pointer]:
-                                - /url: https://www.gobigmarketplace.com/p/
+                                - /url: https://www.gobigmarketplace.com//
                             - link "Case" [ref=e151] [cursor=pointer]:
                                 - /url: /projects#gobig
                 - separator [ref=e155]
