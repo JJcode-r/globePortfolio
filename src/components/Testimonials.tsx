@@ -35,14 +35,6 @@ const testimonials: Testimonial[] = [
   },
   {
     quote:
-      'Every number in our ledger has to be exactly right, every single time. Joshua built something I can stand behind when an auditor asks hard questions.',
-    author: 'Operator',
-    project: 'Accafooty',
-    avatarUrl:
-      'https://ui-avatars.com/api/?name=Accafooty&background=ca8a04&color=fff&size=128',
-  },
-  {
-    quote:
       'I run my entire shop from Telegram now. No dashboard to learn, no technical headache. Customers pay, and the orders just show up.',
     author: 'Vendor',
     project: 'Venstore',
