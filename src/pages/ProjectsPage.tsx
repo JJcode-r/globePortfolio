@@ -207,7 +207,7 @@ const ProjectsPage: React.FC = () => {
   const [activeSlug, setActiveSlug] = useState(PROJECTS[0]?.slug ?? '');
   const didJump = useRef(false);
 
-  // Deep links (/projects#accafooty) must land on the right section. React
+  // Deep links (/projects#fortune) must land on the right section. React
   // Router does not restore hash scroll on its own.
   useEffect(() => {
     if (didJump.current) return;
