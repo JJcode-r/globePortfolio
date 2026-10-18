@@ -271,8 +271,8 @@ const Hero: React.FC<HeroProps> = ({ titleRef, subtitleRef }) => {
               ref={titleRef}
               className="text-[clamp(2.8rem,5.8vw,4.6rem)] font-bold tracking-[-0.03em] leading-[1.03] text-neutral-900"
             >
-              {HERO.name}{' '}
-              <span className="text-[0.42em] font-medium text-yellow-600 align-middle">
+              {HERO.name}
+              <span className="mt-2 block whitespace-nowrap text-[0.42em] font-medium leading-none text-yellow-600">
                 ({HERO.alias})
               </span>
             </h1>

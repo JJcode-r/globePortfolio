@@ -169,7 +169,7 @@ const Navbar: React.FC = () => {
           className="select-none whitespace-nowrap text-[1.5rem] leading-none font-semibold tracking-[-0.01em]"
           style={{ fontFamily: "'Newsreader', Georgia, serif", color: skin.ink }}
         >
-          Joshua<span style={{ color: skin.accent }}>.</span>
+          Joshua
         </a>
 
         {/* Desktop links */}
