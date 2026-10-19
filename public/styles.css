@@ -1,6 +1,12 @@
 /* =================================================================
    BASE STYLES
    ================================================================ */
+/* Force light color scheme — prevents OS dark mode from overriding
+   GSAP-controlled background transitions on the night sections. */
+html {
+  color-scheme: light;
+}
+
 :root {
   --bg-h: 0;
   --bg-s: 0%;
@@ -42,9 +48,9 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
-  transition:
-    background 1s ease,
-    color 1s ease;
+  /* No CSS transition on background/color — GSAP owns those tweens.
+     A CSS transition competing with GSAP can prevent the dark bg from
+     applying on some devices. */
 }
 
 /* Heading font + consistent scale */
@@ -318,13 +324,16 @@ body.night a.btn:hover {
 .night-sky {
   position: fixed;
   inset: 0;
+  /* z-index: -1 keeps it behind all section content (z-index: 1) and the sun/moon (z-index: 0) */
   z-index: -1;
   pointer-events: none;
   opacity: 0;
   background: #0d1b2a;
-  transition: opacity 1s ease;
+  /* No CSS transition — GSAP drives opacity directly to avoid competing tweens */
+  will-change: opacity;
 }
 
+/* body.night is kept as a fallback but the primary driver is GSAP via nightSkyRef */
 body.night .night-sky {
   opacity: 1;
 }

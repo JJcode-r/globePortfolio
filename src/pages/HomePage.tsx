@@ -16,6 +16,7 @@ import ExitIntentModal from '../components/ExitIntentModal';
 const HomePage: React.FC = () => {
   const sunRef = useRef<HTMLDivElement>(null);
   const moonRef = useRef<HTMLDivElement>(null);
+  const nightSkyRef = useRef<HTMLDivElement>(null);
   const heroTitleRef = useRef<HTMLHeadingElement>(null);
   const heroSubtitleRef = useRef<HTMLParagraphElement>(null);
   const { hash } = useLocation();
@@ -63,6 +64,7 @@ const HomePage: React.FC = () => {
       <ThemeToggle
         sunRef={sunRef}
         moonRef={moonRef}
+        nightSkyRef={nightSkyRef}
         heroTitleRef={heroTitleRef}
         heroSubtitleRef={heroSubtitleRef}
         sections={sections}

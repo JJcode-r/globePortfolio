@@ -112,6 +112,7 @@ const computeBirdsPath = () => {
 export function setupGsapAnimations(
   sunRef: RefObject<HTMLDivElement | null>,
   moonRef: RefObject<HTMLDivElement | null>,
+  nightSkyRef: RefObject<HTMLDivElement | null>,
   heroTitleRef: RefObject<HTMLHeadingElement | null>,
   heroSubtitleRef: RefObject<HTMLParagraphElement | null>,
   sections: HTMLElement[]
@@ -133,6 +134,7 @@ export function setupGsapAnimations(
 
   const sun = sunRef.current!;
   const moon = moonRef.current!;
+  const nightSky = nightSkyRef?.current ?? null;
   const heroTitle = heroTitleRef.current!;
   const heroSubtitle = heroSubtitleRef.current!;
   const navbar = safeQuery('.navbar');
@@ -150,6 +152,11 @@ export function setupGsapAnimations(
   // zIndex 10 during the intro so it appears above the hero's background;
   // it drops to 0 after landing so section content (z-index 1) sits above it.
   //
+  // Night sky starts hidden; GSAP fades it in for dark sections. This is the
+  // primary dark-BG mechanism — a fixed element is immune to OS color-scheme
+  // overrides that can prevent body.backgroundColor from applying.
+  if (nightSky) gsap.set(nightSky, { opacity: 0 });
+
   gsap.set(sun, {
     position: 'fixed',
     left: '50%',
@@ -485,6 +492,21 @@ export function setupGsapAnimations(
   sections.forEach((sec, i) => {
     const applyMap = (index: number) => {
       const map = colorMap[Math.max(0, Math.min(index, colorMap.length - 1))];
+      const isNight = map.moonOpacity > 0;
+
+      // Drive the fixed night-sky overlay — this is the guaranteed dark backdrop.
+      // It's a DOM element, so it's unaffected by OS/browser color-scheme overrides
+      // that can block body.backgroundColor from applying on some devices.
+      if (nightSky) {
+        gsap.to(nightSky, {
+          opacity: isNight ? 1 : 0,
+          duration: 0.85,
+          ease: 'power2.out',
+          overwrite: 'auto',
+        });
+      }
+
+      // Also keep body.backgroundColor in sync for any components that read it.
       gsap.to(document.body, {
         backgroundColor: map.bg,
         color: map.text,
@@ -557,7 +579,7 @@ export function setupGsapAnimations(
   return () => {
     refreshCleanups.forEach((off) => off());
     ScrollTrigger.getAll().forEach((t) => t.kill());
-    gsap.killTweensOf([sun, moon, heroTitle, heroSubtitle]);
+    gsap.killTweensOf([sun, moon, heroTitle, heroSubtitle, ...(nightSky ? [nightSky] : [])]);
     if (birds) gsap.killTweensOf(birds);
     window.removeEventListener('resize', onResize);
   };
