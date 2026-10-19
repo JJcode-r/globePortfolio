@@ -71,12 +71,13 @@ function createMoonCraters(moonElement: HTMLDivElement) {
 interface ThemeToggleProps {
     sunRef: RefObject<HTMLDivElement | null>;
     moonRef: RefObject<HTMLDivElement | null>;
+    nightSkyRef: RefObject<HTMLDivElement | null>;
     heroTitleRef: RefObject<HTMLHeadingElement | null>;
     heroSubtitleRef: RefObject<HTMLParagraphElement | null>;
     sections: HTMLElement[];
 }
 
-const ThemeToggle: React.FC<ThemeToggleProps> = ({ sunRef, moonRef, heroTitleRef, heroSubtitleRef, sections }) => {
+const ThemeToggle: React.FC<ThemeToggleProps> = ({ sunRef, moonRef, nightSkyRef, heroTitleRef, heroSubtitleRef, sections }) => {
 
     useEffect(() => {
         if (moonRef.current) {
@@ -85,12 +86,15 @@ const ThemeToggle: React.FC<ThemeToggleProps> = ({ sunRef, moonRef, heroTitleRef
         }
 
         if (sections.length > 0) {
-            return setupGsapAnimations(sunRef, moonRef, heroTitleRef, heroSubtitleRef, sections);
+            return setupGsapAnimations(sunRef, moonRef, nightSkyRef, heroTitleRef, heroSubtitleRef, sections);
         }
-    }, [sections, sunRef, moonRef, heroTitleRef, heroSubtitleRef]);
+    }, [sections, sunRef, moonRef, nightSkyRef, heroTitleRef, heroSubtitleRef]);
 
     return (
         <>
+            {/* Fixed dark backdrop — GSAP fades this in for night sections,
+                guaranteed to render regardless of device color-scheme settings */}
+            <div ref={nightSkyRef} className="night-sky" aria-hidden="true" />
             <div ref={sunRef} className="sun"></div>
             <div ref={moonRef} className="moon"></div>
         </>
